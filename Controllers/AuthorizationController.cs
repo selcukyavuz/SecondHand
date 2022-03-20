@@ -2,11 +2,13 @@ using System.Text.Json;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using RestSharp;
-using StravaAuth.Common;
-using StravaAuth.Response;
-using StravaAuth.Settings;
+using StravaStore.Common;
+using StravaStore.Data;
+using StravaStore.Models;
+using StravaStore.Response;
+using StravaStore.Settings;
 
-namespace StravaAuth.Controllers;
+namespace StravaStore.Controllers;
 
 public class AuthorizationController : Controller
 {
@@ -14,12 +16,19 @@ public class AuthorizationController : Controller
     private readonly StravaSettings _staravaSettings;
     private readonly IHttpContextAccessor _accessor;
     public StravaSettings? staravaSettings { get; private set; }
+    private readonly StravaStoreContext _context;
 
-     public AuthorizationController(ILogger<HomeController> logger,IOptions<StravaSettings> options,IHttpContextAccessor accessor)
+     public AuthorizationController(
+        ILogger<HomeController> logger,
+        IOptions<StravaSettings> options,
+        IHttpContextAccessor accessor,
+        StravaStoreContext context
+        )
     {
         _logger = logger;
         _staravaSettings = options.Value;
         _accessor = accessor;
+        _context = context;
     }
 
     [HttpGet("~/exchange_token")]
@@ -34,9 +43,20 @@ public class AuthorizationController : Controller
         request.AddParameter("grant_type", "authorization_code");
         request.AddParameter("redirect_uri", "https://localhost:7293/exchange_token&approval_prompt=force&scope=profile:read_all");
         RestResponse response = await client.ExecutePostAsync(request);
-        TokenExchange? tokenExchangeResponse = JsonSerializer.Deserialize<TokenExchange>(response.Content!,StravaAuthJsonSerializerSettings.Settings);
+        TokenExchange? tokenExchangeResponse = JsonSerializer.Deserialize<TokenExchange>(response.Content!,StravaStoreJsonSerializerSettings.Settings);
         _accessor.HttpContext?.Session.SetString("access_token",tokenExchangeResponse?.AccessToken!);
         _accessor.HttpContext?.Session.SetString("scope",scope);
+
+        _context.Database.EnsureCreated();
+
+        _context.Add<TokenPool>(new TokenPool
+        {
+            AccessToken = tokenExchangeResponse?.AccessToken,
+            SessionID = _accessor.HttpContext?.Session.Id
+        });
+
+        _context.SaveChanges();
+
         return Redirect("~/");
     }
 }

@@ -1,4 +1,4 @@
-namespace StravaAuth.Request.Common;
+namespace StravaStore.Request.Common;
 
 public class RequestOptions
 {

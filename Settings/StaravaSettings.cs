@@ -1,4 +1,4 @@
-namespace StravaAuth.Settings;
+namespace StravaStore.Settings;
 
 public class StravaSettings
 {

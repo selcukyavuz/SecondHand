@@ -1,4 +1,4 @@
-namespace StravaAuth.Models;
+namespace StravaStore.Models;
 
 public class ErrorViewModel
 {

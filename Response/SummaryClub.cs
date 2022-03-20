@@ -1,7 +1,7 @@
-namespace StravaAuth.Response;
+namespace StravaStore.Response;
 
 using System.Text.Json.Serialization;
-using StravaAuth.Model;
+using StravaStore.Model;
 
 public class SummaryClub
 {

@@ -1,5 +1,7 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
-using StravaAuth.Settings;
+using StravaStore.Settings;
+using StravaStore.Data;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -34,6 +36,11 @@ builder.Services.AddSession(options =>
 
 builder.Services.AddHttpContextAccessor();
 
+builder.Services.AddDbContext<StravaStoreContext>(options =>
+                options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")!));
+
+builder.Services.AddDatabaseDeveloperPageExceptionFilter();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -55,3 +62,6 @@ app.MapControllerRoute(
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.Run();
+
+
+

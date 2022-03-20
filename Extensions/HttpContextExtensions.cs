@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Authentication;
 
-namespace StravaAuth.Extensions;
+namespace StravaStore.Extensions;
 
 public static class HttpContextExtensions
 {

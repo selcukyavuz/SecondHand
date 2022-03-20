@@ -1,6 +1,6 @@
 using System.Diagnostics.CodeAnalysis;
 
-namespace StravaAuth.Response.Common;
+namespace StravaStore.Response.Common;
 
 public class Response<T> where T : class
 {

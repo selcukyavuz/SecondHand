@@ -1,4 +1,4 @@
-namespace StravaAuth.Request.Common;
+namespace StravaStore.Request.Common;
 
 using System.Globalization;
 using System.Runtime.Serialization;

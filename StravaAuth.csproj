@@ -8,6 +8,8 @@
 
   <ItemGroup>
     <PackageReference Include="AspNet.Security.OAuth.Strava" Version="6.0.4" />
+    <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="6.0.3" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.0-preview.1.22076.6" />
     <PackageReference Include="RestSharp" Version="107.3.0" />
   </ItemGroup>
 

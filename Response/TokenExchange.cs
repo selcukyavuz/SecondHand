@@ -1,6 +1,6 @@
 using System.Text.Json.Serialization;
 
-namespace StravaAuth.Response;
+namespace StravaStore.Response;
 
 public class TokenExchange
 {

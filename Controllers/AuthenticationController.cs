@@ -7,9 +7,9 @@
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
-using StravaAuth.Extensions;
+using StravaStore.Extensions;
 
-namespace StravaAuth.Controllers;
+namespace StravaStore.Controllers;
 
 public class AuthenticationController : Controller
 {

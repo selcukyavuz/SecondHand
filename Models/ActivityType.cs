@@ -1,4 +1,4 @@
-namespace StravaAuth.Model;
+namespace StravaStore.Model;
 
 using System.Runtime.Serialization;
 

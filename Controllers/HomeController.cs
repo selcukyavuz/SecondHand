@@ -1,16 +1,23 @@
 ﻿using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
-using StravaAuth.Models;
+using StravaStore.Data;
+using StravaStore.Models;
 
-namespace StravaAuth.Controllers;
+namespace StravaStore.Controllers;
 
 public class HomeController : Controller
 {
     private readonly ILogger<HomeController> _logger;
 
-    public HomeController(ILogger<HomeController> logger)
+    private readonly StravaStoreContext _context;
+
+    public HomeController(
+        ILogger<HomeController> logger,
+        StravaStoreContext context
+        )
     {
         _logger = logger;
+        _context = context;
     }
 
     public IActionResult Index()

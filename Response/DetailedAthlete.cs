@@ -1,4 +1,4 @@
-namespace StravaAuth.Response;
+namespace StravaStore.Response;
 
 using System.Text.Json.Serialization;
 

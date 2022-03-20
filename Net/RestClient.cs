@@ -1,13 +1,13 @@
-namespace StravaAuth.Net;
+namespace StravaStore.Net;
 
 using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
 using System.Text;
-using StravaAuth.Common;
-using StravaAuth.Exception;
-using StravaAuth.Response.Common;
+using StravaStore.Common;
+using StravaStore.Exception;
+using StravaStore.Response.Common;
 using System.Text.Json;
 
 public static class RestClient
@@ -68,19 +68,19 @@ public static class RestClient
             var httpResponseMessage = HttpClient.SendAsync(requestMessage).Result;
             return HandleResponse<T>(httpResponseMessage);
         }
-        catch(StravaAuthException ex)
+        catch(StravaStoreException ex)
         {
             throw ex;
         }
         catch (Exception ex)
         {
-            throw new StravaAuthException(ex);
+            throw new StravaStoreException(ex);
         }
     }
 
     private static T HandleResponse<T>(HttpResponseMessage httpResponseMessage) where T : class
     {
-        var apiResponse = JsonSerializer.Deserialize<T>(httpResponseMessage.Content.ReadAsStringAsync().Result, StravaAuthJsonSerializerSettings.Settings);
+        var apiResponse = JsonSerializer.Deserialize<T>(httpResponseMessage.Content.ReadAsStringAsync().Result, StravaStoreJsonSerializerSettings.Settings);
 
         if(apiResponse == null)
         {
@@ -89,7 +89,7 @@ public static class RestClient
         // else if(apiResponse?.Errors != null)
         // {
         //     var errorResponse = apiResponse.Errors;
-        //     throw new StravaAuthException(errorResponse.ErrorCode!, errorResponse.ErrorDescription!, errorResponse.ErrorGroup!);
+        //     throw new StravaStoreException(errorResponse.ErrorCode!, errorResponse.ErrorDescription!, errorResponse.ErrorGroup!);
         // }
 
         return apiResponse!;
@@ -101,7 +101,7 @@ public static class RestClient
         {
             return null!;
         }
-        var json = JsonSerializer.Serialize(request,StravaAuthJsonSerializerSettings.Settings);
+        var json = JsonSerializer.Serialize(request,StravaStoreJsonSerializerSettings.Settings);
         return new StringContent(json, Encoding.UTF8, "application/json");
     }
 

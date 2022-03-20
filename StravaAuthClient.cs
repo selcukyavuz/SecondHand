@@ -1,18 +1,18 @@
-namespace StravaAuth;
+namespace StravaStore;
 
-using StravaAuth.Adapter;
-using StravaAuth.Request.Common;
+using StravaStore.Adapter;
+using StravaStore.Request.Common;
 
-public class StravaAuthClient
+public class StravaStoreClient
 {
    private const string BaseUrl = "https://www.strava.com/api/v3";
    private readonly AthleteAdapter _atheleteAdapter;
 
-   public StravaAuthClient(string apiKey, string secretKey) : this(apiKey, secretKey, BaseUrl)
+   public StravaStoreClient(string apiKey, string secretKey) : this(apiKey, secretKey, BaseUrl)
    {
    }
 
-   public StravaAuthClient(string apiKey, string secretKey, string baseUrl)
+   public StravaStoreClient(string apiKey, string secretKey, string baseUrl)
    {
       var requestOptions = new RequestOptions
       {

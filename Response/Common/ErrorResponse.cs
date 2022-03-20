@@ -1,4 +1,4 @@
-namespace StravaAuth.Response.Common;
+namespace StravaStore.Response.Common;
 
 public class ErrorResponse
 {

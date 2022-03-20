@@ -1,9 +1,9 @@
-namespace StravaAuth.Common;
+namespace StravaStore.Common;
 
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
-public class StravaAuthJsonSerializerSettings
+public class StravaStoreJsonSerializerSettings
 {
     public static JsonSerializerOptions Settings { get; set;} = new JsonSerializerOptions()
     {

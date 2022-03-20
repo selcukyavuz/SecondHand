@@ -1,9 +1,8 @@
-namespace StravaAuth.Adapter;
+namespace StravaStore.Adapter;
 
-using StravaAuth.Net;
-using StravaAuth.Request;
-using StravaAuth.Request.Common;
-using StravaAuth.Response;
+using StravaStore.Net;
+using StravaStore.Request.Common;
+using StravaStore.Response;
 
 public class AthleteAdapter : BaseAdapter
 {

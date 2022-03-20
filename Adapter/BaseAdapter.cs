@@ -1,9 +1,9 @@
-namespace StravaAuth.Adapter;
+namespace StravaStore.Adapter;
 
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using StravaAuth.Request.Common;
+using StravaStore.Request.Common;
 
 public abstract class BaseAdapter
 {
