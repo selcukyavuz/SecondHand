@@ -2,6 +2,9 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using StravaStore.Settings;
 using StravaStore.Data;
 using Microsoft.EntityFrameworkCore;
+using SecondHandGear.Library.DataAccess;
+using MediatR;
+using SecondHandGear.Library;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -40,6 +43,9 @@ builder.Services.AddDbContext<StravaStoreContext>(options =>
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")!));
 
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
+
+builder.Services.AddSingleton<IDataAccess, DataAccess>();
+builder.Services.AddMediatR(typeof(SecondHandGearLibraryEntryPoint).Assembly);
 
 var app = builder.Build();
 
