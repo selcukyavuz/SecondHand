@@ -9,9 +9,9 @@
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "build",
-            "program": "${workspaceFolder}/SecondHandGear.WebUI/bin/Debug/net6.0/StravaAuth.dll",
+            "program": "${workspaceFolder}/SecondHandGear.Web/bin/Debug/net6.0/SecondHandGear.Web.dll",
             "args": [],
-            "cwd": "${workspaceFolder}/SecondHandGear.WebUI",
+            "cwd": "${workspaceFolder}/SecondHandGear.Web",
             "stopAtEntry": false,
             "serverReadyAction": {
                 "action": "openExternally",

@@ -10,7 +10,7 @@ Clone the project
 Go to the project directory
 
 ```bash
-  cd StravaStore
+  cd SecondHandGear
 ```
 
 Open project with VS Code
@@ -29,7 +29,7 @@ docker run --cap-add SYS_PTRACE -e 'ACCEPT_EULA=1' -e 'MSSQL_SA_PASSWORD={{ vaul
 
 ```
 
-Enter Strava Credentials in SecondHandGear.WebUI/appsettings.json
+Enter Strava Credentials in SecondHandGear.Web/appsettings.json
 
 - replace `vault_password` with your SQL Server sa user password
  - replace `vault_client_id` with your Strava Client ID
@@ -38,7 +38,7 @@ Enter Strava Credentials in SecondHandGear.WebUI/appsettings.json
 ```bash
   {
 	  "ConnectionStrings": {
-	"DefaultConnection":"Server=127.0.0.1,1433;Database=StravaStore;user=sa;password={{ vault_password }};MultipleActiveResultSets=true;Trust Server Certificate=true;"
+	"DefaultConnection":"Server=127.0.0.1,1433;Database=SecondHandGear;user=sa;password={{ vault_password }};MultipleActiveResultSets=true;Trust Server Certificate=true;"
 	},
 		"Logging": {
 		"LogLevel": {

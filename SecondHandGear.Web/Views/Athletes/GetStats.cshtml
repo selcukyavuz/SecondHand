@@ -1,0 +1,24 @@
+@model SecondHandGear.Web.Response.DetailedAthlete
+
+<p>Id : @Model.Id</p>
+<p>ResourceState : @Model.ResourceState</p>
+<p>FirstName : @Model.FirstName</p>
+<p>LastName : @Model.LastName</p>
+<p>ProfileMedium : <img src="@Model.ProfileMedium" /></p>
+<p>Profile : <img src="@Model.Profile" /></p>
+<p>City : @Model.City</p>
+<p>State : @Model.State</p>
+<p>Country : @Model.Country</p>
+<p>Sex : @Model.Sex</p>
+<p>Premium : @Model.Premium</p>
+<p>Summit : @Model.Summit</p>
+<p>CreatedAt : @Model.CreatedAt</p>
+<p>UpdatedAt : @Model.UpdatedAt</p>
+<p>FollowerCount : @Model.FollowerCount</p>
+<p>MeasurementPreference : @Model.MeasurementPreference</p>
+<p>Ftp : @Model.Ftp</p>
+<p>Weight : @Model.Weight</p>
+<p>Clubs : @foreach(var item in Model.Clubs!) { @item.Name } </p>
+<p>Bikes : @foreach(var item in Model.Bikes!) { @item.Name } </p>
+<p>Shoes : @foreach(var item in Model.Shoes!) { @item.Name } </p>
+
