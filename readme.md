@@ -19,14 +19,39 @@ Open project with VS Code
   code .
 ```
 
-Enter Strava Credentials in SecondHandGear.WebUI/appsettings.Development.json
+Create SQL Server in Docker 
+
+ - replace `vault_password` with your SQL Server sa user password
 
 ```bash
-  "Strava": {
-	"ClientId": "{CLIENT_ID}",
-	"ClientSecret": "{CLIENT_SECRET}",
-	"TokenExchangeUrl" : "https://www.strava.com/oauth/token"
+docker pull mcr.microsoft.com/azure-sql-edge
+docker run --cap-add SYS_PTRACE -e 'ACCEPT_EULA=1' -e 'MSSQL_SA_PASSWORD={{ vault_password }}' -p 1433:1433 --name azuresqledge -d mcr.microsoft.com/azure-sql-edge
+
+```
+
+Enter Strava Credentials in SecondHandGear.WebUI/appsettings.json
+
+- replace `vault_password` with your SQL Server sa user password
+ - replace `vault_client_id` with your Strava Client ID
+ - replace `vault_client_secret` with your Strava Client Secret
+
+```bash
+  {
+	  "ConnectionStrings": {
+	"DefaultConnection":"Server=127.0.0.1,1433;Database=StravaStore;user=sa;password={{ vault_password }};MultipleActiveResultSets=true;Trust Server Certificate=true;"
+	},
+		"Logging": {
+		"LogLevel": {
+			"Default": "Information",
+			"Microsoft.AspNetCore": "Warning"
+		}
+	},
+	"Strava": {
+		"ClientId": "{{ vault_client_id }}",
+		"ClientSecret": "{{ vault_client_secret }}",
+		"TokenExchangeUrl" : "https://www.strava.com/oauth/token"
 	}
+}
 ```
 
 Database Up
