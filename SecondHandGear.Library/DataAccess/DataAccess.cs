@@ -7,13 +7,18 @@ public class DataAccess : IDataAccess
     private List<PersonModel> people = new ();
     public DataAccess()
     {
-        people.Add(new PersonModel{ Id = 1, FirstName = "Tim", LastName = "Corey" });
-        people.Add(new PersonModel{ Id = 1, FirstName = "Sue", LastName = "Strom" });
+        people.Add(new PersonModel{ Id = 1, FirstName = "Foo", LastName = "Bar" });
+        people.Add(new PersonModel{ Id = 2, FirstName = "Foo2", LastName = "Bar2" });
     }
 
     public List<PersonModel> GetPeople()
     {
         return people;
+    }
+
+    public PersonModel GetPeople(int id)
+    {
+        return people.FirstOrDefault(p => p.Id == id)!;
     }
 
     public PersonModel InsertPerson(string firstName,string lastName)

@@ -2,7 +2,6 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace SecondHandGear.Web.Controllers;
 using SecondHandGear.Library.Models;
-using SecondHandGear.Library.Handlers;
 using SecondHandGear.Library.Queries;
 using MediatR;
 
