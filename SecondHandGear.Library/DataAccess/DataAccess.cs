@@ -27,4 +27,29 @@ public class DataAccess : IDataAccess
         people.Add(model);
         return model;
     }
+
+    public PersonModel UpdatePerson(int id,string firstName,string lastName)
+    {
+        PersonModel model = people.FirstOrDefault(p => p.Id == id)!;
+        if (model != null)
+        {
+            model.FirstName = firstName;
+            model.LastName = lastName;
+        }
+        return model!;
+    }
+
+    public bool DeletePerson(int id)
+    {
+        PersonModel model = people.FirstOrDefault(p => p.Id == id)!;
+        if (model != null)
+        {
+            people.Remove(model);
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
 }

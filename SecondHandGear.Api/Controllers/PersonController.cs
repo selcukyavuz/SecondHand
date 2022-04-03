@@ -36,4 +36,16 @@ public class PersonController : ControllerBase
     {
         return await _mediator.Send(new InsertPersonCommand(value.FirstName!,value.LastName!));
     }
+
+    [HttpPut()]
+    public async Task<PersonModel> Put([FromBody] PersonModel value)
+    {
+        return await _mediator.Send(new UpdatePersonCommand(value.Id,value.FirstName!,value.LastName!));
+    }
+
+    [HttpDelete("{id}")]
+    public async Task<bool> Delete(int id)
+    {
+        return await _mediator.Send(new DeletePersonCommand(id));
+    }
 }

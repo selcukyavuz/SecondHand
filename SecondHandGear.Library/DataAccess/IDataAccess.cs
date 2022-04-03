@@ -7,5 +7,7 @@ namespace SecondHandGear.Library.DataAccess
         public List<PersonModel> GetPeople();
         public PersonModel GetPeople(int id);
         public PersonModel InsertPerson(string firstName,string lastName);
+        public PersonModel UpdatePerson(int id,string firstName,string lastName);
+        public bool DeletePerson(int id);
     }
 }
