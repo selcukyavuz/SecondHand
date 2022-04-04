@@ -12,17 +12,14 @@ public class AthletesController : Controller
 
     private readonly ILogger<AthletesController> _logger;
     private readonly SecondHandGearWebContext _context;
-    private readonly IHttpContextAccessor _accessor;
 
     public AthletesController(
         ILogger<AthletesController> logger,
-        SecondHandGearWebContext context,
-        IHttpContextAccessor accessor
+        SecondHandGearWebContext context
         )
     {
         _logger = logger;
         _context = context;
-        _accessor = accessor;
     }
 
     public IActionResult Index()

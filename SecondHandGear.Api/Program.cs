@@ -1,4 +1,5 @@
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 using SecondHandGear.Library;
 using SecondHandGear.Library.DataAccess;
 
@@ -11,6 +12,8 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddDbContextFactory<SecondHandGearContext>(options =>
+                options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")!));
 builder.Services.AddSingleton<IDataAccess, DataAccess>();
 builder.Services.AddMediatR(typeof(SecondHandGearLibraryEntryPoint).Assembly);
 

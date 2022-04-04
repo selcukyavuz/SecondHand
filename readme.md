@@ -21,7 +21,7 @@ Open project with VS Code
 
 Create SQL Server in Docker 
 
- - replace `vault_password` with your SQL Server sa user password
+ - replace `{{ vault_password }}` with your SQL Server sa user password
 
 ```bash
 docker pull mcr.microsoft.com/azure-sql-edge
@@ -31,7 +31,7 @@ docker run --cap-add SYS_PTRACE -e 'ACCEPT_EULA=1' -e 'MSSQL_SA_PASSWORD={{ vaul
 
 Enter Strava Credentials in SecondHandGear.Web/appsettings.json
 
-- replace `vault_password` with your SQL Server sa user password
+- replace `{{ vault_password }}` with your SQL Server sa user password
  - replace `vault_client_id` with your Strava Client ID
  - replace `vault_client_secret` with your Strava Client Secret
 

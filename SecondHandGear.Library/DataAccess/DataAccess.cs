@@ -1,55 +1,86 @@
 namespace SecondHandGear.Library.DataAccess;
 
 using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore;
 using SecondHandGear.Library.Models;
 public class DataAccess : IDataAccess
 {
-    private List<PersonModel> people = new ();
-    public DataAccess()
+    private readonly IDbContextFactory<SecondHandGearContext> _contextFactory;
+
+    public DataAccess(IDbContextFactory<SecondHandGearContext> contextFactory)
     {
-        people.Add(new PersonModel{ Id = 1, FirstName = "Foo", LastName = "Bar" });
-        people.Add(new PersonModel{ Id = 2, FirstName = "Foo2", LastName = "Bar2" });
+        _contextFactory = contextFactory;
+        using (var _context = _contextFactory.CreateDbContext())
+        {
+            _context.Database.EnsureCreated();
+        }
     }
 
     public List<PersonModel> GetPeople()
     {
-        return people;
+        using (var _context = _contextFactory.CreateDbContext())
+        {
+            _context.Database.EnsureCreated();
+            return _context?.People?.ToList()!;
+        }
     }
 
     public PersonModel GetPeople(int id)
     {
-        return people.FirstOrDefault(p => p.Id == id)!;
+        using (var _context = _contextFactory.CreateDbContext())
+        {
+            _context.Database.EnsureCreated();
+            return _context?.People?.FirstOrDefault(p => p.Id == id)!;
+        }
+        
     }
 
     public PersonModel InsertPerson(string firstName,string lastName)
     {
-        PersonModel model = new PersonModel{ Id = people.Max(x => x.Id) + 1, FirstName = firstName, LastName = lastName };
-        people.Add(model);
-        return model;
+        using (var _context = _contextFactory.CreateDbContext())
+        {
+            PersonModel model = new PersonModel{ FirstName = firstName, LastName = lastName };
+            _context?.People?.Add(model);
+            _context?.SaveChanges();
+            return model;
+        }
     }
 
     public PersonModel UpdatePerson(int id,string firstName,string lastName)
     {
-        PersonModel model = people.FirstOrDefault(p => p.Id == id)!;
-        if (model != null)
+        using (var _context = _contextFactory.CreateDbContext())
         {
-            model.FirstName = firstName;
-            model.LastName = lastName;
+            PersonModel model = _context?.People?.FirstOrDefault(p => p.Id == id)!;
+            if (model != null)
+            {
+                model.FirstName = firstName;
+                model.LastName = lastName;
+                _context?.SaveChanges();
+            }
+            else
+            {
+                throw new Exception("Person not found");
+            }
+            return model!;
         }
-        return model!;
+        
     }
 
     public bool DeletePerson(int id)
     {
-        PersonModel model = people.FirstOrDefault(p => p.Id == id)!;
-        if (model != null)
+        using (var _context = _contextFactory.CreateDbContext())
         {
-            people.Remove(model);
-            return true;
-        }
-        else
-        {
-            return false;
+            PersonModel model = _context?.People?.FirstOrDefault(p => p.Id == id)!;
+            if (model != null)
+            {
+                _context?.Remove(model);
+                _context?.SaveChanges();
+                return true;
+            }
+            else
+            {
+                throw new Exception("Person not found");
+            }
         }
     }
 }
