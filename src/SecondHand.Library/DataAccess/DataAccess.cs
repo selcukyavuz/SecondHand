@@ -2,37 +2,37 @@ namespace SecondHand.Library.DataAccess;
 
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Options;
+using MongoDB.Driver;
 using SecondHand.Library.Models;
 public class DataAccess : IDataAccess
 {
     private readonly IDbContextFactory<SecondHandContext> _contextFactory;
+    private readonly IMongoCollection<PersonModel> _PeopleCollection;
+    IConfiguration _configuration;
 
-    public DataAccess(IDbContextFactory<SecondHandContext> contextFactory)
+    public DataAccess(IDbContextFactory<SecondHandContext> contextFactory,IConfiguration configuration)
     {
+        _configuration = configuration;
         _contextFactory = contextFactory;
         using (var _context = _contextFactory.CreateDbContext())
         {
             _context.Database.EnsureCreated();
         }
+        var mongoClient = new MongoClient(_configuration.GetSection("SecondHandDatabase").GetSection("ConnectionString").Value);
+        var mongoDatabase = mongoClient.GetDatabase(_configuration.GetSection("SecondHandDatabase").GetSection("DatabaseName").Value);
+        _PeopleCollection = mongoDatabase.GetCollection<PersonModel>(_configuration.GetSection("SecondHandDatabase").GetSection("PeopleCollectionName").Value);
     }
 
     public List<PersonModel> GetPeople()
     {
-        using (var _context = _contextFactory.CreateDbContext())
-        {
-            _context.Database.EnsureCreated();
-            return _context?.People?.ToList()!;
-        }
+        return _PeopleCollection.Find(_ => true).ToList();
     }
 
-    public PersonModel GetPeople(int id)
+    public PersonModel GetPeople(Guid id)
     {
-        using (var _context = _contextFactory.CreateDbContext())
-        {
-            _context.Database.EnsureCreated();
-            return _context?.People?.FirstOrDefault(p => p.Id == id)!;
-        }
-        
+        return _PeopleCollection.Find(x => x.Id == id).FirstOrDefault();
     }
 
     public PersonModel InsertPerson(string firstName,string lastName)
@@ -46,7 +46,7 @@ public class DataAccess : IDataAccess
         }
     }
 
-    public PersonModel UpdatePerson(int id,string firstName,string lastName)
+    public PersonModel UpdatePerson(Guid id,string firstName,string lastName)
     {
         using (var _context = _contextFactory.CreateDbContext())
         {
@@ -66,7 +66,7 @@ public class DataAccess : IDataAccess
         
     }
 
-    public bool DeletePerson(int id)
+    public bool DeletePerson(Guid id)
     {
         using (var _context = _contextFactory.CreateDbContext())
         {

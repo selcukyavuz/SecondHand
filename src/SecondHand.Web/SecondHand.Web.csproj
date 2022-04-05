@@ -11,6 +11,7 @@
     <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="10.0.1" />
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="6.0.3" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.0-preview.1.22076.6" />
+    <PackageReference Include="MongoDB.Driver" Version="2.15.0" />
     <PackageReference Include="RestSharp" Version="107.3.0" />
     <ProjectReference Include="..\SecondHand.Library\SecondHand.Library.csproj" />
   </ItemGroup>
