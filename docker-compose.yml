@@ -2,11 +2,13 @@ version: "3.9"
 services:
     db:
         ports:
-            - "1433:1433"
+            - "1436:1433"
         image: "mcr.microsoft.com/azure-sql-edge"
         environment:
             SA_PASSWORD: "{{ vault_password }}"
             ACCEPT_EULA: "Y"
+            
+
 
 
         
