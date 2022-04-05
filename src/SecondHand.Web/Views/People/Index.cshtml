@@ -1,0 +1,17 @@
+﻿@using SecondHand.Library.Models;
+@model List<SecondHand.Library.Models.PersonModel>;
+
+@{
+    ViewData["Title"] = "People";
+}
+
+<div class="jumbotron">
+     <h1>People</h1>
+
+        <p>
+            @foreach (var person in @Model)
+            {
+                <div><code>@person.FirstName</code>: <strong>@person.LastName</strong></div>
+            }
+        </p>
+</div>
