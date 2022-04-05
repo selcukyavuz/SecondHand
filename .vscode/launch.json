@@ -9,9 +9,9 @@
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "build",
-            "program": "${workspaceFolder}/SecondHand.Web/bin/Debug/net6.0/SecondHand.Web.dll",
+            "program": "${workspaceFolder}/src/SecondHand.Web/bin/Debug/net6.0/SecondHand.Web.dll",
             "args": [],
-            "cwd": "${workspaceFolder}/SecondHand.Web",
+            "cwd": "${workspaceFolder}/src/SecondHand.Web",
             "stopAtEntry": false,
             "serverReadyAction": {
                 "action": "openExternally",
@@ -29,9 +29,9 @@
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "build",
-            "program": "${workspaceFolder}/SecondHand.Api/bin/Debug/net6.0/SecondHand.Api.dll",
+            "program": "${workspaceFolder}/src/SecondHand.Api/bin/Debug/net6.0/SecondHand.Api.dll",
             "args": [],
-            "cwd": "${workspaceFolder}/SecondHand.Api",
+            "cwd": "${workspaceFolder}/src/SecondHand.Api",
             "stopAtEntry": false,
             "serverReadyAction": {
                 "action": "openExternally",

@@ -5,7 +5,7 @@ services:
             - "1436:1433"
         image: "mcr.microsoft.com/azure-sql-edge"
         environment:
-            SA_PASSWORD: "{{ vault_password }}"
+            SA_PASSWORD: "Password123"
             ACCEPT_EULA: "Y"
             
 
