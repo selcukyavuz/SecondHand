@@ -7,13 +7,17 @@ using MediatR;
 using SecondHand.Library;
 
 var builder = WebApplication.CreateBuilder(args);
-
+builder.Services.AddControllersWithViews();
+builder.Services.AddHttpContextAccessor();
+builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 var ClientId = builder.Configuration.GetValue<string>("Strava:ClientId");
 var ClientSecret = builder.Configuration.GetValue<string>("Strava:ClientSecret");
 builder.Services.Configure<StravaSettings>(builder.Configuration.GetSection(StravaSettings.Key));
-
-builder.Services.AddControllersWithViews();
+builder.Services.AddDbContextFactory<SecondHandContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")!));
+builder.Services.AddSingleton<IDataAccess, DataAccess>();
+builder.Services.AddMediatR(typeof(SecondHandLibraryEntryPoint).Assembly);
+builder.Services.AddDbContext<SecondHandWebContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")!));
 builder.Services.AddAuthentication(options =>
         {
             options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
@@ -30,7 +34,6 @@ builder.Services.AddAuthentication(options =>
         });
 
 builder.Services.AddDistributedMemoryCache();
-
 builder.Services.AddSession(options =>
 {
     options.Cookie.Name = ".StravaDemo.Session";
@@ -38,15 +41,6 @@ builder.Services.AddSession(options =>
     options.Cookie.IsEssential = true;
 });    
 
-builder.Services.AddHttpContextAccessor();
-
-builder.Services.AddDbContext<SecondHandWebContext>(options =>
-                options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")!));
-
-builder.Services.AddDatabaseDeveloperPageExceptionFilter();
-
-builder.Services.AddSingleton<IDataAccess, DataAccess>();
-builder.Services.AddMediatR(typeof(SecondHandLibraryEntryPoint).Assembly);
 
 var app = builder.Build();
 
