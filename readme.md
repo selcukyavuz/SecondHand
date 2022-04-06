@@ -25,7 +25,7 @@ Create SQL Server in Docker
 
 ```bash
 docker pull mcr.microsoft.com/azure-sql-edge
-docker run --cap-add SYS_PTRACE -e 'ACCEPT_EULA=1' -e 'MSSQL_SA_PASSWORD={{ vault_password }}' -p 1433:1433 --name azuresqledge -d mcr.microsoft.com/azure-sql-edge
+docker run --cap-add SYS_PTRACE -e 'ACCEPT_EULA=1' -e 'MSSQL_SA_PASSWORD={{ vault_password }}' -p 1436:1433 --name azuresqledge -d mcr.microsoft.com/azure-sql-edge
 
 ```
 
@@ -38,7 +38,7 @@ Enter Strava Credentials in SecondHand.Web/appsettings.json
 ```bash
   {
 	  "ConnectionStrings": {
-	"DefaultConnection":"Server=127.0.0.1,1433;Database=SecondHand;user=sa;password={{ vault_password }};MultipleActiveResultSets=true;Trust Server Certificate=true;"
+	"DefaultConnection":"Server=127.0.0.1,1436;Database=SecondHand;user=sa;password={{ vault_password }};MultipleActiveResultSets=true;Trust Server Certificate=true;"
 	},
 		"Logging": {
 		"LogLevel": {

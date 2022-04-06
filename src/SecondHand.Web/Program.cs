@@ -8,6 +8,7 @@ using SecondHand.Library;
 
 var builder = WebApplication.CreateBuilder(args);
 
+
 var ClientId = builder.Configuration.GetValue<string>("Strava:ClientId");
 var ClientSecret = builder.Configuration.GetValue<string>("Strava:ClientSecret");
 builder.Services.Configure<StravaSettings>(builder.Configuration.GetSection(StravaSettings.Key));
