@@ -1,15 +1,15 @@
 using MediatR;
 using SecondHand.Library.DataAccess;
 using SecondHand.Library.Models;
-using SecondHand.Library.Queries;
+using SecondHand.Library.Queries.Person;
 
-namespace SecondHand.Library.Handlers;
+namespace SecondHand.Library.Handlers.Person;
 
 public class GetPersonByIdHandler : IRequestHandler<GetPersonByIdQuery, PersonModel>
 { 
-    private readonly IDataAccess _dataAccess;
+    private readonly IPersonDataAccess _dataAccess;
 
-    public GetPersonByIdHandler(IDataAccess dataAccess)
+    public GetPersonByIdHandler(IPersonDataAccess dataAccess)
     {
         _dataAccess = dataAccess;
     }

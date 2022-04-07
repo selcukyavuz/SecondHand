@@ -1,4 +1,4 @@
-namespace SecondHand.Library.Commands;
+namespace SecondHand.Library.Commands.DetailedAthlete;
 
 using SecondHand.Library.Models;
 using MediatR;

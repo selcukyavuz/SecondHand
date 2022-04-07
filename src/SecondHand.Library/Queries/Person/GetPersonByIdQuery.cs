@@ -1,4 +1,4 @@
-namespace SecondHand.Library.Queries;
+namespace SecondHand.Library.Queries.Person;
 
 using SecondHand.Library.Models;
 using MediatR;

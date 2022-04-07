@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace SecondHand.Web.Controllers;
 using SecondHand.Library.Models;
-using SecondHand.Library.Queries;
+using SecondHand.Library.Queries.Person;
 using MediatR;
 
 public class PeopleController : Controller

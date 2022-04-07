@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using SecondHand.Library.Models;
-using SecondHand.Library.Queries;
-using SecondHand.Library.Commands;
+using SecondHand.Library.Queries.Person;
+using SecondHand.Library.Commands.Person;
 using MediatR;
 using EasyNetQ;
 using SecondHand.Library.Events;

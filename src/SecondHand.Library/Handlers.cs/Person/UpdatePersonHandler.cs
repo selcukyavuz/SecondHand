@@ -1,15 +1,15 @@
 using MediatR;
 using SecondHand.Library.DataAccess;
 using SecondHand.Library.Models;
-using SecondHand.Library.Commands;
+using SecondHand.Library.Commands.Person;
 
-namespace SecondHand.Library.Handlers;
+namespace SecondHand.Library.Handlers.Person;
 
 public class UpdatePersonHandler : IRequestHandler<UpdatePersonCommand, PersonModel>
 { 
-    private readonly IDataAccess _dataAccess;
+    private readonly IPersonDataAccess _dataAccess;
 
-    public UpdatePersonHandler(IDataAccess dataAccess)
+    public UpdatePersonHandler(IPersonDataAccess dataAccess)
     {
         _dataAccess = dataAccess;
     }

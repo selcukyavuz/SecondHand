@@ -15,7 +15,8 @@ var ClientId = builder.Configuration.GetValue<string>("Strava:ClientId");
 var ClientSecret = builder.Configuration.GetValue<string>("Strava:ClientSecret");
 builder.Services.Configure<StravaSettings>(builder.Configuration.GetSection(StravaSettings.Key));
 builder.Services.AddDbContextFactory<SecondHandContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")!));
-builder.Services.AddSingleton<IDataAccess, DataAccess>();
+builder.Services.AddSingleton<IDetailedAthleteDataAccess, DetailedAthleteDataAccess>();
+builder.Services.AddSingleton<IPersonDataAccess, PersonDataAccess>();
 builder.Services.AddMediatR(typeof(SecondHandLibraryEntryPoint).Assembly);
 builder.Services.AddDbContext<SecondHandWebContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")!));
 builder.Services.AddAuthentication(options =>

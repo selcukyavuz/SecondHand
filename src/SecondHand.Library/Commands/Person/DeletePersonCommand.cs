@@ -1,6 +1,5 @@
-namespace SecondHand.Library.Commands;
+namespace SecondHand.Library.Commands.Person;
 
-using SecondHand.Library.Models;
 using MediatR;
 
 public record DeletePersonCommand(Guid id) : IRequest<bool>;

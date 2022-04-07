@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using SecondHand.Library.Models;
-using SecondHand.Library.Queries;
-using SecondHand.Library.Commands;
+using SecondHand.Library.Queries.DetailedAthlete;
+using SecondHand.Library.Commands.DetailedAthlete;
 using MediatR;
 using EasyNetQ;
 using SecondHand.Library.Events;
@@ -62,7 +62,7 @@ public class DetailedAthleteController : ControllerBase
     }
 
     [HttpDelete("{id}")]
-    public async Task<bool> Delete(Guid id)
+    public async Task<bool> Delete(long? id)
     {
         return await _mediator.Send(new DeleteDetailedAthleteCommand(id));
     }

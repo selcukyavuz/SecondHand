@@ -1,15 +1,14 @@
 using MediatR;
 using SecondHand.Library.DataAccess;
-using SecondHand.Library.Models;
-using SecondHand.Library.Commands;
+using SecondHand.Library.Commands.Person;
 
-namespace SecondHand.Library.Handlers;
+namespace SecondHand.Library.Handlers.Person;
 
 public class DeletePersonHandler : IRequestHandler<DeletePersonCommand, bool>
 { 
-    private readonly IDataAccess _dataAccess;
+    private readonly IPersonDataAccess _dataAccess;
 
-    public DeletePersonHandler(IDataAccess dataAccess)
+    public DeletePersonHandler(IPersonDataAccess dataAccess)
     {
         _dataAccess = dataAccess;
     }
