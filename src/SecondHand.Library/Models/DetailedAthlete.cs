@@ -67,12 +67,11 @@ public class DetailedAthlete
     public float Weight { get; set; }
 
     [JsonPropertyName("clubs")]
-    public List<SummaryClub>? Clubs { get; set; }
+    public List<Club>? Clubs { get; set; }
 
     [JsonPropertyName("bikes")]
-    public ICollection<SummaryGear>? Bikes { get; set; }
+    public ICollection<Bike>? Bikes { get; set; }
 
     [JsonPropertyName("shoes")]
-    public ICollection<SummaryGear>? Shoes { get; set; }
-    
+    public ICollection<Shoe>? Shoes { get; set; }    
 }
