@@ -1,13 +1,14 @@
 namespace SecondHand.Library.Models;
 
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Json.Serialization;
 
 public class DetailedAthlete
 {
     [Key]
-    [DatabaseGenerated(DatabaseGeneratedOption.None)]
+    [JsonIgnore]
+    public int DetailedAthleteId { get; set; }
+
     [JsonPropertyName("id")]
     public long? Id { get; set; }
 
@@ -69,9 +70,9 @@ public class DetailedAthlete
     public List<SummaryClub>? Clubs { get; set; }
 
     [JsonPropertyName("bikes")]
-    public List<SummaryGear>? Bikes { get; set; }
+    public ICollection<SummaryGear>? Bikes { get; set; }
 
     [JsonPropertyName("shoes")]
-    public List<SummaryGear>? Shoes { get; set; }
+    public ICollection<SummaryGear>? Shoes { get; set; }
     
 }

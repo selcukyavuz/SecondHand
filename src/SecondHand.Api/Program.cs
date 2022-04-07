@@ -14,6 +14,7 @@ builder.Services.AddDbContextFactory<SecondHandContext>(options => options.UseSq
 builder.Services.AddSingleton<IDataAccess, DataAccess>();
 builder.Services.AddMediatR(typeof(SecondHandLibraryEntryPoint).Assembly);
 builder.Services.AddHostedService<NewPersonEventHandler>();
+builder.Services.AddHostedService<NewDetailedAthleteEventHandler>();
 
 var app = builder.Build();
 if (app.Environment.IsDevelopment())

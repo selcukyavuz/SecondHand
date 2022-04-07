@@ -1,14 +1,15 @@
 namespace SecondHand.Library.Models;
 
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Json.Serialization;
 
 
 public class SummaryClub
 {
     [Key]
-    [DatabaseGenerated(DatabaseGeneratedOption.None)]
+    [JsonIgnore]
+    public int SummaryClubId { get; set; }
+
     [JsonPropertyName("id")]
     public string? Id { get; set; }
 
