@@ -1,13 +1,15 @@
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
+using SecondHand.Library.Models.Strava;
 
 namespace SecondHand.Library.Models;
 
 public class TokenExchange
 {
     [Key]
-    public Guid Id { get; set; }
-    public string? DetailedAthlete { get; set; }
+    [JsonIgnore]
+    public long? Id { get; set; }
+    public DetailedAthlete? DetailedAthlete { get; set; }
     
     [JsonPropertyName("token_type")]
     public string? TokenType { get; set; }
