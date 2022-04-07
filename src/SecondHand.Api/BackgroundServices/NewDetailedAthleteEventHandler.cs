@@ -1,5 +1,5 @@
 using SecondHand.Library.Events;
-using SecondHand.Library.Models;
+using SecondHand.Library.Models.Strava;
 using EasyNetQ;
 using MongoDB.Driver;
 using Microsoft.Extensions.Options;

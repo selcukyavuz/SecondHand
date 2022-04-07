@@ -1,6 +1,6 @@
 namespace SecondHand.Web.Adapter;
 
-using SecondHand.Library.Models;
+using SecondHand.Library.Models.Strava;
 using SecondHand.Web.Net;
 using SecondHand.Web.Request.Common;
 using SecondHand.Web.Response;

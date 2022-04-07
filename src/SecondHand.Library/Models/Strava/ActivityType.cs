@@ -1,4 +1,4 @@
-namespace SecondHand.Library.Models;
+namespace SecondHand.Library.Models.Strava;
 
 using System.Runtime.Serialization;
 

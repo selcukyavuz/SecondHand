@@ -1,5 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
-using SecondHand.Library.Models;
+using SecondHand.Library.Models.Strava;
 using SecondHand.Library.Queries.DetailedAthlete;
 using SecondHand.Library.Commands.DetailedAthlete;
 using MediatR;

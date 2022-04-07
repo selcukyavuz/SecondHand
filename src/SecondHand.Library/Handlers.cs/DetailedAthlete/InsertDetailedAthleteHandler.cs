@@ -4,7 +4,7 @@ using SecondHand.Library.Commands.DetailedAthlete;
 
 namespace SecondHand.Library.Handlers.DetailedAthlete;
 
-public class InsertDetailedAthleteHandler : IRequestHandler<InsertDetailedAthleteCommand, SecondHand.Library.Models.DetailedAthlete>
+public class InsertDetailedAthleteHandler : IRequestHandler<InsertDetailedAthleteCommand, SecondHand.Library.Models.Strava.DetailedAthlete>
 { 
     private readonly IDetailedAthleteDataAccess _dataAccess;
 
@@ -12,7 +12,7 @@ public class InsertDetailedAthleteHandler : IRequestHandler<InsertDetailedAthlet
     {
         _dataAccess = dataAccess;
     }
-    public Task<SecondHand.Library.Models.DetailedAthlete> Handle(InsertDetailedAthleteCommand request, CancellationToken cancellationToken)
+    public Task<SecondHand.Library.Models.Strava.DetailedAthlete> Handle(InsertDetailedAthleteCommand request, CancellationToken cancellationToken)
     {
         return Task.FromResult(_dataAccess.InsertDetailedAthlete(request.detailedAthlete));
     }

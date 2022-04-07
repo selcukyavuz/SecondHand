@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using MongoDB.Driver;
-using SecondHand.Library.Models;
+using SecondHand.Library.Models.Strava;
 public class DetailedAthleteDataAccess : IDetailedAthleteDataAccess
 {
     private readonly IDbContextFactory<SecondHandContext> _contextFactory;
