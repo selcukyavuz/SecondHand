@@ -9,5 +9,13 @@ namespace SecondHand.Library.DataAccess
         public PersonModel InsertPerson(string firstName,string lastName);
         public PersonModel UpdatePerson(Guid id,string firstName,string lastName);
         public bool DeletePerson(Guid id);
+
+        public List<DetailedAthlete> GetDetailedAthlete();
+        public DetailedAthlete GetDetailedAthlete(long? id);
+        public DetailedAthlete InsertDetailedAthlete(DetailedAthlete detailedAthlete);
+        public DetailedAthlete UpdateDetailedAthlete(DetailedAthlete detailedAthlete);
+        public bool DeleteDetailedAthlete(long? id);
+
+        
     }
 }

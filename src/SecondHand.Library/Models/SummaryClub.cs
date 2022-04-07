@@ -1,12 +1,16 @@
-namespace SecondHand.Web.Response;
+namespace SecondHand.Library.Models;
 
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Json.Serialization;
-using SecondHand.Web.Model;
+
 
 public class SummaryClub
 {
+    [Key]
+    [DatabaseGenerated(DatabaseGeneratedOption.None)]
     [JsonPropertyName("id")]
-    public long Id { get; set; }
+    public string? Id { get; set; }
 
     [JsonPropertyName("resource_state")]
     public int ResourceState { get; set; }

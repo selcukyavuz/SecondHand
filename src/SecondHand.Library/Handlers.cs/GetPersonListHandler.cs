@@ -5,11 +5,11 @@ using SecondHand.Library.Queries;
 
 namespace SecondHand.Library.Handlers;
 
-public class GetPorsonListHandler : IRequestHandler<GetPersonListQuery, List<PersonModel>>
+public class GetPersonListHandler : IRequestHandler<GetPersonListQuery, List<PersonModel>>
 { 
     private readonly IDataAccess _dataAccess;
 
-    public GetPorsonListHandler(IDataAccess dataAccess)
+    public GetPersonListHandler(IDataAccess dataAccess)
     {
         _dataAccess = dataAccess;
     }

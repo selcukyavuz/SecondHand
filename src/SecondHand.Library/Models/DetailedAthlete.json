@@ -1,0 +1,56 @@
+{
+    "id": 7300509,
+    "username": "selcukyavuz",
+    "resource_state": 3,
+    "firstname": "Selçuk",
+    "lastname": "Yavuz",
+    "bio": null,
+    "city": "İstanbul",
+    "state": "İstanbul",
+    "country": "Turkey",
+    "sex": "M",
+    "premium": false,
+    "summit": false,
+    "created_at": "2014-12-15T12:04:40Z",
+    "updated_at": "2022-04-06T23:18:46Z",
+    "badge_type_id": 0,
+    "weight": 80.0,
+    "profile_medium": "https://dgalywyr863hv.cloudfront.net/pictures/athletes/7300509/2687719/1/medium.jpg",
+    "profile": "https://dgalywyr863hv.cloudfront.net/pictures/athletes/7300509/2687719/1/large.jpg",
+    "friend": null,
+    "follower": null,
+    "blocked": false,
+    "can_follow": true,
+    "follower_count": 81,
+    "friend_count": 201,
+    "mutual_friend_count": 0,
+    "athlete_type": 0,
+    "date_preference": "%m/%d/%Y",
+    "measurement_preference": "meters",
+    "clubs": [],
+    "ftp": null,
+    "bikes": [
+        {
+            "id": "b1697834",
+            "primary": true,
+            "name": "Trek Madone 3.1",
+            "nickname": "Trek Madone 3.1",
+            "resource_state": 2,
+            "retired": false,
+            "distance": 3851218,
+            "converted_distance": 3851.2
+        }
+    ],
+    "shoes": [
+        {
+            "id": "g1687666",
+            "primary": true,
+            "name": "Skechers Go Run 4 Go Run 4",
+            "nickname": "Go Run 4",
+            "resource_state": 2,
+            "retired": false,
+            "distance": 299181,
+            "converted_distance": 299.2
+        }
+    ]
+}

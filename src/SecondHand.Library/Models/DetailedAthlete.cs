@@ -1,9 +1,13 @@
-namespace SecondHand.Web.Response;
+namespace SecondHand.Library.Models;
 
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Json.Serialization;
 
 public class DetailedAthlete
 {
+    [Key]
+    [DatabaseGenerated(DatabaseGeneratedOption.None)]
     [JsonPropertyName("id")]
     public long? Id { get; set; }
 

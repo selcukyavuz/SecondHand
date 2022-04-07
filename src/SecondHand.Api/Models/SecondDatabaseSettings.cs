@@ -8,5 +8,5 @@ public class SecondHandDatabaseSettings
 
     public string PeopleCollectionName { get; set; } = null!;
 
-    public string BooksCollectionName { get; set; } = null!;
+    public string DetailedAthleteCollectionName { get; set; } = null!;
 }

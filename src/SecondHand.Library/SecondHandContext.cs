@@ -11,9 +11,14 @@ namespace SecondHand.Library
 
         public DbSet<PersonModel>? People { get; set; }
 
+        public DbSet<DetailedAthlete>? DetailedAthlete { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<PersonModel>().ToTable("People");     
+            modelBuilder.Entity<PersonModel>().ToTable("People");
+            modelBuilder.Entity<DetailedAthlete>().ToTable("DetailedAthlete");
         }
+
+        
     }
 }

@@ -5,7 +5,7 @@ services:
             - "1436:1433"
         image: "mcr.microsoft.com/azure-sql-edge"
         environment:
-            SA_PASSWORD: "Password123"
+            SA_PASSWORD: "{{ valult_password }}"
             ACCEPT_EULA: "Y"
 
     mongo:

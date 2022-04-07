@@ -2,6 +2,7 @@ using System.Text.Json;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using RestSharp;
+using SecondHand.Library.Models;
 using SecondHand.Web.Common;
 using SecondHand.Web.Data;
 using SecondHand.Web.Models;

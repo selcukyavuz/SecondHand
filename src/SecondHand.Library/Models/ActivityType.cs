@@ -1,4 +1,4 @@
-namespace SecondHand.Web.Model;
+namespace SecondHand.Library.Models;
 
 using System.Runtime.Serialization;
 
