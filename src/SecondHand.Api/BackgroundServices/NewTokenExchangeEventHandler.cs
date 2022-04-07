@@ -7,13 +7,13 @@ using SecondHand.Library.Models;
 
 namespace SecondHand.Api.BackgroundServices
 {
-    public class NewTokenExchangeHandler : BackgroundService
+    public class NewTokenExchangeEventHandler : BackgroundService
     {
         private readonly IConfiguration _configuration;
         private readonly IMongoCollection<TokenExchange> _tokenExchangeCollection;
         private IOptions<SecondHandDatabaseSettings> _SecondHandDatabaseSettings;
 
-        public NewTokenExchangeHandler(IConfiguration configuration, IOptions<SecondHandDatabaseSettings> secondHandDatabaseSettings)
+        public NewTokenExchangeEventHandler(IConfiguration configuration, IOptions<SecondHandDatabaseSettings> secondHandDatabaseSettings)
         {
             _configuration = configuration;
             _SecondHandDatabaseSettings = secondHandDatabaseSettings;
@@ -24,7 +24,7 @@ namespace SecondHand.Api.BackgroundServices
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
             IBus _bus = RabbitHutch.CreateBus(Environment.GetEnvironmentVariable("RABBITCONNECTION") ?? _configuration.GetSection("RabbitSettings").GetSection("Connection").Value);
-            _bus.PubSub.Subscribe<TokenExchangeCreatedEvent>("NewTokenExchangeHandler", ProccessTokenExchange);
+            _bus.PubSub.Subscribe<TokenExchangeCreatedEvent>("NewTokenExchangeEventHandler", ProccessTokenExchange);
 
             while (!stoppingToken.IsCancellationRequested)
             {

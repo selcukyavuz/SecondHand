@@ -6,7 +6,6 @@ using SecondHand.Library.Models;
 using SecondHand.Web.Common;
 using SecondHand.Web.Data;
 using SecondHand.Web.Models;
-using SecondHand.Web.Response;
 using SecondHand.Web.Settings;
 
 namespace SecondHand.Web.Controllers;
@@ -44,19 +43,17 @@ public class AuthorizationController : Controller
         request.AddParameter("grant_type", "authorization_code");
         request.AddParameter("redirect_uri", "https://localhost:7293/exchange_token&approval_prompt=force&scope=profile:read_all");
         RestResponse response = await client.ExecutePostAsync(request);
-        TokenExchange? tokenExchangeResponse = JsonSerializer.Deserialize<TokenExchange>(response.Content!,SecondHandWebJsonSerializerSettings.Settings);
-        _accessor.HttpContext?.Session.SetString("access_token",tokenExchangeResponse?.AccessToken!);
+        TokenExchange? tokenExchange = JsonSerializer.Deserialize<TokenExchange>(response.Content!,SecondHandWebJsonSerializerSettings.Settings);
+        _accessor.HttpContext?.Session.SetString("access_token",tokenExchange?.AccessToken!);
         _accessor.HttpContext?.Session.SetString("scope",scope);
 
-        _context.Database.EnsureCreated();
-
-        _context.Add<TokenPool>(new TokenPool
-        {
-            AccessToken = tokenExchangeResponse?.AccessToken,
-            SessionID = _accessor.HttpContext?.Session.Id
-        });
-
-        _context.SaveChanges();
+        var tokenExchangeClient = new RestClient("https://localhost:7269/api/TokenExchange");
+        var tokenExchangeRequest = new RestRequest();
+        tokenExchangeRequest.AddHeader("accept", "text/plain");
+        tokenExchangeRequest.AddHeader("Content-Type", "application/json");
+        tokenExchangeRequest.AddBody(tokenExchange!);
+        RestResponse restResponseTokenExchange = await tokenExchangeClient.ExecutePostAsync(tokenExchangeRequest);
+        TokenExchange? responseTokenExchange = JsonSerializer.Deserialize<TokenExchange>(restResponseTokenExchange.Content!,SecondHandWebJsonSerializerSettings.Settings);
 
         return Redirect("~/");
     }

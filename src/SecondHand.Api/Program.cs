@@ -13,9 +13,12 @@ builder.Services.Configure<SecondHandDatabaseSettings>(builder.Configuration.Get
 builder.Services.AddDbContextFactory<SecondHandContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")!));
 builder.Services.AddSingleton<IPersonDataAccess, PersonDataAccess>();
 builder.Services.AddSingleton<IDetailedAthleteDataAccess, DetailedAthleteDataAccess>();
+builder.Services.AddSingleton<ITokenExchangeDataAccess, TokenExchangeDataAccess>();
 builder.Services.AddMediatR(typeof(SecondHandLibraryEntryPoint).Assembly);
 builder.Services.AddHostedService<NewPersonEventHandler>();
 builder.Services.AddHostedService<NewDetailedAthleteEventHandler>();
+builder.Services.AddHostedService<NewTokenExchangeEventHandler>();
+
 
 var app = builder.Build();
 if (app.Environment.IsDevelopment())

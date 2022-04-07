@@ -17,6 +17,7 @@ builder.Services.Configure<StravaSettings>(builder.Configuration.GetSection(Stra
 builder.Services.AddDbContextFactory<SecondHandContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")!));
 builder.Services.AddSingleton<IDetailedAthleteDataAccess, DetailedAthleteDataAccess>();
 builder.Services.AddSingleton<IPersonDataAccess, PersonDataAccess>();
+builder.Services.AddSingleton<ITokenExchangeDataAccess, TokenExchangeDataAccess>();
 builder.Services.AddMediatR(typeof(SecondHandLibraryEntryPoint).Assembly);
 builder.Services.AddDbContext<SecondHandWebContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")!));
 builder.Services.AddAuthentication(options =>
