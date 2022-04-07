@@ -1,4 +1,4 @@
-namespace SecondHand.Library.Commands.DetailedAthlete;
+namespace SecondHand.Library.Commands.TokenExchange;
 
 using SecondHand.Library.Models;
 using MediatR;

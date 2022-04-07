@@ -9,4 +9,7 @@ public class SecondHandDatabaseSettings
     public string PeopleCollectionName { get; set; } = null!;
 
     public string DetailedAthleteCollectionName { get; set; } = null!;
+
+    public string TokenExchangeCollectionName { get; set; } = null!;
+
 }
