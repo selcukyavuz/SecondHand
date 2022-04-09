@@ -11,7 +11,9 @@ public class DetailedAthleteDataAccess : IDetailedAthleteDataAccess
     private readonly IMongoCollection<DetailedAthlete> _detailedAthleteCollection;
     IConfiguration _configuration;
 
-    public DetailedAthleteDataAccess(IDbContextFactory<SecondHandContext> contextFactory,IConfiguration configuration)
+    public DetailedAthleteDataAccess(
+        IDbContextFactory<SecondHandContext> contextFactory,
+        IConfiguration configuration)
     {
         _configuration = configuration;
         _contextFactory = contextFactory;
@@ -19,9 +21,12 @@ public class DetailedAthleteDataAccess : IDetailedAthleteDataAccess
         {
             _context.Database.EnsureCreated();
         }
-        var mongoClient = new MongoClient(_configuration.GetSection("SecondHandDatabase").GetSection("ConnectionString").Value);
-        var mongoDatabase = mongoClient.GetDatabase(_configuration.GetSection("SecondHandDatabase").GetSection("DatabaseName").Value);
-        _detailedAthleteCollection = mongoDatabase.GetCollection<DetailedAthlete>(_configuration.GetSection("SecondHandDatabase").GetSection("DetailedAthleteCollectionName").Value);
+        var mongoClient = new MongoClient(
+            _configuration.GetSection("SecondHandDatabase").GetSection("ConnectionString").Value);
+        var mongoDatabase = mongoClient.GetDatabase(
+            _configuration.GetSection("SecondHandDatabase").GetSection("DatabaseName").Value);
+        _detailedAthleteCollection = mongoDatabase.GetCollection<DetailedAthlete>(
+            _configuration.GetSection("SecondHandDatabase").GetSection("DetailedAthleteCollectionName").Value);
     }
 
     public List<DetailedAthlete> GetDetailedAthlete()
@@ -68,15 +73,15 @@ public class DetailedAthleteDataAccess : IDetailedAthleteDataAccess
     {
         using (var _context = _contextFactory.CreateDbContext())
         {
-            DetailedAthlete model = _context?.DetailedAthlete?.FirstOrDefault(p => p.Id == id)!;
-            DetailedAthlete model2 = _context?.DetailedAthlete?.Include(b=>b.Bikes).FirstOrDefault(p => p.Id == id)!;
-            DetailedAthlete model3 = _context?.DetailedAthlete?.Include(b=>b.Bikes).Include(c=>c.Clubs).FirstOrDefault(p => p.Id == id)!;
-            DetailedAthlete model4 = _context?.DetailedAthlete?.Include(b=>b.Bikes).Include(c=>c.Clubs).Include(s=>s.Shoes).FirstOrDefault(p => p.Id == id)!;
-
+            DetailedAthlete model = _context?.DetailedAthlete?
+                .Include(b=>b.Bikes)
+                .Include(c=>c.Clubs)
+                .Include(s=>s.Shoes)
+                .FirstOrDefault(p => p.Id == id)!;
 
             if (model != null)
             {
-                _context?.Remove(model4);
+                _context?.Remove(model);
                 _context?.SaveChanges();
                 return true;
             }

@@ -9,13 +9,13 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.Configure<SecondHandDatabaseSettings>(builder.Configuration.GetSection("SecondHandDatabase"));
-builder.Services.AddDbContextFactory<SecondHandContext>(options => options.UseSqlServer(builder.Configuration["ConnectionStrings:DefaultConnection"]));
-builder.Services.AddSingleton<IPersonDataAccess, PersonDataAccess>();
+builder.Services.Configure<SecondHandDatabaseSettings>(
+    builder.Configuration.GetSection("SecondHandDatabase"));
+builder.Services.AddDbContextFactory<SecondHandContext>(
+    options => options.UseSqlServer(builder.Configuration["ConnectionStrings:DefaultConnection"]));
 builder.Services.AddSingleton<IDetailedAthleteDataAccess, DetailedAthleteDataAccess>();
 builder.Services.AddSingleton<ITokenExchangeDataAccess, TokenExchangeDataAccess>();
 builder.Services.AddMediatR(typeof(SecondHandLibraryEntryPoint).Assembly);
-builder.Services.AddHostedService<NewPersonEventHandler>();
 builder.Services.AddHostedService<NewDetailedAthleteEventHandler>();
 builder.Services.AddHostedService<NewTokenExchangeEventHandler>();
 builder.Services.AddHostedService<UpdateDetailedAthleteEventHandler>();
