@@ -82,6 +82,29 @@ public class DetailedAthleteDataAccess : IDetailedAthleteDataAccess
             if (model != null)
             {
                 _context?.Remove(model);
+                if(model.Bikes != null)
+                {
+                    foreach(var bike in model.Bikes)
+                    {
+                        _context?.Remove(bike);
+                    }
+                }
+
+                if(model.Clubs != null)
+                {
+                    foreach(var club in model.Clubs)
+                    {
+                        _context?.Remove(club);
+                    }
+                }
+
+                if(model.Shoes != null)
+                {
+                    foreach(var shoe in model.Shoes)
+                    {
+                        _context?.Remove(shoe);
+                    }
+                }
                 _context?.SaveChanges();
                 return true;
             }
