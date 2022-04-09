@@ -62,7 +62,7 @@ public class DetailedAthleteDataAccess : IDetailedAthleteDataAccess
             }
             else
             {
-                throw new Exception("Person not found");
+                throw new Exception("DetailedAthlete not found");
             }
             return model!;
         }

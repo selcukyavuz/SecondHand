@@ -57,7 +57,11 @@ public static class RequestQueryParamsBuilder
 
     private static string? GetEnumMemberAttrValue<T>(T enumVal)
     {
-        var attr = enumVal?.GetType().GetRuntimeField(enumVal?.ToString()!)?.GetCustomAttribute(typeof(EnumMemberAttribute)) as EnumMemberAttribute;
+        var attr = enumVal?
+            .GetType()
+            .GetRuntimeField(enumVal?.ToString()!)?
+            .GetCustomAttribute(typeof(EnumMemberAttribute)) as EnumMemberAttribute;
+            
         if (attr != null)
             return attr.Value;
 

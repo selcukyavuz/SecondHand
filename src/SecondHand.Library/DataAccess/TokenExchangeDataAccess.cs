@@ -60,7 +60,7 @@ public class TokenExchangeDataAccess : ITokenExchangeDataAccess
             }
             else
             {
-                throw new Exception("Person not found");
+                throw new Exception("TokenExchange not found");
             }
             return model!;
         }
