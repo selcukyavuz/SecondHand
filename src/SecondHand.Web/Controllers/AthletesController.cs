@@ -1,5 +1,8 @@
+using System.Text.Json;
 using Microsoft.AspNetCore.Mvc;
-using SecondHand.Web.Data;
+using RestSharp;
+using SecondHand.Library.Models.Strava;
+using SecondHand.Web.Common;
 
 namespace SecondHand.Web.Controllers;
 
@@ -11,15 +14,10 @@ public class AthletesController : Controller
         "https://www.strava.com/api/v3");
 
     private readonly ILogger<AthletesController> _logger;
-    private readonly SecondHandWebContext _context;
 
-    public AthletesController(
-        ILogger<AthletesController> logger,
-        SecondHandWebContext context
-        )
+    public AthletesController(ILogger<AthletesController> logger)
     {
         _logger = logger;
-        _context = context;
     }
 
     public IActionResult Index()
@@ -30,9 +28,16 @@ public class AthletesController : Controller
     [HttpGet("~/athlete/stats")]
     public async Task<IActionResult> GetStats()
     {
-        #pragma warning disable CS8602
-        var access_token = _context.TokenPools?.FirstOrDefault(c=>c.SessionID == HttpContext.Session.Id).AccessToken;
-        #pragma warning restore CS8602
-        return View(await Task.Run(()=> _SecondHandWebClient.Athlete().GetStats(access_token!)));
+        var athleteId = 1;
+        var tokenExchangeClient = new RestClient("https://localhost:7269/api/DetailedAthlete/" + athleteId );
+        RestRequest restRequest = new RestRequest();
+        RestResponse restResponse = await tokenExchangeClient.ExecuteGetAsync(restRequest);
+        DetailedAthlete? detailedAthlete = JsonSerializer.Deserialize<DetailedAthlete>(restResponse.Content!,SecondHandWebJsonSerializerSettings.Settings);
+        return View(detailedAthlete);
+        
+        // #pragma warning disable CS8602
+        // var access_token = _context.TokenPools?.FirstOrDefault(c=>c.SessionID == HttpContext.Session.Id).AccessToken;
+        // #pragma warning restore CS8602
+        // return View(await Task.Run(()=> _SecondHandWebClient.Athlete().GetStats(access_token!)));
     }
 }

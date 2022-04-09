@@ -1,6 +1,5 @@
 ﻿using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
-using SecondHand.Web.Data;
 using SecondHand.Web.Models;
 
 namespace SecondHand.Web.Controllers;
@@ -9,15 +8,11 @@ public class HomeController : Controller
 {
     private readonly ILogger<HomeController> _logger;
 
-    private readonly SecondHandWebContext _context;
-
     public HomeController(
-        ILogger<HomeController> logger,
-        SecondHandWebContext context
+        ILogger<HomeController> logger        
         )
     {
         _logger = logger;
-        _context = context;
     }
 
     public IActionResult Index()

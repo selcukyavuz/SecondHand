@@ -1,6 +1,5 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
 using SecondHand.Web.Settings;
-using SecondHand.Web.Data;
 using Microsoft.EntityFrameworkCore;
 using SecondHand.Library.DataAccess;
 using MediatR;
@@ -19,7 +18,6 @@ builder.Services.AddSingleton<IDetailedAthleteDataAccess, DetailedAthleteDataAcc
 builder.Services.AddSingleton<IPersonDataAccess, PersonDataAccess>();
 builder.Services.AddSingleton<ITokenExchangeDataAccess, TokenExchangeDataAccess>();
 builder.Services.AddMediatR(typeof(SecondHandLibraryEntryPoint).Assembly);
-builder.Services.AddDbContext<SecondHandWebContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")!));
 builder.Services.AddAuthentication(options =>
         {
             options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;

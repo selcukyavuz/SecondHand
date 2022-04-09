@@ -2,8 +2,10 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace SecondHand.Web.Controllers;
 using SecondHand.Library.Models;
-using SecondHand.Library.Queries.Person;
 using MediatR;
+using RestSharp;
+using System.Text.Json;
+using SecondHand.Web.Common;
 
 public class PeopleController : Controller
 {
@@ -16,9 +18,12 @@ public class PeopleController : Controller
         _mediator = mediator;
     }
 
-    public IActionResult Index()
-    {         
-        System.Threading.Tasks.Task<List<PersonModel>> people =  _mediator.Send(new GetPersonListQuery());
-        return View(people.Result);
+    public async Task<IActionResult> Index()
+    {
+        var tokenExchangeClient = new RestClient("https://localhost:7269/api/TokenExchange");
+        RestRequest request = new RestRequest();
+        RestResponse restResponseTokenExchange = await tokenExchangeClient.ExecuteGetAsync(request);
+        PersonModel? responseTokenExchange = JsonSerializer.Deserialize<PersonModel>(restResponseTokenExchange.Content!,SecondHandWebJsonSerializerSettings.Settings);
+        return View(responseTokenExchange);
     }
 }

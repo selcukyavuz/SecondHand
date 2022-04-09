@@ -4,8 +4,6 @@ using Microsoft.Extensions.Options;
 using RestSharp;
 using SecondHand.Library.Models;
 using SecondHand.Web.Common;
-using SecondHand.Web.Data;
-using SecondHand.Web.Models;
 using SecondHand.Web.Settings;
 
 namespace SecondHand.Web.Controllers;
@@ -16,19 +14,15 @@ public class AuthorizationController : Controller
     private readonly StravaSettings _staravaSettings;
     private readonly IHttpContextAccessor _accessor;
     public StravaSettings? staravaSettings { get; private set; }
-    private readonly SecondHandWebContext _context;
-
      public AuthorizationController(
         ILogger<HomeController> logger,
         IOptions<StravaSettings> options,
-        IHttpContextAccessor accessor,
-        SecondHandWebContext context
+        IHttpContextAccessor accessor       
         )
     {
         _logger = logger;
         _staravaSettings = options.Value;
         _accessor = accessor;
-        _context = context;
     }
 
     [HttpGet("~/exchange_token")]
