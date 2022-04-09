@@ -15,7 +15,6 @@ namespace SecondHand.Library
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<TokenExchange>().ToTable("TokenExchange");
             modelBuilder.Entity<DetailedAthlete>()
                 .ToTable("DetailedAthlete")
                 .Property(x => x.Id).ValueGeneratedNever();

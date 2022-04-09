@@ -4,7 +4,7 @@ using SecondHand.Library.Queries.TokenExchange;
 
 namespace SecondHand.Library.Handlers.TokenExchange;
 
-public class GetTokenExchangeByIdHandler : IRequestHandler<GetTokenExchangeByIdQuery, SecondHand.Library.Models.TokenExchange>
+public class GetTokenExchangeByIdHandler : IRequestHandler<GetTokenExchangeByIdQuery, SecondHand.Library.Models.Strava.TokenExchange>
 { 
     private readonly ITokenExchangeDataAccess _dataAccess;
 
@@ -12,7 +12,7 @@ public class GetTokenExchangeByIdHandler : IRequestHandler<GetTokenExchangeByIdQ
     {
         _dataAccess = dataAccess;
     }
-    public Task<SecondHand.Library.Models.TokenExchange> Handle(GetTokenExchangeByIdQuery request, CancellationToken cancellationToken)
+    public Task<SecondHand.Library.Models.Strava.TokenExchange> Handle(GetTokenExchangeByIdQuery request, CancellationToken cancellationToken)
     {
         return Task.FromResult(_dataAccess.GetTokenExchange(request.id));
     }

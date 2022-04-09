@@ -1,8 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
-using SecondHand.Library.Models.Strava;
 
-namespace SecondHand.Library.Models;
+namespace SecondHand.Library.Models.Strava;
 
 public class TokenExchange
 {
@@ -21,4 +20,7 @@ public class TokenExchange
 
     [JsonPropertyName("access_token")]
     public string? AccessToken { get; set; }
+
+    [JsonPropertyName("detailed_athlete_id")]
+    public long DetailedAthleteId { get; set; }
 }

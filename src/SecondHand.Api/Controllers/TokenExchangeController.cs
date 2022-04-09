@@ -1,5 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
-using SecondHand.Library.Models;
+using SecondHand.Library.Models.Strava;
 using SecondHand.Library.Queries.TokenExchange;
 using SecondHand.Library.Commands.TokenExchange;
 using MediatR;
@@ -20,14 +20,19 @@ public class TokenExchangeController : ControllerBase
     private readonly IConfiguration _configuration; 
     private readonly IMongoCollection<TokenExchange> _TokenExchangeCollection;
 
-    public TokenExchangeController(ILogger<TokenExchangeController> logger, IMediator mediator,IConfiguration configuration,IOptions<SecondHandDatabaseSettings> secondHandDatabaseSettings)
+    public TokenExchangeController(
+        ILogger<TokenExchangeController> logger, 
+        IMediator mediator,
+        IConfiguration configuration,
+        IOptions<SecondHandDatabaseSettings> secondHandDatabaseSettings)
     {
         _logger = logger;
         _mediator = mediator;
         _configuration = configuration;
         var mongoClient = new MongoClient(secondHandDatabaseSettings.Value.ConnectionString);
         var mongoDatabase = mongoClient.GetDatabase(secondHandDatabaseSettings.Value.DatabaseName);
-        _TokenExchangeCollection = mongoDatabase.GetCollection<TokenExchange>(secondHandDatabaseSettings.Value.TokenExchangeCollectionName);
+        _TokenExchangeCollection = mongoDatabase.GetCollection<TokenExchange>(
+            secondHandDatabaseSettings.Value.TokenExchangeCollectionName);
     }
 
     [HttpGet()]
@@ -47,7 +52,10 @@ public class TokenExchangeController : ControllerBase
     {
         TokenExchange TokenExchange = await _mediator.Send(new InsertTokenExchangeCommand(value!));
 
-        using (var bus = RabbitHutch.CreateBus(Environment.GetEnvironmentVariable("RABBITCONNECTION") ?? _configuration.GetSection("RabbitSettings").GetSection("Connection").Value))
+        using (var bus = RabbitHutch.CreateBus(
+            Environment.GetEnvironmentVariable("RABBITCONNECTION") 
+            ?? 
+            _configuration.GetSection("RabbitSettings").GetSection("Connection").Value))
         {
             bus.PubSub.Publish(new TokenExchangeCreatedEvent(Guid.NewGuid(), value));
         }

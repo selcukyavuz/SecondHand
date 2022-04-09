@@ -3,7 +3,7 @@ using EasyNetQ;
 using MongoDB.Driver;
 using Microsoft.Extensions.Options;
 using SecondHand.Api.Models;
-using SecondHand.Library.Models;
+using SecondHand.Library.Models.Strava;
 
 namespace SecondHand.Api.BackgroundServices
 {

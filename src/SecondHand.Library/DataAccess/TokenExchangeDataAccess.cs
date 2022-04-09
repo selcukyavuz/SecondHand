@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using MongoDB.Driver;
-using SecondHand.Library.Models;
 using SecondHand.Library.Models.Strava;
 public class TokenExchangeDataAccess : ITokenExchangeDataAccess
 {

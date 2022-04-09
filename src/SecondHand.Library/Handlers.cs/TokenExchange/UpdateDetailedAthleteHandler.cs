@@ -4,7 +4,8 @@ using SecondHand.Library.Commands.TokenExchange;
 
 namespace SecondHand.Library.Handlers.TokenExchange;
 
-public class UpdateTokenExchangeHandler : IRequestHandler<UpdateTokenExchangeCommand, SecondHand.Library.Models.TokenExchange>
+public class UpdateTokenExchangeHandler : 
+    IRequestHandler<UpdateTokenExchangeCommand, SecondHand.Library.Models.Strava.TokenExchange>
 { 
     private readonly ITokenExchangeDataAccess _dataAccess;
 
@@ -12,7 +13,8 @@ public class UpdateTokenExchangeHandler : IRequestHandler<UpdateTokenExchangeCom
     {
         _dataAccess = dataAccess;
     }
-    public Task<SecondHand.Library.Models.TokenExchange> Handle(UpdateTokenExchangeCommand request, CancellationToken cancellationToken)
+    public Task<SecondHand.Library.Models.Strava.TokenExchange> Handle(
+        UpdateTokenExchangeCommand request, CancellationToken cancellationToken)
     {
         return Task.FromResult(_dataAccess.UpdateTokenExchange(request.TokenExchange));
     }

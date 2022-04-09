@@ -1,6 +1,6 @@
 namespace SecondHand.Library.Commands.TokenExchange;
 
-using SecondHand.Library.Models;
 using MediatR;
+using SecondHand.Library.Models.Strava;
 
 public record InsertTokenExchangeCommand(TokenExchange TokenExchange) : IRequest<TokenExchange>;
