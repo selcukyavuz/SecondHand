@@ -14,6 +14,6 @@ public class DeleteDetailedAthleteHandler : IRequestHandler<DeleteDetailedAthlet
     }
     public Task<bool> Handle(DeleteDetailedAthleteCommand request, CancellationToken cancellationToken)
     {
-        return Task.FromResult(_dataAccess.DeleteDetailedAthlete(request.id));
+        return Task.FromResult(_dataAccess.DeleteDetailedAthlete(request.Id));
     }
 }

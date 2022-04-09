@@ -13,14 +13,15 @@ namespace SecondHand.Library
         public DbSet<PersonModel>? People { get; set; }
 
         public DbSet<DetailedAthlete>? DetailedAthlete { get; set; }
-
         public DbSet<TokenExchange>? TokenExchange { get; set; }        
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<PersonModel>().ToTable("People");
-            modelBuilder.Entity<DetailedAthlete>().ToTable("DetailedAthlete");
             modelBuilder.Entity<TokenExchange>().ToTable("TokenExchange");
+            modelBuilder.Entity<DetailedAthlete>()
+                .ToTable("DetailedAthlete")
+                .Property(x => x.Id).ValueGeneratedNever();
         }
    }
 }

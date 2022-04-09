@@ -34,10 +34,5 @@ public class AthletesController : Controller
         RestResponse restResponse = await tokenExchangeClient.ExecuteGetAsync(restRequest);
         DetailedAthlete? detailedAthlete = JsonSerializer.Deserialize<DetailedAthlete>(restResponse.Content!,SecondHandWebJsonSerializerSettings.Settings);
         return View(detailedAthlete);
-        
-        // #pragma warning disable CS8602
-        // var access_token = _context.TokenPools?.FirstOrDefault(c=>c.SessionID == HttpContext.Session.Id).AccessToken;
-        // #pragma warning restore CS8602
-        // return View(await Task.Run(()=> _SecondHandWebClient.Athlete().GetStats(access_token!)));
     }
 }

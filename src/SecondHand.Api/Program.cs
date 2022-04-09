@@ -18,6 +18,8 @@ builder.Services.AddMediatR(typeof(SecondHandLibraryEntryPoint).Assembly);
 builder.Services.AddHostedService<NewPersonEventHandler>();
 builder.Services.AddHostedService<NewDetailedAthleteEventHandler>();
 builder.Services.AddHostedService<NewTokenExchangeEventHandler>();
+builder.Services.AddHostedService<UpdateDetailedAthleteEventHandler>();
+builder.Services.AddHostedService<DeleteDetailedAthleteEventHandler>();
 
 
 var app = builder.Build();

@@ -49,5 +49,14 @@
             "type": "coreclr",
             "request": "attach"
         }
+    ],
+    "compounds": [
+        {
+            "name": "Both Web & API",
+            "configurations": [
+                ".NET Core Launch (web)",
+                ".NET Core Launch (api)"
+            ]
+        }
     ]
 }

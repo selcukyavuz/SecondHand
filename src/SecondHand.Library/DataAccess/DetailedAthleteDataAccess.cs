@@ -29,7 +29,7 @@ public class DetailedAthleteDataAccess : IDetailedAthleteDataAccess
         return _detailedAthleteCollection.Find(_ => true).ToList();
     }
 
-    public DetailedAthlete GetDetailedAthlete(long? id)
+    public DetailedAthlete GetDetailedAthlete(int id)
     {
         return _detailedAthleteCollection.Find(x => x.Id == id).FirstOrDefault();
     }
@@ -64,14 +64,19 @@ public class DetailedAthleteDataAccess : IDetailedAthleteDataAccess
         
     }
 
-    public bool DeleteDetailedAthlete(long? id)
+    public bool DeleteDetailedAthlete(int id)
     {
         using (var _context = _contextFactory.CreateDbContext())
         {
             DetailedAthlete model = _context?.DetailedAthlete?.FirstOrDefault(p => p.Id == id)!;
+            DetailedAthlete model2 = _context?.DetailedAthlete?.Include(b=>b.Bikes).FirstOrDefault(p => p.Id == id)!;
+            DetailedAthlete model3 = _context?.DetailedAthlete?.Include(b=>b.Bikes).Include(c=>c.Clubs).FirstOrDefault(p => p.Id == id)!;
+            DetailedAthlete model4 = _context?.DetailedAthlete?.Include(b=>b.Bikes).Include(c=>c.Clubs).Include(s=>s.Shoes).FirstOrDefault(p => p.Id == id)!;
+
+
             if (model != null)
             {
-                _context?.Remove(model);
+                _context?.Remove(model4);
                 _context?.SaveChanges();
                 return true;
             }

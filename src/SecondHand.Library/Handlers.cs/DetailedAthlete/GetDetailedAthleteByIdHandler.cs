@@ -14,6 +14,6 @@ public class GetDetailedAthleteByIdHandler : IRequestHandler<GetDetailedAthleteB
     }
     public Task<SecondHand.Library.Models.Strava.DetailedAthlete> Handle(GetDetailedAthleteByIdQuery request, CancellationToken cancellationToken)
     {
-        return Task.FromResult(_dataAccess.GetDetailedAthlete(request.id));
+        return Task.FromResult(_dataAccess.GetDetailedAthlete(request.Id));
     }
 }

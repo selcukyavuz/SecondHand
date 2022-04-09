@@ -1,16 +1,15 @@
 namespace SecondHand.Library.Models.Strava;
 
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Json.Serialization;
 
 public class DetailedAthlete
 {
     [Key]
-    [JsonIgnore]
-    public int DetailedAthleteId { get; set; }
-
     [JsonPropertyName("id")]
-    public long? Id { get; set; }
+    [DatabaseGenerated(DatabaseGeneratedOption.None)]
+    public long Id { get; set; }
 
     [JsonPropertyName("resource_state")]
     public int? ResourceState { get; set; }
@@ -70,8 +69,8 @@ public class DetailedAthlete
     public List<Club>? Clubs { get; set; }
 
     [JsonPropertyName("bikes")]
-    public ICollection<Bike>? Bikes { get; set; }
+    public IList<Bike>? Bikes { get; set; }
 
     [JsonPropertyName("shoes")]
-    public ICollection<Shoe>? Shoes { get; set; }    
+    public IList<Shoe>? Shoes { get; set; }    
 }
