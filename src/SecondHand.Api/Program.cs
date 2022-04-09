@@ -10,7 +10,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.Configure<SecondHandDatabaseSettings>(builder.Configuration.GetSection("SecondHandDatabase"));
-builder.Services.AddDbContextFactory<SecondHandContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")!));
+builder.Services.AddDbContextFactory<SecondHandContext>(options => options.UseSqlServer(builder.Configuration["ConnectionStrings:DefaultConnection"]));
 builder.Services.AddSingleton<IPersonDataAccess, PersonDataAccess>();
 builder.Services.AddSingleton<IDetailedAthleteDataAccess, DetailedAthleteDataAccess>();
 builder.Services.AddSingleton<ITokenExchangeDataAccess, TokenExchangeDataAccess>();

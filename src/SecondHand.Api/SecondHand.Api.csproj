@@ -1,9 +1,10 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>f18f410b-6db7-461f-a988-49bc76617bfb</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
@@ -11,7 +12,7 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.3" />
     <PackageReference Include="MongoDB.Driver" Version="2.15.0" />
     <PackageReference Include="RabbitMQ.Client" Version="6.2.4" />
-    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.3.0" />
     <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="10.0.1" />
     <ProjectReference Include="..\SecondHand.Library\SecondHand.Library.csproj" />
   </ItemGroup>
