@@ -2,9 +2,9 @@ using SecondHand.Library.Models.Strava;
 
 namespace SecondHand.Library.Events
 {
-    public class DetailedAthleteDeletedEvent
+    public class AthleteDeletedEvent
     {
-        public DetailedAthleteDeletedEvent(long id)
+        public AthleteDeletedEvent(long id)
         {
             Id = id ;
         }

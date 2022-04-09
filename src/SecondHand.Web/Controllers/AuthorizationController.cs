@@ -42,15 +42,15 @@ public class AuthorizationController : Controller
         _accessor.HttpContext?.Session.SetString("access_token",token?.AccessToken!);
         _accessor.HttpContext?.Session.SetString("scope",scope);
 
-        var athleteClient = new RestClient("https://localhost:7269/api/DetailedAthlete");
+        var athleteClient = new RestClient("https://localhost:7269/api/Athlete");
         var athleteRequest = new RestRequest();
         athleteRequest.AddHeader("accept", "text/plain");
         athleteRequest.AddHeader("Content-Type", "application/json");
-        athleteRequest.AddBody(token?.DetailedAthlete!);
+        athleteRequest.AddBody(token?.Athlete!);
         RestResponse athleteResponse = await athleteClient.ExecutePostAsync(athleteRequest);
-        DetailedAthlete? detailedAthlete = JsonSerializer.Deserialize<DetailedAthlete>(athleteResponse.Content!,SecondHandWebJsonSerializerSettings.Settings);
+        Athlete? athlete = JsonSerializer.Deserialize<Athlete>(athleteResponse.Content!,SecondHandWebJsonSerializerSettings.Settings);
 
-        token.DetailedAthleteId = detailedAthlete.Id;
+        token.AthleteId = athlete.Id;
 
         var tokenExchangeClient = new RestClient("https://localhost:7269/api/TokenExchange");
         var tokenExchangeRequest = new RestRequest();

@@ -10,13 +10,13 @@ namespace SecondHand.Library
         {
         }
 
-        public DbSet<DetailedAthlete>? DetailedAthlete { get; set; }
+        public DbSet<Athlete>? Athlete { get; set; }
         public DbSet<TokenExchange>? TokenExchange { get; set; }        
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<DetailedAthlete>()
-                .ToTable("DetailedAthlete")
+            modelBuilder.Entity<Athlete>()
+                .ToTable("Athlete")
                 .Property(x => x.Id).ValueGeneratedNever();
         }
    }

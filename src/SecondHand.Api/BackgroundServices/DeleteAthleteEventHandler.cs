@@ -7,13 +7,13 @@ using SecondHand.Library.Models.Strava;
 
 namespace SecondHand.Api.BackgroundServices
 {
-    public class DeleteDetailedAthleteEventHandler : BackgroundService
+    public class DeleteAthleteEventHandler : BackgroundService
     {
         private readonly IConfiguration _configuration;
-        private readonly IMongoCollection<DetailedAthlete> _detailedAthleteCollection;
+        private readonly IMongoCollection<Athlete> _athleteCollection;
         private IOptions<SecondHandDatabaseSettings> _SecondHandDatabaseSettings;
 
-        public DeleteDetailedAthleteEventHandler(
+        public DeleteAthleteEventHandler(
             IConfiguration configuration, 
             IOptions<SecondHandDatabaseSettings> secondHandDatabaseSettings)
         {
@@ -21,8 +21,8 @@ namespace SecondHand.Api.BackgroundServices
             _SecondHandDatabaseSettings = secondHandDatabaseSettings;
             var mongoClient = new MongoClient(secondHandDatabaseSettings.Value.ConnectionString);
             var mongoDatabase = mongoClient.GetDatabase(secondHandDatabaseSettings.Value.DatabaseName);
-            _detailedAthleteCollection = mongoDatabase.GetCollection<DetailedAthlete>(
-                secondHandDatabaseSettings.Value.DetailedAthleteCollectionName);
+            _athleteCollection = mongoDatabase.GetCollection<Athlete>(
+                secondHandDatabaseSettings.Value.AthleteCollectionName);
         }
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
@@ -30,7 +30,7 @@ namespace SecondHand.Api.BackgroundServices
                 Environment.GetEnvironmentVariable("RABBITCONNECTION") 
                 ?? 
                 _configuration.GetSection("RabbitSettings").GetSection("Connection").Value);
-            _bus.PubSub.Subscribe<DetailedAthleteDeletedEvent>("DeleteDetailedAthleteEventHandler", ProccessDetailedAthlete);
+            _bus.PubSub.Subscribe<AthleteDeletedEvent>("DeleteAthleteEventHandler", ProccessAthlete);
 
             while (!stoppingToken.IsCancellationRequested)
             {
@@ -40,10 +40,10 @@ namespace SecondHand.Api.BackgroundServices
             _bus.Dispose();
         }
 
-        private void ProccessDetailedAthlete(DetailedAthleteDeletedEvent detailedAthleteDeletedEvent)
+        private void ProccessAthlete(AthleteDeletedEvent athleteDeletedEvent)
         {
-            var filter = Builders<DetailedAthlete>.Filter.Eq(s => s.Id, detailedAthleteDeletedEvent.Id);
-            _detailedAthleteCollection.DeleteOne(
+            var filter = Builders<Athlete>.Filter.Eq(s => s.Id, athleteDeletedEvent.Id);
+            _athleteCollection.DeleteOne(
                 filter                
             );
         }

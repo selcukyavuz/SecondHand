@@ -29,10 +29,10 @@ public class AthletesController : Controller
     public async Task<IActionResult> GetStats()
     {
         var athleteId = 1;
-        var tokenExchangeClient = new RestClient("https://localhost:7269/api/DetailedAthlete/" + athleteId );
+        var tokenExchangeClient = new RestClient("https://localhost:7269/api/Athlete/" + athleteId );
         RestRequest restRequest = new RestRequest();
         RestResponse restResponse = await tokenExchangeClient.ExecuteGetAsync(restRequest);
-        DetailedAthlete? detailedAthlete = JsonSerializer.Deserialize<DetailedAthlete>(restResponse.Content!,SecondHandWebJsonSerializerSettings.Settings);
-        return View(detailedAthlete);
+        Athlete? athlete = JsonSerializer.Deserialize<Athlete>(restResponse.Content!,SecondHandWebJsonSerializerSettings.Settings);
+        return View(athlete);
     }
 }

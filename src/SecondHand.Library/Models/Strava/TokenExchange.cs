@@ -22,5 +22,5 @@ public class TokenExchange
     public string? AccessToken { get; set; }
 
     [JsonPropertyName("detailed_athlete_id")]
-    public long DetailedAthleteId { get; set; }
+    public long AthleteId { get; set; }
 }

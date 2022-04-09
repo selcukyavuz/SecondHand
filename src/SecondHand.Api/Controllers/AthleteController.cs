@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using SecondHand.Library.Models.Strava;
-using SecondHand.Library.Queries.DetailedAthlete;
-using SecondHand.Library.Commands.DetailedAthlete;
+using SecondHand.Library.Queries.Athlete;
+using SecondHand.Library.Commands.Athlete;
 using MediatR;
 using EasyNetQ;
 using SecondHand.Library.Events;
@@ -13,15 +13,15 @@ namespace SecondHand.Api.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-public class DetailedAthleteController : ControllerBase
+public class AthleteController : ControllerBase
 {   
-    private readonly ILogger<DetailedAthleteController> _logger;
+    private readonly ILogger<AthleteController> _logger;
     private readonly IMediator _mediator;
     private readonly IConfiguration _configuration; 
-    private readonly IMongoCollection<DetailedAthlete> _DetailedAthleteCollection;
+    private readonly IMongoCollection<Athlete> _AthleteCollection;
 
-    public DetailedAthleteController(
-        ILogger<DetailedAthleteController> logger, 
+    public AthleteController(
+        ILogger<AthleteController> logger, 
         IMediator mediator,
         IConfiguration configuration,
         IOptions<SecondHandDatabaseSettings> secondHandDatabaseSettings)
@@ -31,62 +31,62 @@ public class DetailedAthleteController : ControllerBase
         _configuration = configuration;
         var mongoClient = new MongoClient(secondHandDatabaseSettings.Value.ConnectionString);
         var mongoDatabase = mongoClient.GetDatabase(secondHandDatabaseSettings.Value.DatabaseName);
-        _DetailedAthleteCollection = mongoDatabase.GetCollection<DetailedAthlete>(
-            secondHandDatabaseSettings.Value.DetailedAthleteCollectionName);
+        _AthleteCollection = mongoDatabase.GetCollection<Athlete>(
+            secondHandDatabaseSettings.Value.AthleteCollectionName);
     }
 
     [HttpGet()]
-    public async Task<List<DetailedAthlete>> Get()
+    public async Task<List<Athlete>> Get()
     {
-        return await _mediator.Send(new GetDetailedAthleteListQuery());
+        return await _mediator.Send(new GetAthleteListQuery());
     }
 
     [HttpGet("{id}")]
-    public async Task<DetailedAthlete> Get(int id)
+    public async Task<Athlete> Get(int id)
     {
-        return await _mediator.Send(new GetDetailedAthleteByIdQuery(id));
+        return await _mediator.Send(new GetAthleteByIdQuery(id));
     }
 
     [HttpPost()]
-    public async Task<DetailedAthlete> Post([FromBody] DetailedAthlete value)
+    public async Task<Athlete> Post([FromBody] Athlete value)
     {
-        DetailedAthlete detailedAthlete = await _mediator.Send(new InsertDetailedAthleteCommand(value));
+        Athlete athlete = await _mediator.Send(new InsertAthleteCommand(value));
 
         using (var bus = RabbitHutch.CreateBus(
             Environment.GetEnvironmentVariable("RABBITCONNECTION") 
             ?? 
             _configuration.GetSection("RabbitSettings").GetSection("Connection").Value))
         {
-            bus.PubSub.Publish(new DetailedAthleteCreatedEvent(value.Id, value));
+            bus.PubSub.Publish(new AthleteCreatedEvent(value.Id, value));
         }
 
-        return detailedAthlete;
+        return athlete;
     }
 
     [HttpPut()]
-    public async Task<DetailedAthlete> Put([FromBody] DetailedAthlete value)
+    public async Task<Athlete> Put([FromBody] Athlete value)
     {
-        DetailedAthlete detailedAthlete = await _mediator.Send(new UpdateDetailedAthleteCommand(value));
+        Athlete athlete = await _mediator.Send(new UpdateAthleteCommand(value));
 
         using (var bus = RabbitHutch.CreateBus(
             Environment.GetEnvironmentVariable("RABBITCONNECTION") 
             ?? 
             _configuration.GetSection("RabbitSettings").GetSection("Connection").Value))
         {
-            bus.PubSub.Publish(new DetailedAthleteUpdatedEvent(value.Id, value));
+            bus.PubSub.Publish(new AthleteUpdatedEvent(value.Id, value));
         }
 
-        return detailedAthlete;
+        return athlete;
     }
 
     [HttpDelete("{id}")]
     public async Task<bool> Delete(int id)
     {
-        bool result = await _mediator.Send(new DeleteDetailedAthleteCommand(id));
+        bool result = await _mediator.Send(new DeleteAthleteCommand(id));
 
         using (var bus = RabbitHutch.CreateBus(Environment.GetEnvironmentVariable("RABBITCONNECTION") ?? _configuration.GetSection("RabbitSettings").GetSection("Connection").Value))
         {
-            bus.PubSub.Publish(new DetailedAthleteDeletedEvent(id));
+            bus.PubSub.Publish(new AthleteDeletedEvent(id));
         }
 
         return result;

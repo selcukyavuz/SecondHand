@@ -11,9 +11,9 @@ public class AthleteAdapter : BaseAdapter
     {
     }
 
-    public DetailedAthlete GetStats(string access_token)
+    public Athlete GetStats(string access_token)
     {
         var path = "/athlete?access_token=" + access_token;        
-        return RestClient.Get<DetailedAthlete>(RequestOptions.BaseUrl + path,CreateHeaders(path, RequestOptions)!);  
+        return RestClient.Get<Athlete>(RequestOptions.BaseUrl + path,CreateHeaders(path, RequestOptions)!);  
     }
 }

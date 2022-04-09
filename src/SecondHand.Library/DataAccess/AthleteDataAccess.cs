@@ -5,13 +5,13 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using MongoDB.Driver;
 using SecondHand.Library.Models.Strava;
-public class DetailedAthleteDataAccess : IDetailedAthleteDataAccess
+public class AthleteDataAccess : IAthleteDataAccess
 {
     private readonly IDbContextFactory<SecondHandContext> _contextFactory;
-    private readonly IMongoCollection<DetailedAthlete> _detailedAthleteCollection;
+    private readonly IMongoCollection<Athlete> _athleteCollection;
     IConfiguration _configuration;
 
-    public DetailedAthleteDataAccess(
+    public AthleteDataAccess(
         IDbContextFactory<SecondHandContext> contextFactory,
         IConfiguration configuration)
     {
@@ -25,55 +25,55 @@ public class DetailedAthleteDataAccess : IDetailedAthleteDataAccess
             _configuration.GetSection("SecondHandDatabase").GetSection("ConnectionString").Value);
         var mongoDatabase = mongoClient.GetDatabase(
             _configuration.GetSection("SecondHandDatabase").GetSection("DatabaseName").Value);
-        _detailedAthleteCollection = mongoDatabase.GetCollection<DetailedAthlete>(
-            _configuration.GetSection("SecondHandDatabase").GetSection("DetailedAthleteCollectionName").Value);
+        _athleteCollection = mongoDatabase.GetCollection<Athlete>(
+            _configuration.GetSection("SecondHandDatabase").GetSection("AthleteCollectionName").Value);
     }
 
-    public List<DetailedAthlete> GetDetailedAthlete()
+    public List<Athlete> GetAthlete()
     {
-        return _detailedAthleteCollection.Find(_ => true).ToList();
+        return _athleteCollection.Find(_ => true).ToList();
     }
 
-    public DetailedAthlete GetDetailedAthlete(int id)
+    public Athlete GetAthlete(int id)
     {
-        return _detailedAthleteCollection.Find(x => x.Id == id).FirstOrDefault();
+        return _athleteCollection.Find(x => x.Id == id).FirstOrDefault();
     }
 
-    public DetailedAthlete InsertDetailedAthlete(DetailedAthlete detailedAthlete)
+    public Athlete InsertAthlete(Athlete athlete)
     {
         using (var _context = _contextFactory.CreateDbContext())
         {
-            _context?.DetailedAthlete?.Add(detailedAthlete);
+            _context?.Athlete?.Add(athlete);
             _context?.SaveChanges();
-            return detailedAthlete;
+            return athlete;
         }
     }
 
-    public DetailedAthlete UpdateDetailedAthlete(DetailedAthlete detailedAthlete)
+    public Athlete UpdateAthlete(Athlete athlete)
     {
         using (var _context = _contextFactory.CreateDbContext())
         {
-            DetailedAthlete model = _context?.DetailedAthlete?.FirstOrDefault(p => p.Id == detailedAthlete.Id)!;
+            Athlete model = _context?.Athlete?.FirstOrDefault(p => p.Id == athlete.Id)!;
             if (model != null)
             {
-                model.FirstName = detailedAthlete.FirstName;
-                model.LastName = detailedAthlete.LastName;
+                model.FirstName = athlete.FirstName;
+                model.LastName = athlete.LastName;
                 _context?.SaveChanges();
             }
             else
             {
-                throw new Exception("DetailedAthlete not found");
+                throw new Exception("Athlete not found");
             }
             return model!;
         }
         
     }
 
-    public bool DeleteDetailedAthlete(int id)
+    public bool DeleteAthlete(int id)
     {
         using (var _context = _contextFactory.CreateDbContext())
         {
-            DetailedAthlete model = _context?.DetailedAthlete?
+            Athlete model = _context?.Athlete?
                 .Include(b=>b.Bikes)
                 .Include(c=>c.Clubs)
                 .Include(s=>s.Shoes)
@@ -110,7 +110,7 @@ public class DetailedAthleteDataAccess : IDetailedAthleteDataAccess
             }
             else
             {
-                throw new Exception("DetailedAthlete not found");
+                throw new Exception("Athlete not found");
             }
         }
     }
