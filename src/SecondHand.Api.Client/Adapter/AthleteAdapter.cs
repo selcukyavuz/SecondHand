@@ -15,4 +15,10 @@ public class AthleteAdapter : BaseAdapter
         var path = "/athlete?access_token=" + access_token;        
         return RestClient.Get<Athlete>(RequestOptions.BaseUrl + path,CreateHeaders(path, RequestOptions)!);  
     }
+
+    public Athlete Create(Athlete athlete)
+    {
+        var path = "/athlete";
+        return RestClient.Post<Athlete>(RequestOptions.BaseUrl + path, CreateHeaders(athlete,path,RequestOptions)!, athlete);
+    }
 }
