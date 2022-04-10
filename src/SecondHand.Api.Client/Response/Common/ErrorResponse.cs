@@ -1,4 +1,4 @@
-namespace SecondHand.Web.Response.Common;
+namespace SecondHand.Api.Client.Response.Common;
 
 public class ErrorResponse
 {

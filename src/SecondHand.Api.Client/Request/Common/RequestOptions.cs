@@ -1,4 +1,4 @@
-namespace SecondHand.Web.Request.Common;
+namespace SecondHand.Api.Client.Request.Common;
 
 public class RequestOptions
 {

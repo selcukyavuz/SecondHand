@@ -1,6 +1,6 @@
 using System.Diagnostics.CodeAnalysis;
 
-namespace SecondHand.Web.Response.Common;
+namespace SecondHand.Api.Client.Response.Common;
 
 public class Response<T> where T : class
 {

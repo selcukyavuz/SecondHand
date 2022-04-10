@@ -1,4 +1,4 @@
-namespace SecondHand.Web.Request.Common;
+namespace SecondHand.Api.Client.Request.Common;
 
 using System.Globalization;
 using System.Runtime.Serialization;

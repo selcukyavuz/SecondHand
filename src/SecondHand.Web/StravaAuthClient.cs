@@ -1,7 +1,7 @@
 namespace SecondHand.Web;
 
-using SecondHand.Web.Adapter;
-using SecondHand.Web.Request.Common;
+using SecondHand.Api.Client.Adapter;
+using SecondHand.Api.Client.Request.Common;
 
 public class SecondHandWebClient
 {

@@ -8,6 +8,7 @@
   </PropertyGroup>
 
   <PropertyGroup Condition=" '$(RunConfiguration)' == 'SecondHandWeb' " />
+  
   <ItemGroup>
     <PackageReference Include="AspNet.Security.OAuth.Strava" Version="6.0.5" />
     <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="10.0.1" />
@@ -16,6 +17,7 @@
     <PackageReference Include="MongoDB.Driver" Version="2.15.0" />
     <PackageReference Include="RestSharp" Version="107.3.0" />
     <ProjectReference Include="..\SecondHand.Library\SecondHand.Library.csproj" />
+    <ProjectReference Include="..\SecondHand.Api.Client\SecondHand.Api.Client.csproj" />
   </ItemGroup>
 
 </Project>

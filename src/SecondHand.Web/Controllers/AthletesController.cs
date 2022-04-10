@@ -2,7 +2,6 @@ using System.Text.Json;
 using Microsoft.AspNetCore.Mvc;
 using RestSharp;
 using SecondHand.Library.Models.Strava;
-using SecondHand.Web.Common;
 
 namespace SecondHand.Web.Controllers;
 
@@ -32,7 +31,9 @@ public class AthletesController : Controller
         var tokenExchangeClient = new RestClient("https://localhost:7269/api/Athlete/" + athleteId );
         RestRequest restRequest = new RestRequest();
         RestResponse restResponse = await tokenExchangeClient.ExecuteGetAsync(restRequest);
-        Athlete? athlete = JsonSerializer.Deserialize<Athlete>(restResponse.Content!,SecondHandWebJsonSerializerSettings.Settings);
+        Athlete? athlete = JsonSerializer.Deserialize<Athlete>(
+            restResponse.Content!,
+            SecondHand.Api.Client.Common.JsonSerializerSettings.Settings);
         return View(athlete);
     }
 }

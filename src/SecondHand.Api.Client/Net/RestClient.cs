@@ -1,13 +1,11 @@
-namespace SecondHand.Web.Net;
+namespace SecondHand.Api.Client.Net;
 
 using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
 using System.Text;
-using SecondHand.Web.Common;
-using SecondHand.Web.Exception;
-using SecondHand.Web.Response.Common;
+using SecondHand.Api.Client.Exception;
 using System.Text.Json;
 
 public static class RestClient
@@ -51,7 +49,10 @@ public static class RestClient
        Exchange<T>(url, HttpMethod.Delete, headers,null!);
     }
 
-    public static T Exchange<T>(string url, HttpMethod httpMethod,Dictionary<string,string>  headers, object request)  where T : class
+    public static T Exchange<T>(
+        string url, 
+        HttpMethod httpMethod,Dictionary<string,string>  headers, 
+        object request)  where T : class
     {
         try
         {
@@ -80,7 +81,9 @@ public static class RestClient
 
     private static T HandleResponse<T>(HttpResponseMessage httpResponseMessage) where T : class
     {
-        var apiResponse = JsonSerializer.Deserialize<T>(httpResponseMessage.Content.ReadAsStringAsync().Result, SecondHandWebJsonSerializerSettings.Settings);
+        var apiResponse = JsonSerializer.Deserialize<T>(
+            httpResponseMessage.Content.ReadAsStringAsync().Result, 
+            SecondHand.Api.Client.Common.JsonSerializerSettings.Settings);
 
         if(apiResponse == null)
         {
@@ -101,7 +104,7 @@ public static class RestClient
         {
             return null!;
         }
-        var json = JsonSerializer.Serialize(request,SecondHandWebJsonSerializerSettings.Settings);
+        var json = JsonSerializer.Serialize(request,SecondHand.Api.Client.Common.JsonSerializerSettings.Settings);
         return new StringContent(json, Encoding.UTF8, "application/json");
     }
 

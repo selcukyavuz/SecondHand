@@ -1,4 +1,4 @@
-namespace SecondHand.Web.Settings;
+namespace SecondHand.Api.Client.Settings;
 
 public class StravaSettings
 {

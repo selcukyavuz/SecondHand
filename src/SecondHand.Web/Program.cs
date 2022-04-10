@@ -1,5 +1,5 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
-using SecondHand.Web.Settings;
+using SecondHand.Api.Client.Settings;
 using Microsoft.EntityFrameworkCore;
 using SecondHand.Library.DataAccess;
 using MediatR;

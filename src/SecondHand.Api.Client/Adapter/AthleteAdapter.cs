@@ -1,9 +1,8 @@
-namespace SecondHand.Web.Adapter;
+namespace SecondHand.Api.Client.Adapter;
 
 using SecondHand.Library.Models.Strava;
-using SecondHand.Web.Net;
-using SecondHand.Web.Request.Common;
-using SecondHand.Web.Response;
+using SecondHand.Api.Client.Net;
+using SecondHand.Api.Client.Request.Common;
 
 public class AthleteAdapter : BaseAdapter
 {

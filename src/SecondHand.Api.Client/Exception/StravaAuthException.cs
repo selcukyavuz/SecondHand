@@ -1,4 +1,4 @@
-namespace SecondHand.Web.Exception;
+namespace SecondHand.Api.Client.Exception;
 
 using System;
 

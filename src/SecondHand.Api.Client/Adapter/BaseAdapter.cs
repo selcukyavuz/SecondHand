@@ -1,9 +1,9 @@
-namespace SecondHand.Web.Adapter;
+namespace SecondHand.Api.Client.Adapter;
 
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using SecondHand.Web.Request.Common;
+using SecondHand.Api.Client.Request.Common;
 
 public abstract class BaseAdapter
 {
