@@ -1,11 +1,12 @@
 ﻿@using Microsoft.Extensions.Configuration
 @inject IConfiguration Configuration
+@inject IHttpContextAccessor Accessor;
 
 @{
     ViewData["Title"] = "Home Page";
     var ClientId = Configuration["Strava:ClientId"];
+    var baseUrl = $"{Accessor?.HttpContext?.Request.Scheme}://{Accessor?.HttpContext?.Request.Host}{Accessor?.HttpContext?.Request.PathBase}";
 }
-
 <a href="/People">People</a>
 
 <div class="jumbotron">
@@ -25,7 +26,7 @@
         </p>
 
         <p>
-            <a class="btn btn-lg btn-danger" href="http://www.strava.com/oauth/authorize?client_id=@ClientId&response_type=code&redirect_uri=https://localhost:7293/exchange_token&approval_prompt=force&scope=profile:read_all">Get Token</a>
+            <a class="btn btn-lg btn-danger" href="http://www.strava.com/oauth/authorize?client_id=@ClientId&response_type=code&redirect_uri=@baseUrl/exchange_token&approval_prompt=force&scope=profile:read_all">Get Token</a>
         </p>
 
         <p>
