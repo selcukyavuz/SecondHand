@@ -6,15 +6,6 @@
  - .net 6 SDK https://dotnet.microsoft.com/en-us/download/dotnet/6.0
  - VS Code https://code.visualstudio.com/download
 
-✨ Tech Stack 
- - Azure Sql Edge
- - Mongo DB
- - Rabbitmq
-
-✨ Pattern 
- - CQRS
- - Event Sourcing
-
 ⏬ Clone the project
 ```bash
 git clone https://github.com/selcukyavuz/SecondHand.git
@@ -38,4 +29,13 @@ docker-compose up
 ℹ️ Information
  -  To start developing with the Strava API, you will need to make an application https://developers.strava.com/docs/getting-started/#account
 
+✨ Tech Stack 
+ - Azure Sql Edge
+ - Mongo DB
+ - Rabbitmq
+
+✨ Pattern 
+ - CQRS
+ - Event Sourcing
+ 
 ✨ You are welcoming to contribute
