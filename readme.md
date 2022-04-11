@@ -16,7 +16,7 @@ code .
 ```
 🤐 Enter  the Credentials 
 ```bash
-dotnet user-secrets -p src/SecondHand.Api set "ConnectionStrings:DefaultConnection" ,"Server=127.0.0.1,1436;Database=SecondHand;user=sa;password=Password123  };MultipleActiveResultSets=true;Trust Server Certificate=true;"
+dotnet user-secrets -p src/SecondHand.Api set "ConnectionStrings:DefaultConnection" ,"Server=127.0.0.1,1436;Database=SecondHand;user=sa;password=Password123;MultipleActiveResultSets=true;Trust Server Certificate=true;"
 dotnet user-secrets -p src/SecondHand.Api set "SecondHandDatabase:ConnectionString" ,"mongodb://root:example@localhost:27017"
 dotnet user-secrets -p src/SecondHand.Api set "RabbitSettings:Connection" ,"host=127.0.0.1"
 dotnet user-secrets -p src/SecondHand.Web set "Strava:ClientId" ,"{{ vault_strava_clientId }}"
