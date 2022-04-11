@@ -1,22 +1,26 @@
-using System.Text.Json;
 using Microsoft.AspNetCore.Mvc;
-using RestSharp;
-using SecondHand.Library.Models.Strava;
+using SecondHand.Api.Client;
 
 namespace SecondHand.Web.Controllers;
 
 public class AthletesController : Controller
 {
-    private readonly SecondHandWebClient _SecondHandWebClient = new SecondHandWebClient(
-        "", 
-        "", 
-        "https://www.strava.com/api/v3");
-
     private readonly ILogger<AthletesController> _logger;
+    private readonly IConfiguration _configuration;
+    private readonly SecondHandWebClient _SecondHandWebClient;
+    private readonly SecondHandApiClient _secondHandApiClient;
+    private readonly IHttpContextAccessor _accessor;
 
-    public AthletesController(ILogger<AthletesController> logger)
+    public AthletesController(ILogger<AthletesController> logger,IConfiguration configuration,IHttpContextAccessor accessor)
     {
         _logger = logger;
+        _configuration = configuration;
+        _accessor = accessor;
+        _SecondHandWebClient = new SecondHandWebClient(string.Empty, string.Empty, configuration["Strava:ApiUrl"]!);
+        _secondHandApiClient = new SecondHandApiClient(
+            string.Empty, 
+            string.Empty, 
+            configuration["SecondHandApiUrl"]!);
     }
 
     public IActionResult Index()
@@ -27,13 +31,8 @@ public class AthletesController : Controller
     [HttpGet("~/athlete/stats")]
     public async Task<IActionResult> GetStats()
     {
-        var athleteId = 1;
-        var tokenExchangeClient = new RestClient("https://localhost:7269/api/Athlete/" + athleteId );
-        RestRequest restRequest = new RestRequest();
-        RestResponse restResponse = await tokenExchangeClient.ExecuteGetAsync(restRequest);
-        Athlete? athlete = JsonSerializer.Deserialize<Athlete>(
-            restResponse.Content!,
-            SecondHand.Api.Client.Common.JsonSerializerSettings.Settings);
+        var access_token = _accessor.HttpContext?.Session.GetString("access_token");
+        var athlete = await Task.Run(() => _secondHandApiClient.Athlete().GetStats(access_token!));
         return View(athlete);
     }
 }

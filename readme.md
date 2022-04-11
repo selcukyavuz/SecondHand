@@ -1,61 +1,41 @@
+## Run Locally 👨‍💻
 
-## Run Locally
+🔧 Requirements 
 
-Clone the project
+ - Docker https://docs.docker.com/desktop/windows/install/
+ - .net 6 SDK https://dotnet.microsoft.com/en-us/download/dotnet/6.0
+ - VS Code https://code.visualstudio.com/download
 
+⏬ Clone the project
 ```bash
-  git clone https://github.com/selcukyavuz/SecondHand.git
+git clone https://github.com/selcukyavuz/SecondHand.git
 ```
-
-Go to the project directory
-
+📂 Open folder with VS Code
 ```bash
-  cd SecondHand
+code .
 ```
-
-Open project with VS Code
-
+🔑 Enter the Credentials 
 ```bash
-  code .
+dotnet user-secrets -p src/SecondHand.Api set "ConnectionStrings:DefaultConnection" ,"Server=127.0.0.1,1436;Database=SecondHand;user=sa;password=Password123;MultipleActiveResultSets=true;Trust Server Certificate=true;"
+dotnet user-secrets -p src/SecondHand.Api set "SecondHandDatabase:ConnectionString" ,"mongodb://root:example@localhost:27017"
+dotnet user-secrets -p src/SecondHand.Api set "RabbitSettings:Connection" ,"host=127.0.0.1"
+dotnet user-secrets -p src/SecondHand.Web set "Strava:ClientId" ,"{{ vault_strava_clientId }}"
+dotnet user-secrets -p src/SecondHand.Web set "Strava:ClientSecret" ,"{{ vault_strava_client_secret }}"
 ```
-
-Create SQL Server in Docker 
-
- - replace `{{ valult_password }}` with your SQL Server sa user password
-
-```bash
-docker pull mcr.microsoft.com/azure-sql-edge
-docker run --cap-add SYS_PTRACE -e 'ACCEPT_EULA=1' -e 'MSSQL_SA_PASSWORD={{ valult_password }}' -p 1436:1433 --name azuresqledge -d mcr.microsoft.com/azure-sql-edge
-
-```
-
-Enter Strava Credentials in SecondHand.Web/appsettings.json
-
-- replace `{{ valult_password }}` with your SQL Server sa user password
- - replace `vault_client_id` with your Strava Client ID
- - replace `vault_client_secret` with your Strava Client Secret
-
-```bash
-  {
-	  "ConnectionStrings": {
-	"DefaultConnection":"Server=127.0.0.1,1436;Database=SecondHand;user=sa;password={{ valult_password }};MultipleActiveResultSets=true;Trust Server Certificate=true;"
-	},
-		"Logging": {
-		"LogLevel": {
-			"Default": "Information",
-			"Microsoft.AspNetCore": "Warning"
-		}
-	},
-	"Strava": {
-		"ClientId": "{{ vault_client_id }}",
-		"ClientSecret": "{{ vault_client_secret }}",
-		"TokenExchangeUrl" : "https://www.strava.com/oauth/token"
-	}
-}
-```
-
-Database Up
-
+👍 Docker Compose Up
 ```bash
 docker-compose up
 ```
+ℹ️ Information
+ -  To start developing with the Strava API, you will need to make an application https://developers.strava.com/docs/getting-started/#account
+
+✨ Tech Stack 
+ - Azure Sql Edge
+ - Mongo DB
+ - Rabbitmq
+
+✨ Pattern 
+ - CQRS
+ - Event Sourcing
+ 
+✨ You are welcoming to contribute
