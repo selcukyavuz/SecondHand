@@ -1,8 +1,8 @@
 ## Run Locally 👨‍💻
 
-💼 Requirements 
+🔧 Requirements 
 
- - Docker  https://docs.docker.com/desktop/windows/install/
+ - Docker https://docs.docker.com/desktop/windows/install/
  - .net 6 SDK https://dotnet.microsoft.com/en-us/download/dotnet/6.0
  - VS Code https://code.visualstudio.com/download
 
@@ -10,11 +10,11 @@
 ```bash
 git clone https://github.com/selcukyavuz/SecondHand.git
 ```
-📂 Open project with VS Code
+📂 Open folder with VS Code
 ```bash
 code .
 ```
-🤐 Enter  the Credentials 
+🔑 Enter the Credentials 
 ```bash
 dotnet user-secrets -p src/SecondHand.Api set "ConnectionStrings:DefaultConnection" ,"Server=127.0.0.1,1436;Database=SecondHand;user=sa;password=Password123;MultipleActiveResultSets=true;Trust Server Certificate=true;"
 dotnet user-secrets -p src/SecondHand.Api set "SecondHandDatabase:ConnectionString" ,"mongodb://root:example@localhost:27017"
