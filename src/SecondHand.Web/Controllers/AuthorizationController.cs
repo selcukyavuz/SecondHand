@@ -2,7 +2,6 @@ using System.Text.Json;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using RestSharp;
-using SecondHand.Library.Models.Strava;
 using SecondHand.Api.Client;
 using SecondHand.Api.Client.Settings;
 using SecondHand.Web.Models;
