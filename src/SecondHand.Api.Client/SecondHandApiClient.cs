@@ -3,13 +3,11 @@ namespace SecondHand.Api.Client;
 using SecondHand.Api.Client.Adapter;
 using SecondHand.Api.Client.Request.Common;
 
-public class SecondHandApiClient
+public class SecondHandApiClient : ISecondHandApiClient
 {
    private const string BaseUrl = "https://localhost:7269";
    private readonly AthleteAdapter _athleteAdapter;
-
    private readonly TokenExchangeAdapter _tokenExchangeAdapter;
-
    public SecondHandApiClient(string apiKey, string secretKey) : this(apiKey, secretKey, BaseUrl)
    {
    }
@@ -27,13 +25,6 @@ public class SecondHandApiClient
       _tokenExchangeAdapter = new TokenExchangeAdapter(requestOptions);
    }
 
-   public AthleteAdapter Athlete()
-   {
-      return _athleteAdapter;
-   }
-
-    public TokenExchangeAdapter TokenExchange()
-    {
-        return _tokenExchangeAdapter;
-    }
+   public AthleteAdapter Athlete() => _athleteAdapter;
+    public TokenExchangeAdapter TokenExchange() => _tokenExchangeAdapter;
 }

@@ -35,7 +35,8 @@ public class AuthorizationController : Controller
     [HttpGet("~/exchange_token")]
     public async Task<IActionResult> ExchangeToken(string code,string scope)
     {
-        StravaHelper stravaHelper = new StravaHelper();
+        var baseUrl = $"{this.Request.Scheme}://{this.Request.Host}{this.Request.PathBase}";
+        StravaHelper stravaHelper = new StravaHelper(_accessor);
         Token token = await stravaHelper.GetToken(_staravaSettings, code);
         var athlete = _secondHandApiClient.Athlete().Create(token?.Athlete!);
         token!.AthleteId = athlete.Id;

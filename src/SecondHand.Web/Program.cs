@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using SecondHand.Library.DataAccess;
 using MediatR;
 using SecondHand.Library;
+using SecondHand.Api.Client;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();

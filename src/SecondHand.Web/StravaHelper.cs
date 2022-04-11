@@ -7,8 +7,15 @@ namespace SecondHand.Web;
 
 public class StravaHelper
 {
+    private readonly IHttpContextAccessor _accessor;
+
+    public StravaHelper(IHttpContextAccessor accessor)
+    {
+        _accessor = accessor;
+    }
     public async Task<Token> GetToken(StravaSettings stravaSettings, string code)
     {
+        var baseUrl = $"{_accessor?.HttpContext?.Request.Scheme}://{_accessor?.HttpContext?.Request.Host}{_accessor?.HttpContext?.Request.PathBase}";
         var client = new RestClient(stravaSettings.TokenExchangeUrl);
         var request = new RestRequest();
         request.RequestFormat = DataFormat.Json;
@@ -16,7 +23,7 @@ public class StravaHelper
         request.AddParameter("client_id", stravaSettings.ClientId);
         request.AddParameter("code", code);
         request.AddParameter("grant_type", "authorization_code");
-        request.AddParameter("redirect_uri", MyHttpContext.AppBaseUrl + "/exchange_token&approval_prompt=force&scope=profile:read_all");
+        request.AddParameter("redirect_uri", baseUrl + "/exchange_token&approval_prompt=force&scope=profile:read_all");
         RestResponse response = await client.ExecutePostAsync(request);
         return JsonSerializer.Deserialize<Token>(
             response.Content!,
