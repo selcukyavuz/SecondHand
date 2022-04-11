@@ -16,10 +16,10 @@ public class StravaHelper
         request.AddParameter("client_id", stravaSettings.ClientId);
         request.AddParameter("code", code);
         request.AddParameter("grant_type", "authorization_code");
-        request.AddParameter("redirect_uri", "https://localhost:7293/exchange_token&approval_prompt=force&scope=profile:read_all");
+        request.AddParameter("redirect_uri", MyHttpContext.AppBaseUrl + "/exchange_token&approval_prompt=force&scope=profile:read_all");
         RestResponse response = await client.ExecutePostAsync(request);
         return JsonSerializer.Deserialize<Token>(
             response.Content!,
             SecondHand.Api.Client.Common.JsonSerializerSettings.Settings)!;
-    }
+    }    
 }
