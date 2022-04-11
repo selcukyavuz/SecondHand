@@ -16,10 +16,11 @@ builder.Services.AddDbContextFactory<SecondHandContext>(
 builder.Services.AddSingleton<IAthleteDataAccess, AthleteDataAccess>();
 builder.Services.AddSingleton<ITokenExchangeDataAccess, TokenExchangeDataAccess>();
 builder.Services.AddMediatR(typeof(SecondHandLibraryEntryPoint).Assembly);
-builder.Services.AddHostedService<NewAthleteEventHandler>();
-builder.Services.AddHostedService<NewTokenExchangeEventHandler>();
-builder.Services.AddHostedService<UpdateAthleteEventHandler>();
-builder.Services.AddHostedService<DeleteAthleteEventHandler>();
+builder.Services.AddHostedService<AthleteCreatedEventHandler>();
+builder.Services.AddHostedService<AthleteEventUpdatedHandler>();
+builder.Services.AddHostedService<AthleteDeletedEventHandler>();
+builder.Services.AddHostedService<TokenExchangeCreatedEventHandler>();
+
 
 
 var app = builder.Build();

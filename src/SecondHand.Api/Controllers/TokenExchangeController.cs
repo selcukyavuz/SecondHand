@@ -36,16 +36,10 @@ public class TokenExchangeController : ControllerBase
     }
 
     [HttpGet()]
-    public async Task<List<TokenExchange>> Get()
-    {
-        return await _mediator.Send(new GetTokenExchangeListQuery());
-    }
+    public async Task<List<TokenExchange>> Get() => await _mediator.Send(new GetTokenExchangeListQuery());
 
     [HttpGet("{id}")]
-    public async Task<TokenExchange> Get(long? id)
-    {
-        return await _mediator.Send(new GetTokenExchangeByIdQuery(id));
-    }
+    public async Task<TokenExchange> Get(long? id) => await _mediator.Send(new GetTokenExchangeByIdQuery(id));
 
     [HttpPost()]
     public async Task<TokenExchange> Post([FromBody] TokenExchange value)
@@ -64,10 +58,7 @@ public class TokenExchangeController : ControllerBase
     }
 
     [HttpPut()]
-    public async Task<TokenExchange> Put([FromBody] TokenExchange value)
-    {
-        return await _mediator.Send(new UpdateTokenExchangeCommand(value));
-    }
+    public async Task<TokenExchange> Put([FromBody] TokenExchange value) => await _mediator.Send(new UpdateTokenExchangeCommand(value));
 
     [HttpDelete("{id}")]
     public async Task<bool> Delete(long? id)
