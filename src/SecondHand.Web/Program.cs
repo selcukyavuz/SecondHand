@@ -1,10 +1,8 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
 using SecondHand.Api.Client.Settings;
 using Microsoft.EntityFrameworkCore;
-using SecondHand.DataAccess.SqlServer.Api;
 using MediatR;
 using SecondHand.Library;
-using SecondHand.DataAccess.SqlServer;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
@@ -14,10 +12,12 @@ builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 var ClientId = builder.Configuration.GetValue<string>("Strava:ClientId");
 var ClientSecret = builder.Configuration.GetValue<string>("Strava:ClientSecret");
 builder.Services.Configure<StravaSettings>(builder.Configuration.GetSection(StravaSettings.Key));
-builder.Services.AddDbContextFactory<SecondHandContext>(
+builder.Services.AddDbContextFactory<SecondHand.DataAccess.SqlServer.SecondHandContext>(
     options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")!));
-builder.Services.AddSingleton<IAthleteDataAccess, AthleteDataAccess>();
-builder.Services.AddSingleton<ITokenExchangeDataAccess, TokenExchangeDataAccess>();
+builder.Services.AddSingleton<SecondHand.DataAccess.SqlServer.Api.IAthleteDataAccess, SecondHand.DataAccess.SqlServer.Api.AthleteDataAccess>();
+builder.Services.AddSingleton<SecondHand.DataAccess.SqlServer.Api.ITokenExchangeDataAccess, SecondHand.DataAccess.SqlServer.Api.TokenExchangeDataAccess>();
+builder.Services.AddSingleton<SecondHand.DataAccess.MongoDB.Api.IAthleteDataAccess, SecondHand.DataAccess.MongoDB.Api.AthleteDataAccess>();
+builder.Services.AddSingleton<SecondHand.DataAccess.MongoDB.Api.ITokenExchangeDataAccess, SecondHand.DataAccess.MongoDB.Api.TokenExchangeDataAccess>();
 builder.Services.AddMediatR(typeof(SecondHandLibraryEntryPoint).Assembly);
 builder.Services.AddAuthentication(options =>
         {
