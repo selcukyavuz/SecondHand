@@ -1,9 +1,10 @@
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using SecondHand.Api.BackgroundServices;
-using SecondHand.Library;
-using SecondHand.Library.DataAccess;
+using SecondHand.DataAccess.SqlServer;
 using SecondHand.Api.Models;
+using SecondHand.DataAccess.SqlServer.Api;
+using SecondHand.Library;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
@@ -16,10 +17,11 @@ builder.Services.AddDbContextFactory<SecondHandContext>(
 builder.Services.AddSingleton<IAthleteDataAccess, AthleteDataAccess>();
 builder.Services.AddSingleton<ITokenExchangeDataAccess, TokenExchangeDataAccess>();
 builder.Services.AddMediatR(typeof(SecondHandLibraryEntryPoint).Assembly);
-builder.Services.AddHostedService<NewAthleteEventHandler>();
-builder.Services.AddHostedService<NewTokenExchangeEventHandler>();
-builder.Services.AddHostedService<UpdateAthleteEventHandler>();
-builder.Services.AddHostedService<DeleteAthleteEventHandler>();
+builder.Services.AddHostedService<AthleteCreatedEventHandler>();
+builder.Services.AddHostedService<AthleteEventUpdatedHandler>();
+builder.Services.AddHostedService<AthleteDeletedEventHandler>();
+builder.Services.AddHostedService<TokenExchangeCreatedEventHandler>();
+
 
 
 var app = builder.Build();

@@ -5,12 +5,8 @@ using SecondHand.Api.Client.Request.Common;
 
 public class SecondHandApiClient : ISecondHandApiClient
 {
-   private const string BaseUrl = "https://localhost:7269";
    private readonly AthleteAdapter _athleteAdapter;
    private readonly TokenExchangeAdapter _tokenExchangeAdapter;
-   public SecondHandApiClient(string apiKey, string secretKey) : this(apiKey, secretKey, BaseUrl)
-   {
-   }
 
    public SecondHandApiClient(string apiKey, string secretKey, string baseUrl)
    {

@@ -6,6 +6,5 @@ namespace SecondHand.Api.Client
     {
         AthleteAdapter Athlete();
         TokenExchangeAdapter TokenExchange();
-
     }
 }

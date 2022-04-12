@@ -1,4 +1,4 @@
-namespace SecondHand.Library.Models.Strava;
+namespace SecondHand.Models.Strava;
 
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;

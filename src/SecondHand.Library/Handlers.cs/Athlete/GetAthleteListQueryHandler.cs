@@ -1,10 +1,10 @@
 using MediatR;
-using SecondHand.Library.DataAccess;
+using SecondHand.DataAccess.MongoDB.Api;
 using SecondHand.Library.Queries.Athlete;
 
 namespace SecondHand.Library.Handlers.Athlete;
 
-public class GetAthleteListQueryHandler : IRequestHandler<GetAthleteListQuery, List<SecondHand.Library.Models.Strava.Athlete>>
+public class GetAthleteListQueryHandler : IRequestHandler<GetAthleteListQuery, List<SecondHand.Models.Strava.Athlete>>
 { 
     private readonly IAthleteDataAccess _dataAccess;
 
@@ -12,7 +12,7 @@ public class GetAthleteListQueryHandler : IRequestHandler<GetAthleteListQuery, L
     {
         _dataAccess = dataAccess;
     }
-      public Task<List<SecondHand.Library.Models.Strava.Athlete>> Handle(GetAthleteListQuery request, CancellationToken cancellationToken)
+      public Task<List<SecondHand.Models.Strava.Athlete>> Handle(GetAthleteListQuery request, CancellationToken cancellationToken)
     {
         return Task.FromResult(_dataAccess.GetAthlete());
     }

@@ -2,7 +2,6 @@ namespace SecondHand.Api.Client.Net;
 
 using System;
 using System.Collections.Generic;
-using System.Net;
 using System.Net.Http;
 using System.Text;
 using SecondHand.Api.Client.Exception;
@@ -14,9 +13,6 @@ public static class RestClient
 
     static RestClient()
     {
-#if !NETSTANDARD1_3
-    ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
-#endif
         var handler = new HttpClientHandler() { AllowAutoRedirect = false };
         HttpClient = new HttpClient(handler)
         {
@@ -89,11 +85,6 @@ public static class RestClient
         {
             return default!;
         }
-        // else if(apiResponse?.Errors != null)
-        // {
-        //     var errorResponse = apiResponse.Errors;
-        //     throw new SecondHandWebException(errorResponse.ErrorCode!, errorResponse.ErrorDescription!, errorResponse.ErrorGroup!);
-        // }
 
         return apiResponse!;
     }

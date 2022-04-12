@@ -1,7 +1,7 @@
+namespace SecondHand.Models.Strava;
+
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
-
-namespace SecondHand.Library.Models.Strava;
 
 public class TokenExchange
 {

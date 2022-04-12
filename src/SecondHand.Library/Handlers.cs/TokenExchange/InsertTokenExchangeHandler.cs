@@ -1,11 +1,11 @@
 using MediatR;
-using SecondHand.Library.DataAccess;
+using SecondHand.DataAccess.SqlServer.Api;
 using SecondHand.Library.Commands.TokenExchange;
 
 namespace SecondHand.Library.Handlers.TokenExchange;
 
 public class InsertTokenExchangeHandler : 
-    IRequestHandler<InsertTokenExchangeCommand, SecondHand.Library.Models.Strava.TokenExchange>
+    IRequestHandler<InsertTokenExchangeCommand, SecondHand.Models.Strava.TokenExchange>
 { 
     private readonly ITokenExchangeDataAccess _dataAccess;
 
@@ -13,7 +13,7 @@ public class InsertTokenExchangeHandler :
     {
         _dataAccess = dataAccess;
     }
-    public Task<SecondHand.Library.Models.Strava.TokenExchange> Handle(
+    public Task<SecondHand.Models.Strava.TokenExchange> Handle(
         InsertTokenExchangeCommand request, CancellationToken cancellationToken)
     {
         return Task.FromResult(_dataAccess.InsertTokenExchange(request.TokenExchange));

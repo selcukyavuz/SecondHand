@@ -1,13 +1,13 @@
 using Microsoft.AspNetCore.Mvc;
-using SecondHand.Library.Models.Strava;
-using SecondHand.Library.Queries.Athlete;
-using SecondHand.Library.Commands.Athlete;
+using SecondHand.Models.Strava;
 using MediatR;
 using EasyNetQ;
-using SecondHand.Library.Events;
 using MongoDB.Driver;
 using Microsoft.Extensions.Options;
 using SecondHand.Api.Models;
+using SecondHand.Library.Queries.Athlete;
+using SecondHand.Library.Commands.Athlete;
+using SecondHand.Library.Events;
 
 namespace SecondHand.Api.Controllers;
 
@@ -36,16 +36,10 @@ public class AthleteController : ControllerBase
     }
 
     [HttpGet()]
-    public async Task<List<Athlete>> Get()
-    {
-        return await _mediator.Send(new GetAthleteListQuery());
-    }
+    public async Task<List<Athlete>> Get() => await _mediator.Send(new GetAthleteListQuery());
 
     [HttpGet("{id}")]
-    public async Task<Athlete> Get(int id)
-    {
-        return await _mediator.Send(new GetAthleteByIdQuery(id));
-    }
+    public async Task<Athlete> Get(int id) => await _mediator.Send(new GetAthleteByIdQuery(id));
 
     [HttpPost()]
     public async Task<Athlete> Post([FromBody] Athlete value)

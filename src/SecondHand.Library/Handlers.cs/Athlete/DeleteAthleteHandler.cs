@@ -1,5 +1,5 @@
 using MediatR;
-using SecondHand.Library.DataAccess;
+using SecondHand.DataAccess.SqlServer.Api;
 using SecondHand.Library.Commands.Athlete;
 
 namespace SecondHand.Library.Handlers.Athlete;

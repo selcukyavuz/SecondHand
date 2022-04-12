@@ -1,10 +1,10 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
 using SecondHand.Api.Client.Settings;
 using Microsoft.EntityFrameworkCore;
-using SecondHand.Library.DataAccess;
+using SecondHand.DataAccess.SqlServer.Api;
 using MediatR;
 using SecondHand.Library;
-using SecondHand.Api.Client;
+using SecondHand.DataAccess.SqlServer;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();

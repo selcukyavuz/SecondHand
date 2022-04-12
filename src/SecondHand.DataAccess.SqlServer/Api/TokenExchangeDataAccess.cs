@@ -1,14 +1,13 @@
-namespace SecondHand.Library.DataAccess;
+namespace SecondHand.DataAccess.SqlServer.Api;
 
 using System.Collections.Generic;
+using SecondHand.Models.Strava;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
-using MongoDB.Driver;
-using SecondHand.Library.Models.Strava;
+
 public class TokenExchangeDataAccess : ITokenExchangeDataAccess
 {
     private readonly IDbContextFactory<SecondHandContext> _contextFactory;
-    private readonly IMongoCollection<TokenExchange> _TokenExchangeCollection;
     IConfiguration _configuration;
 
     public TokenExchangeDataAccess(IDbContextFactory<SecondHandContext> contextFactory,IConfiguration configuration)
@@ -19,19 +18,22 @@ public class TokenExchangeDataAccess : ITokenExchangeDataAccess
         {
             _context.Database.EnsureCreated();
         }
-        var mongoClient = new MongoClient(_configuration.GetSection("SecondHandDatabase").GetSection("ConnectionString").Value);
-        var mongoDatabase = mongoClient.GetDatabase(_configuration.GetSection("SecondHandDatabase").GetSection("DatabaseName").Value);
-        _TokenExchangeCollection = mongoDatabase.GetCollection<TokenExchange>(_configuration.GetSection("SecondHandDatabase").GetSection("TokenExchangeCollectionName").Value);
     }
 
     public List<TokenExchange> GetTokenExchange()
     {
-        return _TokenExchangeCollection.Find(_ => true).ToList();
+        using (var _context = _contextFactory.CreateDbContext())
+        {
+            return _context?.TokenExchange?.ToList()!;
+        }
     }
 
     public TokenExchange GetTokenExchange(long? id)
     {
-        return _TokenExchangeCollection.Find(x => x.Id == id).FirstOrDefault();
+        using (var _context = _contextFactory.CreateDbContext())
+        {
+            return _context?.TokenExchange?.Where(x => x.Id == id).FirstOrDefault()!;
+        }
     }
 
     public TokenExchange InsertTokenExchange(TokenExchange TokenExchange)

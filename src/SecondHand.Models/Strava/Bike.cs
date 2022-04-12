@@ -1,10 +1,10 @@
-namespace SecondHand.Library.Models.Strava;
+namespace SecondHand.Models.Strava;
 
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Json.Serialization;
 
-public class Shoe
+public class Bike
 {
     [Key]
     [JsonPropertyName("id")]
@@ -22,4 +22,5 @@ public class Shoe
 
     [JsonPropertyName("distance")]
     public float Distance { get; set; }
+    
 }

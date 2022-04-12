@@ -7,9 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="RestSharp" Version="107.3.0" />
-    <ProjectReference Include="..\SecondHand.Library\SecondHand.Library.csproj" />
+    <PackageReference Include="Microsoft.Extensions.Configuration" Version="6.0.1" />
     <ProjectReference Include="..\SecondHand.Models\SecondHand.Models.csproj" />
+    <PackageReference Include="MongoDB.Driver" Version="2.15.0" />
   </ItemGroup>
-
 </Project>

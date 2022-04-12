@@ -1,30 +1,30 @@
-using SecondHand.Library.Events;
 using EasyNetQ;
 using MongoDB.Driver;
 using Microsoft.Extensions.Options;
 using SecondHand.Api.Models;
-using SecondHand.Library.Models.Strava;
+using SecondHand.Models.Strava;
+using SecondHand.Library.Events;
 
 namespace SecondHand.Api.BackgroundServices
 {
-    public class NewTokenExchangeEventHandler : BackgroundService
+    public class AthleteCreatedEventHandler : BackgroundService
     {
         private readonly IConfiguration _configuration;
-        private readonly IMongoCollection<TokenExchange> _tokenExchangeCollection;
+        private readonly IMongoCollection<Athlete> _athleteCollection;
         private IOptions<SecondHandDatabaseSettings> _SecondHandDatabaseSettings;
 
-        public NewTokenExchangeEventHandler(IConfiguration configuration, IOptions<SecondHandDatabaseSettings> secondHandDatabaseSettings)
+        public AthleteCreatedEventHandler(IConfiguration configuration, IOptions<SecondHandDatabaseSettings> secondHandDatabaseSettings)
         {
             _configuration = configuration;
             _SecondHandDatabaseSettings = secondHandDatabaseSettings;
             var mongoClient = new MongoClient(secondHandDatabaseSettings.Value.ConnectionString);
             var mongoDatabase = mongoClient.GetDatabase(secondHandDatabaseSettings.Value.DatabaseName);
-            _tokenExchangeCollection = mongoDatabase.GetCollection<TokenExchange>(secondHandDatabaseSettings.Value.TokenExchangeCollectionName);
+            _athleteCollection = mongoDatabase.GetCollection<Athlete>(secondHandDatabaseSettings.Value.AthleteCollectionName);
         }
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
             IBus _bus = RabbitHutch.CreateBus(Environment.GetEnvironmentVariable("RABBITCONNECTION") ?? _configuration.GetSection("RabbitSettings").GetSection("Connection").Value);
-            _bus.PubSub.Subscribe<TokenExchangeCreatedEvent>("NewTokenExchangeEventHandler", ProccessTokenExchange);
+            _bus.PubSub.Subscribe<AthleteCreatedEvent>("NewAthleteEventHandler", ProccessAthlete);
 
             while (!stoppingToken.IsCancellationRequested)
             {
@@ -34,10 +34,10 @@ namespace SecondHand.Api.BackgroundServices
             _bus.Dispose();
         }
 
-        private void ProccessTokenExchange(TokenExchangeCreatedEvent TokenExchangeCreatedEvent)
+        private void ProccessAthlete(AthleteCreatedEvent athleteCreatedEvent)
         {
-            _tokenExchangeCollection.InsertOne(
-                TokenExchangeCreatedEvent.TokenExchange
+            _athleteCollection.InsertOne(
+                athleteCreatedEvent.Athlete
                 );
         }
     }

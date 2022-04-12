@@ -7,14 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="MediatR" Version="10.0.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.4" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="6.0.4" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.4" />
-    <PackageReference Include="MongoDB.Driver" Version="2.15.0" />
     <ProjectReference Include="..\SecondHand.Models\SecondHand.Models.csproj" />
-    <ProjectReference Include="..\SecondHand.DataAccess.SqlServer\SecondHand.DataAccess.SqlServer.csproj" />
-    <ProjectReference Include="..\SecondHand.DataAccess.MongoDB\SecondHand.DataAccess.MongoDB.csproj" />
   </ItemGroup>
 
 </Project>

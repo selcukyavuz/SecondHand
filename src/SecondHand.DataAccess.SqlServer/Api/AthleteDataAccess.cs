@@ -1,19 +1,15 @@
-namespace SecondHand.Library.DataAccess;
+namespace SecondHand.DataAccess.SqlServer.Api;
 
 using System.Collections.Generic;
+using SecondHand.Models.Strava;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
-using MongoDB.Driver;
-using SecondHand.Library.Models.Strava;
 public class AthleteDataAccess : IAthleteDataAccess
 {
     private readonly IDbContextFactory<SecondHandContext> _contextFactory;
-    private readonly IMongoCollection<Athlete> _athleteCollection;
     IConfiguration _configuration;
 
-    public AthleteDataAccess(
-        IDbContextFactory<SecondHandContext> contextFactory,
-        IConfiguration configuration)
+    public AthleteDataAccess(IDbContextFactory<SecondHandContext> contextFactory,IConfiguration configuration)
     {
         _configuration = configuration;
         _contextFactory = contextFactory;
@@ -21,22 +17,22 @@ public class AthleteDataAccess : IAthleteDataAccess
         {
             _context.Database.EnsureCreated();
         }
-        var mongoClient = new MongoClient(
-            _configuration.GetSection("SecondHandDatabase").GetSection("ConnectionString").Value);
-        var mongoDatabase = mongoClient.GetDatabase(
-            _configuration.GetSection("SecondHandDatabase").GetSection("DatabaseName").Value);
-        _athleteCollection = mongoDatabase.GetCollection<Athlete>(
-            _configuration.GetSection("SecondHandDatabase").GetSection("AthleteCollectionName").Value);
     }
 
     public List<Athlete> GetAthlete()
     {
-        return _athleteCollection.Find(_ => true).ToList();
+        using (var _context = _contextFactory.CreateDbContext())
+        {
+            return _context?.Athlete?.ToList()!;
+        }
     }
 
     public Athlete GetAthlete(int id)
     {
-        return _athleteCollection.Find(x => x.Id == id).FirstOrDefault();
+        using (var _context = _contextFactory.CreateDbContext())
+        {
+            return _context?.Athlete?.Where(x => x.Id == id).FirstOrDefault()!;
+        }
     }
 
     public Athlete InsertAthlete(Athlete athlete)
