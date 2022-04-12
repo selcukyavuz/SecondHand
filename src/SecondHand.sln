@@ -11,6 +11,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SecondHand.Api", "SecondHan
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SecondHand.Api.Client", "SecondHand.Api.Client\SecondHand.Api.Client.csproj", "{5ABB12CB-0019-45BC-A8F9-7A0EE5883600}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SecondHand.DataAccess.SqlServer", "SecondHand.DataAccess.SqlServer\SecondHand.DataAccess.SqlServer.csproj", "{9806DB0E-7266-46EB-901A-CFB3EF18C95F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SecondHand.Models", "SecondHand.Models\SecondHand.Models.csproj", "{F5357073-2019-48CF-9366-94E3704EF46B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -36,5 +40,13 @@ Global
 		{5ABB12CB-0019-45BC-A8F9-7A0EE5883600}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5ABB12CB-0019-45BC-A8F9-7A0EE5883600}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5ABB12CB-0019-45BC-A8F9-7A0EE5883600}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9806DB0E-7266-46EB-901A-CFB3EF18C95F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9806DB0E-7266-46EB-901A-CFB3EF18C95F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9806DB0E-7266-46EB-901A-CFB3EF18C95F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9806DB0E-7266-46EB-901A-CFB3EF18C95F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F5357073-2019-48CF-9366-94E3704EF46B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F5357073-2019-48CF-9366-94E3704EF46B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F5357073-2019-48CF-9366-94E3704EF46B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F5357073-2019-48CF-9366-94E3704EF46B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

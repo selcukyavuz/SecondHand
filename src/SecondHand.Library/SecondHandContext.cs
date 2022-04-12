@@ -1,4 +1,3 @@
-using SecondHand.Library.Models;
 using SecondHand.Library.Models.Strava;
 using Microsoft.EntityFrameworkCore;
 
