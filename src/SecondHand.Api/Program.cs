@@ -1,9 +1,10 @@
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using SecondHand.Api.BackgroundServices;
-using SecondHand.Library;
-using SecondHand.Library.DataAccess;
+using SecondHand.DataAccess.SqlServer;
 using SecondHand.Api.Models;
+using SecondHand.DataAccess.SqlServer.Api;
+using SecondHand.Library;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();

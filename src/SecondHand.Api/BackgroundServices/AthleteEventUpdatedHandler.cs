@@ -1,10 +1,9 @@
-using SecondHand.Library.Events;
 using EasyNetQ;
 using MongoDB.Driver;
 using Microsoft.Extensions.Options;
 using SecondHand.Api.Models;
-using SecondHand.Library.Models.Strava;
-using MongoDB.Bson;
+using SecondHand.Models.Strava;
+using SecondHand.Library.Events;
 
 namespace SecondHand.Api.BackgroundServices
 {

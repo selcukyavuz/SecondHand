@@ -1,10 +1,9 @@
 namespace SecondHand.DataAccess.SqlServer.Api;
 
-using SecondHand.DataAccess.SqlServer;
 using System.Collections.Generic;
+using SecondHand.Models.Strava;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
-using SecondHand.Models.Strava;
 public class AthleteDataAccess : IAthleteDataAccess
 {
     private readonly IDbContextFactory<SecondHandContext> _contextFactory;

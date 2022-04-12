@@ -12,12 +12,13 @@
   <ItemGroup>
     <PackageReference Include="AspNet.Security.OAuth.Strava" Version="6.0.5" />
     <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="10.0.1" />
-    <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="6.0.3" />
+    <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="6.0.4" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.0-preview.2.22153.1" />
     <PackageReference Include="MongoDB.Driver" Version="2.15.0" />
     <PackageReference Include="RestSharp" Version="107.3.0" />
     <ProjectReference Include="..\SecondHand.Library\SecondHand.Library.csproj" />
     <ProjectReference Include="..\SecondHand.Api.Client\SecondHand.Api.Client.csproj" />
+    <ProjectReference Include="..\SecondHand.Models\SecondHand.Models.csproj" />
   </ItemGroup>
 
 </Project>

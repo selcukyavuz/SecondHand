@@ -1,10 +1,10 @@
 using MediatR;
-using SecondHand.Library.DataAccess;
+using SecondHand.DataAccess.SqlServer.Api;
 using SecondHand.Library.Queries.Athlete;
 
 namespace SecondHand.Library.Handlers.Athlete;
 
-public class GetAthleteByIdHandler : IRequestHandler<GetAthleteByIdQuery, SecondHand.Library.Models.Strava.Athlete>
+public class GetAthleteByIdHandler : IRequestHandler<GetAthleteByIdQuery, SecondHand.Models.Strava.Athlete>
 { 
     private readonly IAthleteDataAccess _dataAccess;
 
@@ -12,7 +12,7 @@ public class GetAthleteByIdHandler : IRequestHandler<GetAthleteByIdQuery, Second
     {
         _dataAccess = dataAccess;
     }
-    public Task<SecondHand.Library.Models.Strava.Athlete> Handle(GetAthleteByIdQuery request, CancellationToken cancellationToken)
+    public Task<SecondHand.Models.Strava.Athlete> Handle(GetAthleteByIdQuery request, CancellationToken cancellationToken)
     {
         return Task.FromResult(_dataAccess.GetAthlete(request.Id));
     }

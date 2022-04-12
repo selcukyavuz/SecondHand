@@ -1,4 +1,4 @@
-using SecondHand.Library.Models.Strava;
+using SecondHand.Models.Strava;
 
 namespace SecondHand.Library.Events
 {

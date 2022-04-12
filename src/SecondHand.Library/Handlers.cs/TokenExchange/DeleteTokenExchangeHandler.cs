@@ -1,5 +1,5 @@
 using MediatR;
-using SecondHand.Library.DataAccess;
+using SecondHand.DataAccess.SqlServer.Api;
 using SecondHand.Library.Commands.TokenExchange;
 
 namespace SecondHand.Library.Handlers.TokenExchange;

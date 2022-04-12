@@ -9,6 +9,7 @@
   <ItemGroup>
     <PackageReference Include="RestSharp" Version="107.3.0" />
     <ProjectReference Include="..\SecondHand.Library\SecondHand.Library.csproj" />
+    <ProjectReference Include="..\SecondHand.Models\SecondHand.Models.csproj" />
   </ItemGroup>
 
 </Project>

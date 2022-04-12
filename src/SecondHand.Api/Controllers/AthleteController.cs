@@ -1,13 +1,13 @@
 using Microsoft.AspNetCore.Mvc;
-using SecondHand.Library.Models.Strava;
-using SecondHand.Library.Queries.Athlete;
-using SecondHand.Library.Commands.Athlete;
+using SecondHand.Models.Strava;
 using MediatR;
 using EasyNetQ;
-using SecondHand.Library.Events;
 using MongoDB.Driver;
 using Microsoft.Extensions.Options;
 using SecondHand.Api.Models;
+using SecondHand.Library.Queries.Athlete;
+using SecondHand.Library.Commands.Athlete;
+using SecondHand.Library.Events;
 
 namespace SecondHand.Api.Controllers;
 
