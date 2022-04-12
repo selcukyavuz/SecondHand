@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SecondHand.DataAccess.SqlSe
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SecondHand.Models", "SecondHand.Models\SecondHand.Models.csproj", "{F5357073-2019-48CF-9366-94E3704EF46B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SecondHand.DataAccess.MongoDB", "SecondHand.DataAccess.MongoDB\SecondHand.DataAccess.MongoDB.csproj", "{3B7B4838-0963-4D28-981B-1F1C7CCEF858}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -48,5 +50,9 @@ Global
 		{F5357073-2019-48CF-9366-94E3704EF46B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F5357073-2019-48CF-9366-94E3704EF46B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F5357073-2019-48CF-9366-94E3704EF46B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3B7B4838-0963-4D28-981B-1F1C7CCEF858}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3B7B4838-0963-4D28-981B-1F1C7CCEF858}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3B7B4838-0963-4D28-981B-1F1C7CCEF858}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3B7B4838-0963-4D28-981B-1F1C7CCEF858}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

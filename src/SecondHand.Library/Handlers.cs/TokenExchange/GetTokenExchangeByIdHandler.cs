@@ -1,5 +1,5 @@
 using MediatR;
-using SecondHand.DataAccess.SqlServer.Api;
+using SecondHand.DataAccess.MongoDB.Api;
 using SecondHand.Library.Queries.TokenExchange;
 
 namespace SecondHand.Library.Handlers.TokenExchange;
@@ -12,8 +12,5 @@ public class GetTokenExchangeByIdHandler : IRequestHandler<GetTokenExchangeByIdQ
     {
         _dataAccess = dataAccess;
     }
-    public Task<SecondHand.Models.Strava.TokenExchange> Handle(GetTokenExchangeByIdQuery request, CancellationToken cancellationToken)
-    {
-        return Task.FromResult(_dataAccess.GetTokenExchange(request.id));
-    }
+    public Task<SecondHand.Models.Strava.TokenExchange> Handle(GetTokenExchangeByIdQuery request, CancellationToken cancellationToken) => Task.FromResult(_dataAccess.GetTokenExchange(request.id));
 }

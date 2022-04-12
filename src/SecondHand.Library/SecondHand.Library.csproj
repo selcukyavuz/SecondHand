@@ -14,6 +14,7 @@
     <PackageReference Include="MongoDB.Driver" Version="2.15.0" />
     <ProjectReference Include="..\SecondHand.Models\SecondHand.Models.csproj" />
     <ProjectReference Include="..\SecondHand.DataAccess.SqlServer\SecondHand.DataAccess.SqlServer.csproj" />
+    <ProjectReference Include="..\SecondHand.DataAccess.MongoDB\SecondHand.DataAccess.MongoDB.csproj" />
   </ItemGroup>
 
 </Project>

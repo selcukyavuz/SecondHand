@@ -1,5 +1,5 @@
 using MediatR;
-using SecondHand.DataAccess.SqlServer.Api;
+using SecondHand.DataAccess.MongoDB.Api;
 using SecondHand.Library.Queries.Athlete;
 
 namespace SecondHand.Library.Handlers.Athlete;
