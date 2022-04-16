@@ -1,17 +1,18 @@
 using Microsoft.AspNetCore.Mvc;
 using SecondHand.Api.Client;
+using SecondHand.Models.Adversitement;
 
 namespace SecondHand.Web.Controllers;
 
-public class AthletesController : Controller
+public class AdController : Controller
 {
-    private readonly ILogger<AthletesController> _logger;
+    private readonly ILogger<AdController> _logger;
     private readonly IConfiguration _configuration;
     private readonly SecondHandWebClient _SecondHandWebClient;
     private readonly SecondHandApiClient _secondHandApiClient;
     private readonly IHttpContextAccessor _accessor;
 
-    public AthletesController(ILogger<AthletesController> logger,IConfiguration configuration,IHttpContextAccessor accessor)
+    public AdController(ILogger<AdController> logger,IConfiguration configuration,IHttpContextAccessor accessor)
     {
         _logger = logger;
         _configuration = configuration;
@@ -23,16 +24,18 @@ public class AthletesController : Controller
             configuration["SecondHandApiUrl"]!);
     }
 
-    public IActionResult Index()
+    [HttpGet("~/ad/create")]
+    public IActionResult Create()
     {
         return View();
     }
 
-    [HttpGet("~/athlete/detail")]
-    public async Task<IActionResult> GetStats()
+    [HttpPost("~/ad/create")]
+    public IActionResult Create([FromBody] Ad Ad)
     {
-        var AthleteId = Convert.ToInt32(_accessor.HttpContext?.Session.GetString("AthleteId"));
-        var athlete = await Task.Run(() => _secondHandApiClient.Athlete().Get(AthleteId));
-        return View(athlete);
+        //Add an Ad
+        return View();
     }
+
+    
 }

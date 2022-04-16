@@ -1,4 +1,5 @@
 ﻿@using Microsoft.Extensions.Configuration
+@using System.Security.Claims
 @inject IConfiguration Configuration
 @inject IHttpContextAccessor Accessor;
 
@@ -6,13 +7,15 @@
     ViewData["Title"] = "Home Page";
     var ClientId = Configuration["Strava:ClientId"];
     var baseUrl = $"{Accessor?.HttpContext?.Request.Scheme}://{Accessor?.HttpContext?.Request.Host}{Accessor?.HttpContext?.Request.PathBase}";
+    var nameIdentifier = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
 }
-<a href="/People">People</a>
 
 <div class="jumbotron">
     @if (User?.Identity?.IsAuthenticated ?? false)
     {
         <h1>Welcome, @User.Identity.Name</h1>
+
+        <h1>@nameIdentifier</h1>
 
         <p>
             @foreach (var claim in Context.User.Claims)
@@ -30,7 +33,7 @@
         </p>
 
         <p>
-            <a class="btn btn-lg btn-danger" href="/athlete/stats">Athlete Stats</a>
+            <a class="btn btn-lg btn-danger" href="/ad/create">Add and Ad</a>
         </p>
     }
     else

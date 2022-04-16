@@ -10,9 +10,9 @@ public class AthleteAdapter : BaseAdapter
     {
     }
 
-    public Athlete GetStats(string access_token)
+    public Athlete Get(int id)
     {
-        var path = "/athlete?access_token=" + access_token;        
+        var path = "/athlete?id=" + id;        
         return RestClient.Get<Athlete>(RequestOptions.BaseUrl + path,CreateHeaders(path, RequestOptions)!);  
     }
 

@@ -8,7 +8,7 @@
             "name": ".NET Core Launch (web)",
             "type": "coreclr",
             "request": "launch",
-            "preLaunchTask": "build",
+            "preLaunchTask": "watch",
             "program": "${workspaceFolder}/src/SecondHand.Web/bin/Debug/net6.0/SecondHand.Web.dll",
             "args": [],
             "cwd": "${workspaceFolder}/src/SecondHand.Web",
