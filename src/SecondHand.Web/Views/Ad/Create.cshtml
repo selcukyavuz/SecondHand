@@ -1,3 +1,5 @@
+@model SecondHand.Web.ViewModel.CreateAdViewModel;
+
 <h1>Create an Add</h1>
 
 <form method="post" action="/ad/create">
@@ -5,24 +7,30 @@
   <div class="form-group">
     <label for="Categcategoryory">Category</label>
     <select class="form-control form-control-lg" id="category">
-        <option value="1">Cycling</option>
-        <option value="2">Run</option>
+        @foreach (var item in Model?.Categories!)
+        {
+          <option value="@item.Id">@item.Name</option>
+        }
     </select>
   </div>
 
   <div class="form-group">
-    <label for="product">Category</label>
+    <label for="product">Product</label>
     <select class="form-control form-control-lg" id="product">
-        <option value="1">Bike</option>
-        <option value="1">Shoe</option>
+        @foreach (var item in Model?.Products!)
+        {
+          <option value="@item.Id">@item.Name</option>
+        }
     </select>
   </div>
 
   <div class="form-group">
-    <label for="mark">Category</label>
+    <label for="mark">Mark</label>
     <select class="form-control form-control-lg" id="mark">
-        <option value="1">Bike</option>
-        <option value="1">Shoe</option>
+        @foreach (var item in Model?.Marks!)
+        {
+          <option value="@item.Id">@item.Name</option>
+        }
     </select>
   </div>
 
