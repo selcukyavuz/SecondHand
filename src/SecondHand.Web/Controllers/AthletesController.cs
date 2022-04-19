@@ -28,11 +28,11 @@ public class AthletesController : Controller
         return View();
     }
 
-    [HttpGet("~/athlete/stats")]
+    [HttpGet("~/athlete/detail")]
     public async Task<IActionResult> GetStats()
     {
-        var access_token = _accessor.HttpContext?.Session.GetString("access_token");
-        var athlete = await Task.Run(() => _secondHandApiClient.Athlete().GetStats(access_token!));
+        var AthleteId = Convert.ToInt32(_accessor.HttpContext?.Session.GetString("AthleteId"));
+        var athlete = await Task.Run(() => _secondHandApiClient.Athlete().Get(AthleteId));
         return View(athlete);
     }
 }

@@ -12,4 +12,8 @@ public class SecondHandDatabaseSettings
 
     public string TokenExchangeCollectionName { get; set; } = null!;
 
+    public string AdCollectionName { get; set; } = null!;
+
+    
+
 }

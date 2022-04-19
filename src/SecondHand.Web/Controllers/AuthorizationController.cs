@@ -38,8 +38,14 @@ public class AuthorizationController : Controller
         StravaHelper stravaHelper = new StravaHelper(_accessor);
         Token token = await stravaHelper.GetToken(_staravaSettings, code);
         var athlete = _secondHandApiClient.Athlete().Create(token?.Athlete!);
+
+        _accessor.HttpContext?.Session.SetString("AthleteId",token?.AthleteId!.ToString()!);
+        _accessor.HttpContext?.Session.SetString("access_token",token?.AccessToken!);
+        _accessor.HttpContext?.Session.SetString("scope",scope);
+
         token!.AthleteId = athlete.Id;
         var tokenExchange = _secondHandApiClient.TokenExchange().Create(token);
+
         return Redirect("~/");
     }
 }

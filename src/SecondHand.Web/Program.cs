@@ -1,24 +1,13 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
 using SecondHand.Api.Client.Settings;
-using Microsoft.EntityFrameworkCore;
-using SecondHand.DataAccess.SqlServer.Api;
-using MediatR;
-using SecondHand.Library;
-using SecondHand.DataAccess.SqlServer;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 builder.Services.AddHttpContextAccessor();
-builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 var ClientId = builder.Configuration.GetValue<string>("Strava:ClientId");
 var ClientSecret = builder.Configuration.GetValue<string>("Strava:ClientSecret");
 builder.Services.Configure<StravaSettings>(builder.Configuration.GetSection(StravaSettings.Key));
-builder.Services.AddDbContextFactory<SecondHandContext>(
-    options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")!));
-builder.Services.AddSingleton<IAthleteDataAccess, AthleteDataAccess>();
-builder.Services.AddSingleton<ITokenExchangeDataAccess, TokenExchangeDataAccess>();
-builder.Services.AddMediatR(typeof(SecondHandLibraryEntryPoint).Assembly);
 builder.Services.AddAuthentication(options =>
         {
             options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;

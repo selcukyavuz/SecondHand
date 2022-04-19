@@ -1,9 +1,7 @@
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using SecondHand.Api.BackgroundServices;
-using SecondHand.DataAccess.SqlServer;
 using SecondHand.Api.Models;
-using SecondHand.DataAccess.SqlServer.Api;
 using SecondHand.Library;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -12,16 +10,25 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.Configure<SecondHandDatabaseSettings>(
     builder.Configuration.GetSection("SecondHandDatabase"));
-builder.Services.AddDbContextFactory<SecondHandContext>(
+builder.Services.AddDbContextFactory<SecondHand.DataAccess.SqlServer.SecondHandContext>(
     options => options.UseSqlServer(builder.Configuration["ConnectionStrings:DefaultConnection"]));
-builder.Services.AddSingleton<IAthleteDataAccess, AthleteDataAccess>();
-builder.Services.AddSingleton<ITokenExchangeDataAccess, TokenExchangeDataAccess>();
+builder.Services.AddSingleton<SecondHand.DataAccess.SqlServer.Api.IAthleteDataAccess, SecondHand.DataAccess.SqlServer.Api.AthleteDataAccess>();
+builder.Services.AddSingleton<SecondHand.DataAccess.MongoDB.Api.IAthleteDataAccess, SecondHand.DataAccess.MongoDB.Api.AthleteDataAccess>();
+builder.Services.AddSingleton<SecondHand.DataAccess.SqlServer.Api.ITokenExchangeDataAccess, SecondHand.DataAccess.SqlServer.Api.TokenExchangeDataAccess>();
+builder.Services.AddSingleton<SecondHand.DataAccess.MongoDB.Api.ITokenExchangeDataAccess, SecondHand.DataAccess.MongoDB.Api.TokenExchangeDataAccess>();
+builder.Services.AddSingleton<SecondHand.DataAccess.SqlServer.Api.IAdDataAccess, SecondHand.DataAccess.SqlServer.Api.AdDataAccess>();
+builder.Services.AddSingleton<SecondHand.DataAccess.MongoDB.Api.IAdDataAccess, SecondHand.DataAccess.MongoDB.Api.AdDataAccess>();
+builder.Services.AddSingleton<SecondHand.DataAccess.SqlServer.Api.ICategoryDataAccess, SecondHand.DataAccess.SqlServer.Api.CategoryDataAccess>();
+builder.Services.AddSingleton<SecondHand.DataAccess.SqlServer.Api.IProductDataAccess, SecondHand.DataAccess.SqlServer.Api.ProductDataAccess>();
+builder.Services.AddSingleton<SecondHand.DataAccess.SqlServer.Api.IMarkDataAccess, SecondHand.DataAccess.SqlServer.Api.MarkDataAccess>();
 builder.Services.AddMediatR(typeof(SecondHandLibraryEntryPoint).Assembly);
 builder.Services.AddHostedService<AthleteCreatedEventHandler>();
 builder.Services.AddHostedService<AthleteEventUpdatedHandler>();
 builder.Services.AddHostedService<AthleteDeletedEventHandler>();
 builder.Services.AddHostedService<TokenExchangeCreatedEventHandler>();
-
+builder.Services.AddHostedService<AdCreatedEventHandler>();
+builder.Services.AddHostedService<AdEventUpdatedHandler>();
+builder.Services.AddHostedService<AdDeletedEventHandler>();
 
 
 var app = builder.Build();
