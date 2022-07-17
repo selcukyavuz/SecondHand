@@ -2,7 +2,7 @@ namespace SecondHand.Api.Controllers;
 
 using Microsoft.AspNetCore.Mvc;
 using SecondHand.Models.Advertisement;
-using SecondHand.DataAccess.SqlServer.Api;
+using SecondHand.DataAccess.SqlServer.Interface;
 
 [ApiController]
 [Route("api/[controller]")]
@@ -11,9 +11,7 @@ public class ProductController : BaseController
     private readonly IProductDataAccess _categoryDataAccess;
 
     public ProductController(IProductDataAccess categoryDataAccess,IConfiguration configuration) : base(configuration)
-    {
-        _categoryDataAccess = categoryDataAccess;
-    }
+        => _categoryDataAccess = categoryDataAccess;
 
     [HttpGet()]
     public async Task<List<Product>> Get() => await Task.Run(() => _categoryDataAccess.GetProduct());

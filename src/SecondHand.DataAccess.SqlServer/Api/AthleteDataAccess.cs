@@ -3,6 +3,7 @@ namespace SecondHand.DataAccess.SqlServer.Api;
 using System.Collections.Generic;
 using SecondHand.Models.Strava;
 using Microsoft.EntityFrameworkCore;
+using SecondHand.DataAccess.SqlServer.Interface;
 
 public class AthleteDataAccess : IAthleteDataAccess
 {

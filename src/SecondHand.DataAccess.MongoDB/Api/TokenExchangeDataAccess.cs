@@ -8,7 +8,9 @@ using SecondHand.DataAccess.MongoDB.Interface;
 
 public class TokenExchangeDataAccess : DataAccessBase<TokenExchange>, ITokenExchangeDataAccess
 {
-    public TokenExchangeDataAccess(IConfiguration configuration) : base(configuration,"TokenExchangeCollectionName")
+    private const string _collectionName = "TokenExchangeCollectionName";
+
+    public TokenExchangeDataAccess(IConfiguration configuration) : base(configuration, _collectionName)
     {
     }
 

@@ -1,4 +1,4 @@
-namespace SecondHand.DataAccess.SqlServer.Api;
+namespace SecondHand.DataAccess.SqlServer.Interface;
 
 using SecondHand.Models.Advertisement;
 

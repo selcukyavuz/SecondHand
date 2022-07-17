@@ -9,7 +9,9 @@ using SecondHand.DataAccess.MongoDB.Interface;
 
 public class AthleteDataAccess : DataAccessBase<Athlete>, IAthleteDataAccess
 {
-    public AthleteDataAccess(IConfiguration configuration) : base(configuration,"AthleteCollectionName")
+    private const string _collectionName = "AthleteCollectionName";
+
+    public AthleteDataAccess(IConfiguration configuration) : base(configuration, _collectionName)
     {
     }
     public bool DeleteAthlete(int id)

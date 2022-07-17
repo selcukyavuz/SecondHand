@@ -8,12 +8,7 @@ public class GetAthleteByIdHandler : IRequestHandler<GetAthleteByIdQuery, Second
 {
     private readonly IAthleteDataAccess _dataAccess;
 
-    public GetAthleteByIdHandler(IAthleteDataAccess dataAccess)
-    {
-        _dataAccess = dataAccess;
-    }
-    public Task<SecondHand.Models.Strava.Athlete> Handle(GetAthleteByIdQuery request, CancellationToken cancellationToken)
-    {
-        return Task.FromResult(_dataAccess.GetAthlete(request.Id));
-    }
+    public GetAthleteByIdHandler(IAthleteDataAccess dataAccess) =>  _dataAccess = dataAccess;
+
+    public Task<SecondHand.Models.Strava.Athlete> Handle(GetAthleteByIdQuery request, CancellationToken cancellationToken) => Task.FromResult(_dataAccess.GetAthlete(request.Id));
 }

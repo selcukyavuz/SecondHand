@@ -8,7 +8,9 @@ using SecondHand.DataAccess.MongoDB.Interface;
 
 public class AdDataAccess : DataAccessBase<Ad>, IAdDataAccess
 {
-    public AdDataAccess(IConfiguration configuration) : base(configuration,"AdCollectionName")
+    private const string _collectionName = "AdCollectionName";
+
+    public AdDataAccess(IConfiguration configuration) : base(configuration, _collectionName)
     {
     }
 
