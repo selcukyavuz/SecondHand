@@ -4,7 +4,7 @@ using SecondHand.Library.Queries.Ad;
 
 namespace SecondHand.Library.Handlers.Ad;
 
-public class GetAdByIdHandler : IRequestHandler<GetAdByIdQuery, SecondHand.Models.Adversitement.Ad>
+public class GetAdByIdHandler : IRequestHandler<GetAdByIdQuery, SecondHand.Models.Advertisement.Ad>
 { 
     private readonly IAdDataAccess _dataAccess;
 
@@ -12,7 +12,7 @@ public class GetAdByIdHandler : IRequestHandler<GetAdByIdQuery, SecondHand.Model
     {
         _dataAccess = dataAccess;
     }
-    public Task<SecondHand.Models.Adversitement.Ad> Handle(GetAdByIdQuery request, CancellationToken cancellationToken)
+    public Task<SecondHand.Models.Advertisement.Ad> Handle(GetAdByIdQuery request, CancellationToken cancellationToken)
     {
         return Task.FromResult(_dataAccess.GetAd(request.Id));
     }

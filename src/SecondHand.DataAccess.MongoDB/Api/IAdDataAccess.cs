@@ -1,6 +1,6 @@
 namespace SecondHand.DataAccess.MongoDB.Api;
 
-using SecondHand.Models.Adversitement;
+using SecondHand.Models.Advertisement;
 
 public interface IAdDataAccess
 {

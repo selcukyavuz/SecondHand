@@ -8,18 +8,11 @@ using Microsoft.Extensions.Configuration;
 public class AthleteDataAccess : IAthleteDataAccess
 {
     private readonly IMongoCollection<Athlete> _athleteCollection;
-    IConfiguration _configuration;
-
     public AthleteDataAccess(IConfiguration configuration)
     {
-        _configuration = configuration;
-
-         var mongoClient = new MongoClient(
-            _configuration.GetSection("SecondHandDatabase").GetSection("ConnectionString").Value);
-        var mongoDatabase = mongoClient.GetDatabase(
-            _configuration.GetSection("SecondHandDatabase").GetSection("DatabaseName").Value);
-        _athleteCollection = mongoDatabase.GetCollection<Athlete>(
-            _configuration.GetSection("SecondHandDatabase").GetSection("AthleteCollectionName").Value);
+        var mongoClient = new MongoClient(configuration.GetSection("SecondHandDatabase").GetSection("ConnectionString").Value);
+        var mongoDatabase = mongoClient.GetDatabase(configuration.GetSection("SecondHandDatabase").GetSection("DatabaseName").Value);
+        _athleteCollection = mongoDatabase.GetCollection<Athlete>(configuration.GetSection("SecondHandDatabase").GetSection("AthleteCollectionName").Value);
     }
     public bool DeleteAthlete(int id)
     {

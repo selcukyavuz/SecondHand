@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace SecondHand.Models.Adversitement;
+namespace SecondHand.Models.Advertisement;
 
 public class Ad
 {
@@ -17,5 +17,4 @@ public class Ad
     public string? State { get; set; }
     public string? City { get; set; }
     public string? Country { get; set; }
-
 }

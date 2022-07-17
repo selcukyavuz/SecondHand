@@ -1,27 +1,19 @@
 using Microsoft.AspNetCore.Mvc;
 using SecondHand.Api.Client;
-using SecondHand.Models.Adversitement;
+using SecondHand.Models.Advertisement;
 using SecondHand.Web.ViewModel;
 
 namespace SecondHand.Web.Controllers;
 
 public class AdController : Controller
 {
-    private readonly ILogger<AdController> _logger;
-    private readonly IConfiguration _configuration;
-    private readonly SecondHandWebClient _SecondHandWebClient;
     private readonly SecondHandApiClient _secondHandApiClient;
-    private readonly IHttpContextAccessor _accessor;
 
-    public AdController(ILogger<AdController> logger,IConfiguration configuration,IHttpContextAccessor accessor)
+    public AdController(IConfiguration configuration)
     {
-        _logger = logger;
-        _configuration = configuration;
-        _accessor = accessor;
-        _SecondHandWebClient = new SecondHandWebClient(string.Empty, string.Empty, configuration["Strava:ApiUrl"]!);
         _secondHandApiClient = new SecondHandApiClient(
-            string.Empty, 
-            string.Empty, 
+            string.Empty,
+            string.Empty,
             configuration["SecondHandApiUrl"]!);
     }
 
@@ -32,22 +24,23 @@ public class AdController : Controller
         var products = await Task.Run(() => _secondHandApiClient.Product().Get());
         var marks = await Task.Run(() => _secondHandApiClient.Mark().Get());
 
-        var model = new CreateAdViewModel(){ 
+        var createAdViewModel = new CreateAdViewModel(){
             Categories = categories,
             Products = products,
             Marks = marks
         };
 
-        return View(model);
+        return View(createAdViewModel);
     }
 
     [HttpPost("~/ad/create")]
-    public  IActionResult Create([FromBody] Ad Ad)
+    public IActionResult Create([FromBody] Ad ad)
     {
-        
-        //Add an Ad
+        if (ad is null)
+        {
+            throw new ArgumentNullException(nameof(ad));
+        }
+
         return View();
     }
-
-    
 }

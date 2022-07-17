@@ -1,6 +1,6 @@
 namespace SecondHand.Api.Client.Adapter;
 
-using SecondHand.Models.Adversitement;
+using SecondHand.Models.Advertisement;
 using SecondHand.Api.Client.Net;
 using SecondHand.Api.Client.Request.Common;
 
@@ -12,13 +12,13 @@ public class ProductAdapter : BaseAdapter
 
     public List<Product> Get()
     {
-        var path = "/product";        
-        return RestClient.Get<List<Product>>(RequestOptions.BaseUrl + path,CreateHeaders(path, RequestOptions)!);  
+        const string path = "/product";
+        return RestClient.Get<List<Product>>(RequestOptions.BaseUrl + path, CreateHeaders(RequestOptions)!);
     }
 
     public Product Get(int id)
     {
-        var path = "/product/" + id;
-        return RestClient.Get<Product>(RequestOptions.BaseUrl + path,CreateHeaders(path, RequestOptions)!);  
+        string path = "/product/" + id;
+        return RestClient.Get<Product>(RequestOptions.BaseUrl + path, CreateHeaders(RequestOptions)!);
     }
 }

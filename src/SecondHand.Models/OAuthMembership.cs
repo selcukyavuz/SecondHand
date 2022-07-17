@@ -1,6 +1,6 @@
-using System.ComponentModel.DataAnnotations;
-
 namespace SecondHand.Models;
+
+using System.ComponentModel.DataAnnotations;
 
 public class OAuthMembership
 {

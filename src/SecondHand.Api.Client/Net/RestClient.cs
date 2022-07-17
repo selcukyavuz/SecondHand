@@ -46,8 +46,8 @@ public static class RestClient
     }
 
     public static T Exchange<T>(
-        string url, 
-        HttpMethod httpMethod,Dictionary<string,string>  headers, 
+        string url,
+        HttpMethod httpMethod,Dictionary<string,string>  headers,
         object request)  where T : class
     {
         try
@@ -78,7 +78,7 @@ public static class RestClient
     private static T HandleResponse<T>(HttpResponseMessage httpResponseMessage) where T : class
     {
         var apiResponse = JsonSerializer.Deserialize<T>(
-            httpResponseMessage.Content.ReadAsStringAsync().Result, 
+            httpResponseMessage.Content.ReadAsStringAsync().Result,
             SecondHand.Api.Client.Common.JsonSerializerSettings.Settings);
 
         if(apiResponse == null)
@@ -98,6 +98,4 @@ public static class RestClient
         var json = JsonSerializer.Serialize(request,SecondHand.Api.Client.Common.JsonSerializerSettings.Settings);
         return new StringContent(json, Encoding.UTF8, "application/json");
     }
-
-
 }

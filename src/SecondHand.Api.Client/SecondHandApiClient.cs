@@ -5,7 +5,6 @@ using SecondHand.Api.Client.Request.Common;
 
 public class SecondHandApiClient : ISecondHandApiClient
 {
-   
    private readonly AdAdapter _adAdapter;
    private readonly CategoryAdapter _categoryAdapter;
    private readonly ProductAdapter _productAdapter;

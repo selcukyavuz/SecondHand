@@ -11,40 +11,38 @@ namespace SecondHand.Api.BackgroundServices
     {
         private readonly IConfiguration _configuration;
         private readonly IMongoCollection<Athlete> _athleteCollection;
-        private IOptions<SecondHandDatabaseSettings> _SecondHandDatabaseSettings;
 
         public AthleteDeletedEventHandler(
-            IConfiguration configuration, 
+            IConfiguration configuration,
             IOptions<SecondHandDatabaseSettings> secondHandDatabaseSettings)
         {
             _configuration = configuration;
-            _SecondHandDatabaseSettings = secondHandDatabaseSettings;
             var mongoClient = new MongoClient(secondHandDatabaseSettings.Value.ConnectionString);
             var mongoDatabase = mongoClient.GetDatabase(secondHandDatabaseSettings.Value.DatabaseName);
             _athleteCollection = mongoDatabase.GetCollection<Athlete>(
                 secondHandDatabaseSettings.Value.AthleteCollectionName);
         }
-        protected override async Task ExecuteAsync(CancellationToken stoppingToken)
+        protected override async Task ExecuteAsync(CancellationToken cancellationToken)
         {
             IBus _bus = RabbitHutch.CreateBus(
-                Environment.GetEnvironmentVariable("RABBITCONNECTION") 
-                ?? 
+                Environment.GetEnvironmentVariable("RABBITCONNECTION")
+                ??
                 _configuration.GetSection("RabbitSettings").GetSection("Connection").Value);
-            _bus.PubSub.Subscribe<AthleteDeletedEvent>("DeleteAthleteEventHandler", ProccessAthlete);
+            _ = _bus.PubSub.Subscribe<AthleteDeletedEvent>("DeleteAthleteEventHandler", ProcessAthlete, cancellationToken);
 
-            while (!stoppingToken.IsCancellationRequested)
+            while (!cancellationToken.IsCancellationRequested)
             {
-                await Task.Delay(TimeSpan.FromSeconds(5), stoppingToken);
+                await Task.Delay(TimeSpan.FromSeconds(5), cancellationToken);
             }
 
             _bus.Dispose();
         }
 
-        private void ProccessAthlete(AthleteDeletedEvent athleteDeletedEvent)
+        private void ProcessAthlete(AthleteDeletedEvent athleteDeletedEvent)
         {
             var filter = Builders<Athlete>.Filter.Eq(s => s.Id, athleteDeletedEvent.Id);
             _athleteCollection.DeleteOne(
-                filter                
+                filter
             );
         }
     }

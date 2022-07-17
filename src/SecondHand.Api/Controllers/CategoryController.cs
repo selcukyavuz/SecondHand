@@ -1,22 +1,17 @@
-using Microsoft.AspNetCore.Mvc;
-using SecondHand.Models.Adversitement;
-using SecondHand.DataAccess.SqlServer.Api;
-
 namespace SecondHand.Api.Controllers;
+
+using Microsoft.AspNetCore.Mvc;
+using SecondHand.Models.Advertisement;
+using SecondHand.DataAccess.SqlServer.Api;
 
 [ApiController]
 [Route("api/[controller]")]
 public class CategoryController : ControllerBase
-{   
-    private readonly ILogger<CategoryController> _logger;
+{
     private readonly ICategoryDataAccess _categoryDataAccess;
 
-    public CategoryController(
-        ILogger<CategoryController> logger, 
-        ICategoryDataAccess categoryDataAccess
-        )
+    public CategoryController(ICategoryDataAccess categoryDataAccess)
     {
-        _logger = logger;
         _categoryDataAccess = categoryDataAccess;
     }
 
@@ -25,6 +20,4 @@ public class CategoryController : ControllerBase
 
     [HttpGet("{id}")]
     public async Task<Category> Get(int id) => await Task.Run(() => _categoryDataAccess.GetCategory(id));
-
-    
 }

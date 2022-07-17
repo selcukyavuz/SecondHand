@@ -1,38 +1,26 @@
+namespace SecondHand.Api.Controllers;
+
 using Microsoft.AspNetCore.Mvc;
 using SecondHand.Models.Strava;
 using MediatR;
 using EasyNetQ;
-using MongoDB.Driver;
-using Microsoft.Extensions.Options;
-using SecondHand.Api.Models;
 using SecondHand.Library.Queries.TokenExchange;
 using SecondHand.Library.Commands.TokenExchange;
 using SecondHand.Library.Events;
 
-namespace SecondHand.Api.Controllers;
-
 [ApiController]
 [Route("api/[controller]")]
 public class TokenExchangeController : ControllerBase
-{   
-    private readonly ILogger<TokenExchangeController> _logger;
+{
     private readonly IMediator _mediator;
-    private readonly IConfiguration _configuration; 
-    private readonly IMongoCollection<TokenExchange> _TokenExchangeCollection;
+    private readonly IConfiguration _configuration;
 
     public TokenExchangeController(
-        ILogger<TokenExchangeController> logger, 
         IMediator mediator,
-        IConfiguration configuration,
-        IOptions<SecondHandDatabaseSettings> secondHandDatabaseSettings)
+        IConfiguration configuration)
     {
-        _logger = logger;
         _mediator = mediator;
         _configuration = configuration;
-        var mongoClient = new MongoClient(secondHandDatabaseSettings.Value.ConnectionString);
-        var mongoDatabase = mongoClient.GetDatabase(secondHandDatabaseSettings.Value.DatabaseName);
-        _TokenExchangeCollection = mongoDatabase.GetCollection<TokenExchange>(
-            secondHandDatabaseSettings.Value.TokenExchangeCollectionName);
     }
 
     [HttpGet()]
@@ -47,8 +35,8 @@ public class TokenExchangeController : ControllerBase
         TokenExchange TokenExchange = await _mediator.Send(new InsertTokenExchangeCommand(value!));
 
         using (var bus = RabbitHutch.CreateBus(
-            Environment.GetEnvironmentVariable("RABBITCONNECTION") 
-            ?? 
+            Environment.GetEnvironmentVariable("RABBITCONNECTION")
+            ??
             _configuration.GetSection("RabbitSettings").GetSection("Connection").Value))
         {
             bus.PubSub.Publish(new TokenExchangeCreatedEvent(Guid.NewGuid(), value));

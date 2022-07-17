@@ -8,8 +8,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.Configure<SecondHandDatabaseSettings>(
-    builder.Configuration.GetSection("SecondHandDatabase"));
+builder.Services.Configure<SecondHandDatabaseSettings>(builder.Configuration.GetSection("SecondHandDatabase"));
 builder.Services.AddDbContextFactory<SecondHand.DataAccess.SqlServer.SecondHandContext>(
     options => options.UseSqlServer(builder.Configuration["ConnectionStrings:DefaultConnection"]));
 builder.Services.AddSingleton<SecondHand.DataAccess.SqlServer.Api.IAthleteDataAccess, SecondHand.DataAccess.SqlServer.Api.AthleteDataAccess>();
@@ -29,7 +28,6 @@ builder.Services.AddHostedService<TokenExchangeCreatedEventHandler>();
 builder.Services.AddHostedService<AdCreatedEventHandler>();
 builder.Services.AddHostedService<AdEventUpdatedHandler>();
 builder.Services.AddHostedService<AdDeletedEventHandler>();
-
 
 var app = builder.Build();
 if (app.Environment.IsDevelopment())

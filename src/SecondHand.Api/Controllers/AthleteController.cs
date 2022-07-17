@@ -2,9 +2,6 @@ using Microsoft.AspNetCore.Mvc;
 using SecondHand.Models.Strava;
 using MediatR;
 using EasyNetQ;
-using MongoDB.Driver;
-using Microsoft.Extensions.Options;
-using SecondHand.Api.Models;
 using SecondHand.Library.Queries.Athlete;
 using SecondHand.Library.Commands.Athlete;
 using SecondHand.Library.Events;
@@ -14,25 +11,16 @@ namespace SecondHand.Api.Controllers;
 [ApiController]
 [Route("api/[controller]")]
 public class AthleteController : ControllerBase
-{   
-    private readonly ILogger<AthleteController> _logger;
+{
     private readonly IMediator _mediator;
-    private readonly IConfiguration _configuration; 
-    private readonly IMongoCollection<Athlete> _AthleteCollection;
+    private readonly IConfiguration _configuration;
 
     public AthleteController(
-        ILogger<AthleteController> logger, 
         IMediator mediator,
-        IConfiguration configuration,
-        IOptions<SecondHandDatabaseSettings> secondHandDatabaseSettings)
+        IConfiguration configuration)
     {
-        _logger = logger;
         _mediator = mediator;
         _configuration = configuration;
-        var mongoClient = new MongoClient(secondHandDatabaseSettings.Value.ConnectionString);
-        var mongoDatabase = mongoClient.GetDatabase(secondHandDatabaseSettings.Value.DatabaseName);
-        _AthleteCollection = mongoDatabase.GetCollection<Athlete>(
-            secondHandDatabaseSettings.Value.AthleteCollectionName);
     }
 
     [HttpGet()]
@@ -47,8 +35,8 @@ public class AthleteController : ControllerBase
         Athlete athlete = await _mediator.Send(new InsertAthleteCommand(value));
 
         using (var bus = RabbitHutch.CreateBus(
-            Environment.GetEnvironmentVariable("RABBITCONNECTION") 
-            ?? 
+            Environment.GetEnvironmentVariable("RABBITCONNECTION")
+            ??
             _configuration.GetSection("RabbitSettings").GetSection("Connection").Value))
         {
             bus.PubSub.Publish(new AthleteCreatedEvent(value.Id, value));
@@ -63,8 +51,8 @@ public class AthleteController : ControllerBase
         Athlete athlete = await _mediator.Send(new UpdateAthleteCommand(value));
 
         using (var bus = RabbitHutch.CreateBus(
-            Environment.GetEnvironmentVariable("RABBITCONNECTION") 
-            ?? 
+            Environment.GetEnvironmentVariable("RABBITCONNECTION")
+            ??
             _configuration.GetSection("RabbitSettings").GetSection("Connection").Value))
         {
             bus.PubSub.Publish(new AthleteUpdatedEvent(value.Id, value));
@@ -78,7 +66,9 @@ public class AthleteController : ControllerBase
     {
         bool result = await _mediator.Send(new DeleteAthleteCommand(id));
 
-        using (var bus = RabbitHutch.CreateBus(Environment.GetEnvironmentVariable("RABBITCONNECTION") ?? _configuration.GetSection("RabbitSettings").GetSection("Connection").Value))
+        using (var bus = RabbitHutch.CreateBus(Environment.GetEnvironmentVariable("RABBITCONNECTION")
+        ??
+        _configuration.GetSection("RabbitSettings").GetSection("Connection").Value))
         {
             bus.PubSub.Publish(new AthleteDeletedEvent(id));
         }

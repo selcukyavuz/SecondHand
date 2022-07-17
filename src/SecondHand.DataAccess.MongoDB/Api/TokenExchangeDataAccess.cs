@@ -8,18 +8,12 @@ using Microsoft.Extensions.Configuration;
 public class TokenExchangeDataAccess : ITokenExchangeDataAccess
 {
     private readonly IMongoCollection<TokenExchange> _TokenExchangeCollection;
-    IConfiguration _configuration;
 
     public TokenExchangeDataAccess(IConfiguration configuration)
     {
-        _configuration = configuration;
-
-         var mongoClient = new MongoClient(
-            _configuration.GetSection("SecondHandDatabase").GetSection("ConnectionString").Value);
-        var mongoDatabase = mongoClient.GetDatabase(
-            _configuration.GetSection("SecondHandDatabase").GetSection("DatabaseName").Value);
-        _TokenExchangeCollection = mongoDatabase.GetCollection<TokenExchange>(
-            _configuration.GetSection("SecondHandDatabase").GetSection("TokenExchangeCollectionName").Value);
+         var mongoClient = new MongoClient(configuration.GetSection("SecondHandDatabase").GetSection("ConnectionString").Value);
+        var mongoDatabase = mongoClient.GetDatabase(configuration.GetSection("SecondHandDatabase").GetSection("DatabaseName").Value);
+        _TokenExchangeCollection = mongoDatabase.GetCollection<TokenExchange>(configuration.GetSection("SecondHandDatabase").GetSection("TokenExchangeCollectionName").Value);
     }
     public bool DeleteTokenExchange(int id)
     {

@@ -1,6 +1,6 @@
 ## Run Locally 👨‍💻
 
-🔧 Requirements 
+🔧 Requirement
 
  - Docker https://docs.docker.com/desktop/windows/install/
  - .net 6 SDK https://dotnet.microsoft.com/en-us/download/dotnet/6.0
@@ -14,7 +14,7 @@ git clone https://github.com/selcukyavuz/SecondHand.git
 ```bash
 code .
 ```
-🔑 Enter the Credentials 
+🔑 Enter the Credentials
 ```bash
 dotnet user-secrets -p src/SecondHand.Api set "ConnectionStrings:DefaultConnection" ,"Server=127.0.0.1,1436;Database=SecondHand;user=sa;password=Password123;MultipleActiveResultSets=true;Trust Server Certificate=true;"
 dotnet user-secrets -p src/SecondHand.Api set "SecondHandDatabase:ConnectionString" ,"mongodb://root:example@localhost:27017"
@@ -29,13 +29,13 @@ docker-compose up
 ℹ️ Information
  -  To start developing with the Strava API, you will need to make an application https://developers.strava.com/docs/getting-started/#account
 
-✨ Tech Stack 
+✨ Tech Stack
  - Azure Sql Edge
  - Mongo DB
  - Rabbitmq
 
-✨ Pattern 
+✨ Pattern
  - CQRS
  - Event Sourcing
- 
+
 ✨ You are welcoming to contribute

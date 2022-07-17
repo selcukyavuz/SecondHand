@@ -22,5 +22,4 @@ public class Bike
 
     [JsonPropertyName("distance")]
     public float Distance { get; set; }
-    
 }

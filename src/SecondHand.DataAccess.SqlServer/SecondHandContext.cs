@@ -2,7 +2,7 @@ namespace SecondHand.DataAccess.SqlServer;
 
 using SecondHand.Models.Strava;
 using Microsoft.EntityFrameworkCore;
-using SecondHand.Models.Adversitement;
+using SecondHand.Models.Advertisement;
 
 public class SecondHandContext : DbContext
 {
@@ -15,8 +15,7 @@ public class SecondHandContext : DbContext
     public DbSet<Category>? Category { get; set; }
     public DbSet<Ad>? Ad { get; set; }
     public DbSet<Athlete>? Athlete { get; set; }
-    public DbSet<TokenExchange>? TokenExchange { get; set; }        
-
+    public DbSet<TokenExchange>? TokenExchange { get; set; }
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Mark>()

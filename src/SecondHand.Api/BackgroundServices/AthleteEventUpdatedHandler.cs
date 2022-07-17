@@ -11,30 +11,27 @@ namespace SecondHand.Api.BackgroundServices
     {
         private readonly IConfiguration _configuration;
         private readonly IMongoCollection<Athlete> _athleteCollection;
-        private IOptions<SecondHandDatabaseSettings> _SecondHandDatabaseSettings;
-
         public AthleteEventUpdatedHandler(IConfiguration configuration, IOptions<SecondHandDatabaseSettings> secondHandDatabaseSettings)
         {
             _configuration = configuration;
-            _SecondHandDatabaseSettings = secondHandDatabaseSettings;
             var mongoClient = new MongoClient(secondHandDatabaseSettings.Value.ConnectionString);
             var mongoDatabase = mongoClient.GetDatabase(secondHandDatabaseSettings.Value.DatabaseName);
             _athleteCollection = mongoDatabase.GetCollection<Athlete>(secondHandDatabaseSettings.Value.AthleteCollectionName);
         }
-        protected override async Task ExecuteAsync(CancellationToken stoppingToken)
+        protected override async Task ExecuteAsync(CancellationToken cancellationToken)
         {
             IBus _bus = RabbitHutch.CreateBus(Environment.GetEnvironmentVariable("RABBITCONNECTION") ?? _configuration.GetSection("RabbitSettings").GetSection("Connection").Value);
-            _bus.PubSub.Subscribe<AthleteUpdatedEvent>("UpdateAthleteEventHandler", ProccessAthlete);
+            _bus.PubSub.Subscribe<AthleteUpdatedEvent>("UpdateAthleteEventHandler", ProcessAthlete, cancellationToken);
 
-            while (!stoppingToken.IsCancellationRequested)
+            while (!cancellationToken.IsCancellationRequested)
             {
-                await Task.Delay(TimeSpan.FromSeconds(5), stoppingToken);
+                await Task.Delay(TimeSpan.FromSeconds(5), cancellationToken);
             }
 
             _bus.Dispose();
         }
 
-        private void ProccessAthlete(AthleteUpdatedEvent athleteUpdatedEvent)
+        private void ProcessAthlete(AthleteUpdatedEvent athleteUpdatedEvent)
         {
             var filter = Builders<Athlete>.Filter.Eq(s => s.Id, athleteUpdatedEvent.Athlete.Id);
             _athleteCollection.ReplaceOneAsync(

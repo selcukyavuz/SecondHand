@@ -1,22 +1,17 @@
-using Microsoft.AspNetCore.Mvc;
-using SecondHand.Models.Adversitement;
-using SecondHand.DataAccess.SqlServer.Api;
-
 namespace SecondHand.Api.Controllers;
+
+using Microsoft.AspNetCore.Mvc;
+using SecondHand.Models.Advertisement;
+using SecondHand.DataAccess.SqlServer.Api;
 
 [ApiController]
 [Route("api/[controller]")]
 public class MarkController : ControllerBase
-{   
-    private readonly ILogger<MarkController> _logger;
+{
     private readonly IMarkDataAccess _categoryDataAccess;
 
-    public MarkController(
-        ILogger<MarkController> logger, 
-        IMarkDataAccess categoryDataAccess
-        )
+    public MarkController(IMarkDataAccess categoryDataAccess)
     {
-        _logger = logger;
         _categoryDataAccess = categoryDataAccess;
     }
 
@@ -25,6 +20,4 @@ public class MarkController : ControllerBase
 
     [HttpGet("{id}")]
     public async Task<Mark> Get(int id) => await Task.Run(() => _categoryDataAccess.GetMark(id));
-
-    
 }

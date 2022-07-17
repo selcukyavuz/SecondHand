@@ -13,14 +13,17 @@ namespace SecondHand.Web.Controllers;
 
 public class AuthenticationController : Controller
 {
-    [HttpGet("~/signin")]
+   private const string signin = "~/signin";
+   private const string signout = "~/signout";
+
+    [HttpGet(signin)]
     public async Task<IActionResult> SignIn() => View("SignIn", await HttpContext.GetExternalProvidersAsync());
 
-    [HttpPost("~/signin")]
+    [HttpPost(signin)]
     public async Task<IActionResult> SignIn([FromForm] string provider)
     {
         // Note: the "provider" parameter corresponds to the external
-        // authentication provider choosen by the user agent.
+        // authentication provider chosen by the user agent.
         if (string.IsNullOrWhiteSpace(provider))
         {
             return BadRequest();
@@ -37,8 +40,8 @@ public class AuthenticationController : Controller
         return Challenge(new AuthenticationProperties { RedirectUri = "/" }, provider);
     }
 
-    [HttpGet("~/signout")]
-    [HttpPost("~/signout")]
+    [HttpGet(signout)]
+    [HttpPost(signout)]
     public IActionResult SignOutCurrentUser()
     {
         // Instruct the cookies middleware to delete the local cookie created

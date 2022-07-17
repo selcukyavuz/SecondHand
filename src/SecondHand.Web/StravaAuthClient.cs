@@ -6,7 +6,7 @@ using SecondHand.Api.Client.Request.Common;
 public class SecondHandWebClient
 {
    private const string BaseUrl = "https://www.strava.com/api/v3";
-   private readonly AthleteAdapter _atheleteAdapter;
+   private readonly AthleteAdapter _athleteAdapter;
 
    public SecondHandWebClient(string apiKey, string secretKey) : this(apiKey, secretKey, BaseUrl)
    {
@@ -21,11 +21,11 @@ public class SecondHandWebClient
             BaseUrl = baseUrl
       };
 
-      _atheleteAdapter = new AthleteAdapter(requestOptions);
+      _athleteAdapter = new AthleteAdapter(requestOptions);
    }
 
    public AthleteAdapter Athlete()
    {
-      return _atheleteAdapter;
+      return _athleteAdapter;
    }
 }

@@ -1,4 +1,4 @@
-using SecondHand.Models.Adversitement;
+using SecondHand.Models.Advertisement;
 
 namespace SecondHand.Web.ViewModel
 {

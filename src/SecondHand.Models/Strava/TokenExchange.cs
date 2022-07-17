@@ -8,7 +8,7 @@ public class TokenExchange
     [Key]
     [JsonIgnore]
     public long? Id { get; set; }
-    
+     
     [JsonPropertyName("token_type")]
     public string? TokenType { get; set; }
 

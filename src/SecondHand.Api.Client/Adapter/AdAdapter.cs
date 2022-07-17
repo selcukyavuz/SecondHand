@@ -1,6 +1,6 @@
 namespace SecondHand.Api.Client.Adapter;
 
-using SecondHand.Models.Adversitement;
+using SecondHand.Models.Advertisement;
 using SecondHand.Api.Client.Net;
 using SecondHand.Api.Client.Request.Common;
 
@@ -12,13 +12,13 @@ public class AdAdapter : BaseAdapter
 
     public Ad Get(int id)
     {
-        var path = "/Ad?id=" + id;        
-        return RestClient.Get<Ad>(RequestOptions.BaseUrl + path,CreateHeaders(path, RequestOptions)!);  
+        string path = "/Ad?id=" + id;
+        return RestClient.Get<Ad>(RequestOptions.BaseUrl + path, CreateHeaders(RequestOptions)!);
     }
 
     public Ad Create(Ad Ad)
     {
-        var path = "/Ad";
-        return RestClient.Post<Ad>(RequestOptions.BaseUrl + path, CreateHeaders(Ad,path,RequestOptions)!, Ad);
+        const string path = "/Ad";
+        return RestClient.Post<Ad>(RequestOptions.BaseUrl + path, CreateHeaders(RequestOptions)!, Ad);
     }
 }

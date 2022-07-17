@@ -8,20 +8,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 
-
 public static class RequestQueryParamsBuilder
 {
     public static string BuildQueryParam(object request)
     {
-        var fields = Enumerable.ToList(request.GetType().GetProperties());
-        var query = new StringBuilder(fields.Any() ? "?" : string.Empty);
+        var fields = request.GetType().GetProperties().ToList();
+        var query = new StringBuilder(fields.Count > 0 ? "?" : string.Empty);
         foreach (var field in fields)
         {
             var value = field.GetValue(request);
-            var name = char.ToLowerInvariant(field.Name[0]) + field.Name.Substring(1);
             if (value != null)
             {
-                query.Append($"{field.Name}={Uri.EscapeDataString(FormatValue(value))}&");
+                query.Append(field.Name).Append('=').Append(Uri.EscapeDataString(FormatValue(value))).Append('&');
             }
         }
 
@@ -30,19 +28,14 @@ public static class RequestQueryParamsBuilder
 
     private static string FormatValue(object value)
     {
-        switch(value)
+        return value switch
         {
-            case DateTime time:
-                return FormatDateValue(time);
-            case ISet<long> enumarable:
-                return FormatListValue(enumarable);
-            case Enum @enum:
-                return GetEnumMemberAttrValue(@enum)!;
-            case decimal @decimal:
-                return @decimal.ToString(new CultureInfo("en-US"));
-            default :
-                return value.ToString()!;
-        } 
+            DateTime time => FormatDateValue(time),
+            ISet<long> enumerable => FormatListValue(enumerable),
+            Enum @enum => GetEnumMemberAttrValue(@enum)!,
+            decimal @decimal => @decimal.ToString(new CultureInfo("en-US")),
+            _ => value.ToString()!,
+        };
     }
 
     private static string FormatDateValue(DateTime value)
@@ -57,15 +50,14 @@ public static class RequestQueryParamsBuilder
 
     private static string? GetEnumMemberAttrValue<T>(T enumVal)
     {
-        var attr = enumVal?
+        if (enumVal?
             .GetType()
             .GetRuntimeField(enumVal?.ToString()!)?
-            .GetCustomAttribute(typeof(EnumMemberAttribute)) as EnumMemberAttribute;
-            
-        if (attr != null)
+            .GetCustomAttribute(typeof(EnumMemberAttribute)) is EnumMemberAttribute attr)
+        {
             return attr.Value;
+        }
 
         return null;
     }
-        
 }

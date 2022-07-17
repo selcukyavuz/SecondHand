@@ -1,10 +1,9 @@
+namespace SecondHand.Api.Client;
+
 using SecondHand.Api.Client.Adapter;
 
-namespace SecondHand.Api.Client
+public interface ISecondHandApiClient
 {
-    public interface ISecondHandApiClient
-    {
-        AthleteAdapter Athlete();
-        TokenExchangeAdapter TokenExchange();
-    }
+    AthleteAdapter Athlete();
+    TokenExchangeAdapter TokenExchange();
 }

@@ -8,10 +8,7 @@ builder.Services.AddHttpContextAccessor();
 var ClientId = builder.Configuration.GetValue<string>("Strava:ClientId");
 var ClientSecret = builder.Configuration.GetValue<string>("Strava:ClientSecret");
 builder.Services.Configure<StravaSettings>(builder.Configuration.GetSection(StravaSettings.Key));
-builder.Services.AddAuthentication(options =>
-        {
-            options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-        })
+builder.Services.AddAuthentication(options => options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme)
         .AddCookie(options =>
         {
             options.LoginPath = "/signin";
@@ -29,8 +26,7 @@ builder.Services.AddSession(options =>
     options.Cookie.Name = ".StravaDemo.Session";
     options.IdleTimeout = TimeSpan.FromMinutes(10);
     options.Cookie.IsEssential = true;
-});    
-
+});
 
 var app = builder.Build();
 
@@ -53,6 +49,3 @@ app.MapControllerRoute(
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.Run();
-
-
-

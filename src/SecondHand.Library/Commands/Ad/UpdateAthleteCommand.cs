@@ -1,6 +1,6 @@
 namespace SecondHand.Library.Commands.Ad;
 
-using SecondHand.Models.Adversitement;
+using SecondHand.Models.Advertisement;
 using MediatR;
 
-public record UpdateAdCommand(Ad ad) : IRequest<Ad>;
+public record UpdateAdCommand(Ad Ad) : IRequest<Ad>;

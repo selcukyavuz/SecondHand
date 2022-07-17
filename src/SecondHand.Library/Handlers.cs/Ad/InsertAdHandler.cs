@@ -4,7 +4,7 @@ using SecondHand.Library.Commands.Ad;
 
 namespace SecondHand.Library.Handlers.Ad;
 
-public class InsertAdHandler : IRequestHandler<InsertAdCommand, SecondHand.Models.Adversitement.Ad>
+public class InsertAdHandler : IRequestHandler<InsertAdCommand, SecondHand.Models.Advertisement.Ad>
 { 
     private readonly IAdDataAccess _dataAccess;
 
@@ -12,8 +12,8 @@ public class InsertAdHandler : IRequestHandler<InsertAdCommand, SecondHand.Model
     {
         _dataAccess = dataAccess;
     }
-    public Task<SecondHand.Models.Adversitement.Ad> Handle(InsertAdCommand request, CancellationToken cancellationToken)
+    public Task<SecondHand.Models.Advertisement.Ad> Handle(InsertAdCommand request, CancellationToken cancellationToken)
     {
-        return Task.FromResult(_dataAccess.InsertAd(request.ad));
+        return Task.FromResult(_dataAccess.InsertAd(request.Ad));
     }
 }

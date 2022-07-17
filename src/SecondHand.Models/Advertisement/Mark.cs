@@ -1,9 +1,8 @@
-
 using System.ComponentModel.DataAnnotations;
 
-namespace SecondHand.Models.Adversitement;
+namespace SecondHand.Models.Advertisement;
 
-public class Category
+public class Mark
 {
     [Key]
     public long Id { get; set; }
