@@ -65,9 +65,9 @@ public static class RestClient
             var httpResponseMessage = HttpClient.SendAsync(requestMessage).Result;
             return HandleResponse<T>(httpResponseMessage);
         }
-        catch(SecondHandWebException ex)
+        catch(SecondHandWebException)
         {
-            throw ex;
+            throw;
         }
         catch (Exception ex)
         {
