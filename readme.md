@@ -6,7 +6,7 @@
  - .net 6 SDK https://dotnet.microsoft.com/en-us/download/dotnet/6.0
  - VS Code https://code.visualstudio.com/download
 
-⏬ Clone the project
+⏬  Clone the project
 ```bash
 git clone https://github.com/selcukyavuz/SecondHand.git
 ```
@@ -39,3 +39,37 @@ docker-compose up
  - Event Sourcing
 
 ✨ You are welcoming to contribute
+
+## Project Reference Map
+
+SecondHand.Models
+
+    - N/A
+
+SecondHand.DataAccess.MongoDB
+
+    - SecondHand.Models
+
+SecondHand.DataAccess.SqlServer
+
+    - SecondHand.Models
+
+SecondHand.Library
+
+    - SecondHand.Models
+    - SecondHand.DataAccess.SqlServer
+    - SecondHand.DataAccess.MongoDB
+
+SecondHand.Api
+
+    - SecondHand.Models
+    - SecondHand.Library
+
+SecondHand.Api.Client
+
+    - SecondHand.Models
+
+SecondHand.Web
+
+    - SecondHand.Api.Client
+    - SecondHand.Models

@@ -15,8 +15,6 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.3.0" />
     <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="10.0.1" />
     <ProjectReference Include="..\SecondHand.Models\SecondHand.Models.csproj" />
-    <ProjectReference Include="..\SecondHand.DataAccess.SqlServer\SecondHand.DataAccess.SqlServer.csproj" />
-    <ProjectReference Include="..\SecondHand.DataAccess.MongoDB\SecondHand.DataAccess.MongoDB.csproj" />
     <ProjectReference Include="..\SecondHand.Library\SecondHand.Library.csproj" />
   </ItemGroup>
 

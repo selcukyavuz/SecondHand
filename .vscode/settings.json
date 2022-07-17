@@ -1,6 +1,7 @@
 {
     "cSpell.words": [
         "Backcountry",
+        "CQRS",
         "Crossfit",
         "firstname",
         "Handcycle",
@@ -9,6 +10,7 @@
         "lastname",
         "Mediat",
         "RABBITCONNECTION",
+        "Rabbitmq",
         "signin",
         "signout",
         "Strava",

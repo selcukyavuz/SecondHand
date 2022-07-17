@@ -4,6 +4,7 @@ using Microsoft.Extensions.Options;
 using SecondHand.Api.Models;
 using SecondHand.Models.Advertisement;
 using SecondHand.Library.Events;
+
 namespace SecondHand.Api.BackgroundServices
 {
     public class AdCreatedEventHandler : BackgroundService
