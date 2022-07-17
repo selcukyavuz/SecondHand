@@ -12,11 +12,11 @@ builder.Services.Configure<SecondHandDatabaseSettings>(builder.Configuration.Get
 builder.Services.AddDbContextFactory<SecondHand.DataAccess.SqlServer.SecondHandContext>(
     options => options.UseSqlServer(builder.Configuration["ConnectionStrings:DefaultConnection"]));
 builder.Services.AddSingleton<SecondHand.DataAccess.SqlServer.Api.IAthleteDataAccess, SecondHand.DataAccess.SqlServer.Api.AthleteDataAccess>();
-builder.Services.AddSingleton<SecondHand.DataAccess.MongoDB.Api.IAthleteDataAccess, SecondHand.DataAccess.MongoDB.Api.AthleteDataAccess>();
+builder.Services.AddSingleton<SecondHand.DataAccess.MongoDB.Interface.IAthleteDataAccess, SecondHand.DataAccess.MongoDB.Api.AthleteDataAccess>();
 builder.Services.AddSingleton<SecondHand.DataAccess.SqlServer.Api.ITokenExchangeDataAccess, SecondHand.DataAccess.SqlServer.Api.TokenExchangeDataAccess>();
-builder.Services.AddSingleton<SecondHand.DataAccess.MongoDB.Api.ITokenExchangeDataAccess, SecondHand.DataAccess.MongoDB.Api.TokenExchangeDataAccess>();
+builder.Services.AddSingleton<SecondHand.DataAccess.MongoDB.Interface.ITokenExchangeDataAccess, SecondHand.DataAccess.MongoDB.Api.TokenExchangeDataAccess>();
 builder.Services.AddSingleton<SecondHand.DataAccess.SqlServer.Api.IAdDataAccess, SecondHand.DataAccess.SqlServer.Api.AdDataAccess>();
-builder.Services.AddSingleton<SecondHand.DataAccess.MongoDB.Api.IAdDataAccess, SecondHand.DataAccess.MongoDB.Api.AdDataAccess>();
+builder.Services.AddSingleton<SecondHand.DataAccess.MongoDB.Interface.IAdDataAccess, SecondHand.DataAccess.MongoDB.Api.AdDataAccess>();
 builder.Services.AddSingleton<SecondHand.DataAccess.SqlServer.Api.ICategoryDataAccess, SecondHand.DataAccess.SqlServer.Api.CategoryDataAccess>();
 builder.Services.AddSingleton<SecondHand.DataAccess.SqlServer.Api.IProductDataAccess, SecondHand.DataAccess.SqlServer.Api.ProductDataAccess>();
 builder.Services.AddSingleton<SecondHand.DataAccess.SqlServer.Api.IMarkDataAccess, SecondHand.DataAccess.SqlServer.Api.MarkDataAccess>();

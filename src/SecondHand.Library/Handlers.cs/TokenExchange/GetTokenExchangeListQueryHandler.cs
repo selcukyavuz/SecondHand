@@ -1,5 +1,5 @@
 using MediatR;
-using SecondHand.DataAccess.MongoDB.Api;
+using SecondHand.DataAccess.MongoDB.Interface;
 using SecondHand.Library.Queries.TokenExchange;
 
 namespace SecondHand.Library.Handlers.TokenExchange;

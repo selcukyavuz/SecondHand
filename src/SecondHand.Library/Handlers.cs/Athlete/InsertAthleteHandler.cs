@@ -5,7 +5,7 @@ using SecondHand.Library.Commands.Athlete;
 namespace SecondHand.Library.Handlers.Athlete;
 
 public class InsertAthleteHandler : IRequestHandler<InsertAthleteCommand, SecondHand.Models.Strava.Athlete>
-{ 
+{
     private readonly IAthleteDataAccess _dataAccess;
 
     public InsertAthleteHandler(IAthleteDataAccess dataAccess)

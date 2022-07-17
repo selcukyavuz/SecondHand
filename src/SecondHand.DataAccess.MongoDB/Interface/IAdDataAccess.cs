@@ -1,4 +1,4 @@
-namespace SecondHand.DataAccess.MongoDB.Api;
+namespace SecondHand.DataAccess.MongoDB.Interface;
 
 using SecondHand.Models.Advertisement;
 

@@ -1,11 +1,11 @@
 using MediatR;
-using SecondHand.DataAccess.MongoDB.Api;
+using SecondHand.DataAccess.MongoDB.Interface;
 using SecondHand.Library.Queries.Athlete;
 
 namespace SecondHand.Library.Handlers.Athlete;
 
 public class GetAthleteByIdHandler : IRequestHandler<GetAthleteByIdQuery, SecondHand.Models.Strava.Athlete>
-{ 
+{
     private readonly IAthleteDataAccess _dataAccess;
 
     public GetAthleteByIdHandler(IAthleteDataAccess dataAccess)

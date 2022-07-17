@@ -5,7 +5,7 @@ using SecondHand.Library.Commands.Ad;
 namespace SecondHand.Library.Handlers.Ad;
 
 public class InsertAdHandler : IRequestHandler<InsertAdCommand, SecondHand.Models.Advertisement.Ad>
-{ 
+{
     private readonly IAdDataAccess _dataAccess;
 
     public InsertAdHandler(IAdDataAccess dataAccess)

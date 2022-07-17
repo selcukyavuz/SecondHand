@@ -4,39 +4,21 @@ using System.Collections.Generic;
 using global::MongoDB.Driver;
 using SecondHand.Models.Strava;
 using Microsoft.Extensions.Configuration;
+using SecondHand.DataAccess.MongoDB.Interface;
 
-public class TokenExchangeDataAccess : ITokenExchangeDataAccess
+public class TokenExchangeDataAccess : DataAccessBase<TokenExchange>, ITokenExchangeDataAccess
 {
-    private readonly IMongoCollection<TokenExchange> _TokenExchangeCollection;
-
-    public TokenExchangeDataAccess(IConfiguration configuration)
+    public TokenExchangeDataAccess(IConfiguration configuration) : base(configuration,"TokenExchangeCollectionName")
     {
-         var mongoClient = new MongoClient(configuration.GetSection("SecondHandDatabase").GetSection("ConnectionString").Value);
-        var mongoDatabase = mongoClient.GetDatabase(configuration.GetSection("SecondHandDatabase").GetSection("DatabaseName").Value);
-        _TokenExchangeCollection = mongoDatabase.GetCollection<TokenExchange>(configuration.GetSection("SecondHandDatabase").GetSection("TokenExchangeCollectionName").Value);
-    }
-    public bool DeleteTokenExchange(int id)
-    {
-        throw new NotImplementedException();
     }
 
-    public List<TokenExchange> GetTokenExchange()
-    {
-        return _TokenExchangeCollection.Find(_ => true).ToList();
-    }
+    public List<TokenExchange> GetTokenExchange() =>  Collection.Find(_ => true).ToList();
 
-    public TokenExchange GetTokenExchange(long? id)
-    {
-        return _TokenExchangeCollection.Find(x => x.Id == id).FirstOrDefault();
-    }
+    public TokenExchange GetTokenExchange(long? id) => Collection.Find(x => x.Id == id).FirstOrDefault();
 
-    public TokenExchange InsertTokenExchange(TokenExchange TokenExchange)
-    {
-        throw new NotImplementedException();
-    }
+    public TokenExchange InsertTokenExchange(TokenExchange TokenExchange) => throw new NotImplementedException();
 
-    public TokenExchange UpdateTokenExchange(TokenExchange TokenExchange)
-    {
-        throw new NotImplementedException();
-    }
+    public TokenExchange UpdateTokenExchange(TokenExchange TokenExchange) =>  throw new NotImplementedException();
+
+    public bool DeleteTokenExchange(int id) => throw new NotImplementedException();
 }

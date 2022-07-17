@@ -4,8 +4,7 @@ using SecondHand.Library.Commands.TokenExchange;
 
 namespace SecondHand.Library.Handlers.TokenExchange;
 
-public class UpdateTokenExchangeHandler : 
-    IRequestHandler<UpdateTokenExchangeCommand, SecondHand.Models.Strava.TokenExchange>
+public class UpdateTokenExchangeHandler : IRequestHandler<UpdateTokenExchangeCommand, SecondHand.Models.Strava.TokenExchange>
 { 
     private readonly ITokenExchangeDataAccess _dataAccess;
 

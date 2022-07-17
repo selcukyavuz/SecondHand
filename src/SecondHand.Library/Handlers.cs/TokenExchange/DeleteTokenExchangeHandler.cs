@@ -5,7 +5,7 @@ using SecondHand.Library.Commands.TokenExchange;
 namespace SecondHand.Library.Handlers.TokenExchange;
 
 public class DeleteTokenExchangeHandler : IRequestHandler<DeleteTokenExchangeCommand, bool>
-{ 
+{
     private readonly ITokenExchangeDataAccess _dataAccess;
 
     public DeleteTokenExchangeHandler(ITokenExchangeDataAccess dataAccess)
