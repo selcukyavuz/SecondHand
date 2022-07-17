@@ -29,10 +29,7 @@ public class TokenExchangeController : BaseController
     {
         TokenExchange TokenExchange = await _mediator.Send(new InsertTokenExchangeCommand(value!));
 
-        using (var bus = RabbitHutch.CreateBus(ConnectionString))
-        {
-            bus.PubSub.Publish(new TokenExchangeCreatedEvent(Guid.NewGuid(), value));
-        }
+        RabbitHutch.CreateBus(ConnectionString).PubSub.Publish(new TokenExchangeCreatedEvent(Guid.NewGuid(), value));
 
         return TokenExchange;
     }

@@ -13,8 +13,7 @@ using SecondHand.Models.Advertisement;
 public class AdController : BaseController
 {
     private readonly IMediator _mediator;
-    public AdController(IMediator mediator,IConfiguration configuration)
-        : base(configuration)
+    public AdController(IMediator mediator,IConfiguration configuration) : base(configuration)
     {
         _mediator = mediator;
     }
@@ -30,10 +29,7 @@ public class AdController : BaseController
     {
         Ad Ad = await _mediator.Send(new InsertAdCommand(value));
 
-        using (var bus = RabbitHutch.CreateBus(ConnectionString))
-        {
-            bus.PubSub.Publish(new AdCreatedEvent(value.Id, value));
-        }
+        RabbitHutch.CreateBus(ConnectionString).PubSub.Publish(new AdCreatedEvent(value.Id, value));
 
         return Ad;
     }
@@ -43,10 +39,7 @@ public class AdController : BaseController
     {
         Ad Ad = await _mediator.Send(new UpdateAdCommand(value));
 
-        using (var bus = RabbitHutch.CreateBus(ConnectionString))
-        {
-            bus.PubSub.Publish(new AdUpdatedEvent(value.Id, value));
-        }
+        RabbitHutch.CreateBus(ConnectionString).PubSub.Publish(new AdUpdatedEvent(value.Id, value));
 
         return Ad;
     }
@@ -56,10 +49,7 @@ public class AdController : BaseController
     {
         bool result = await _mediator.Send(new DeleteAdCommand(id));
 
-        using (var bus = RabbitHutch.CreateBus(ConnectionString))
-        {
-            bus.PubSub.Publish(new AdDeletedEvent(id));
-        }
+        RabbitHutch.CreateBus(ConnectionString).PubSub.Publish(new AdDeletedEvent(id));
 
         return result;
     }

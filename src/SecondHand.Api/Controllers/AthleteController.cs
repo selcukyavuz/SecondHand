@@ -29,10 +29,7 @@ public class AthleteController : BaseController
     {
         Athlete athlete = await _mediator.Send(new InsertAthleteCommand(value));
 
-        using (var bus = RabbitHutch.CreateBus(ConnectionString))
-        {
-            bus.PubSub.Publish(new AthleteCreatedEvent(value.Id, value));
-        }
+        RabbitHutch.CreateBus(ConnectionString).PubSub.Publish(new AthleteCreatedEvent(value.Id, value));
 
         return athlete;
     }
@@ -42,10 +39,7 @@ public class AthleteController : BaseController
     {
         Athlete athlete = await _mediator.Send(new UpdateAthleteCommand(value));
 
-        using (var bus = RabbitHutch.CreateBus(ConnectionString))
-        {
-            bus.PubSub.Publish(new AthleteUpdatedEvent(value.Id, value));
-        }
+        RabbitHutch.CreateBus(ConnectionString).PubSub.Publish(new AthleteUpdatedEvent(value.Id, value));
 
         return athlete;
     }
@@ -55,10 +49,7 @@ public class AthleteController : BaseController
     {
         bool result = await _mediator.Send(new DeleteAthleteCommand(id));
 
-        using (var bus = RabbitHutch.CreateBus(ConnectionString))
-        {
-            bus.PubSub.Publish(new AthleteDeletedEvent(id));
-        }
+        RabbitHutch.CreateBus(ConnectionString).PubSub.Publish(new AthleteDeletedEvent(id));
 
         return result;
     }
