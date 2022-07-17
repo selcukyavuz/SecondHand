@@ -10,5 +10,6 @@ public class GetAdByIdHandler : IRequestHandler<GetAdByIdQuery, SecondHand.Model
 
     public GetAdByIdHandler(IAdDataAccess dataAccess) => _dataAccess = dataAccess;
 
-    public Task<SecondHand.Models.Advertisement.Ad> Handle(GetAdByIdQuery request, CancellationToken cancellationToken) => Task.FromResult(_dataAccess.GetAd(request.Id));
+    public Task<SecondHand.Models.Advertisement.Ad> Handle(GetAdByIdQuery request, CancellationToken cancellationToken)
+        => Task.FromResult(_dataAccess.GetAd(request.Id));
 }

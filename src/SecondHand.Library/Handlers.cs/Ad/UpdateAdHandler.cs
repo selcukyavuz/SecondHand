@@ -10,5 +10,6 @@ public class UpdateAdHandler : IRequestHandler<UpdateAdCommand, Models.Advertise
 
     public UpdateAdHandler(IAdDataAccess dataAccess) => _dataAccess = dataAccess;
 
-    public Task<Models.Advertisement.Ad> Handle(UpdateAdCommand request, CancellationToken cancellationToken) => Task.FromResult(_dataAccess.UpdateAd(request.Ad));
+    public Task<Models.Advertisement.Ad> Handle(UpdateAdCommand request, CancellationToken cancellationToken)
+        => Task.FromResult(_dataAccess.UpdateAd(request.Ad));
 }

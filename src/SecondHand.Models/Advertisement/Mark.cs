@@ -1,6 +1,6 @@
-using System.ComponentModel.DataAnnotations;
-
 namespace SecondHand.Models.Advertisement;
+
+using System.ComponentModel.DataAnnotations;
 
 public class Mark
 {

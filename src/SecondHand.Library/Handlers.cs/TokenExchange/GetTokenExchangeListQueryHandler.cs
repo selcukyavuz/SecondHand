@@ -10,6 +10,6 @@ public class GetTokenExchangeListQueryHandler : IRequestHandler<GetTokenExchange
 
     public GetTokenExchangeListQueryHandler(ITokenExchangeDataAccess dataAccess) => _dataAccess = dataAccess;
 
-    public Task<List<Models.Strava.TokenExchange>> Handle(GetTokenExchangeListQuery request, CancellationToken cancellationToken) 
+    public Task<List<Models.Strava.TokenExchange>> Handle(GetTokenExchangeListQuery request, CancellationToken cancellationToken)
         => Task.FromResult(_dataAccess.GetTokenExchange());
 }

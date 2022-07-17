@@ -9,5 +9,6 @@ public class DeleteTokenExchangeHandler : IRequestHandler<DeleteTokenExchangeCom
     private readonly ITokenExchangeDataAccess _dataAccess;
 
     public DeleteTokenExchangeHandler(ITokenExchangeDataAccess dataAccess) => _dataAccess = dataAccess;
-    public Task<bool> Handle(DeleteTokenExchangeCommand request, CancellationToken cancellationToken) => Task.FromResult(_dataAccess.DeleteTokenExchange(request.id));
+    public Task<bool> Handle(DeleteTokenExchangeCommand request, CancellationToken cancellationToken)
+        => Task.FromResult(_dataAccess.DeleteTokenExchange(request.Id));
 }

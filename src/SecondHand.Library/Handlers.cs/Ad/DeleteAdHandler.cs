@@ -10,5 +10,6 @@ public class DeleteAdHandler : IRequestHandler<DeleteAdCommand, bool>
 
     public DeleteAdHandler(IAdDataAccess dataAccess) => _dataAccess = dataAccess;
 
-    public Task<bool> Handle(DeleteAdCommand request, CancellationToken cancellationToken) => Task.FromResult(_dataAccess.DeleteAd(request.Id));
+    public Task<bool> Handle(DeleteAdCommand request, CancellationToken cancellationToken)
+        => Task.FromResult(_dataAccess.DeleteAd(request.Id));
 }

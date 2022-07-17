@@ -1,6 +1,7 @@
+namespace SecondHand.Models.Advertisement;
+
 using System.ComponentModel.DataAnnotations;
 
-namespace SecondHand.Models.Advertisement;
 public partial class Product
 {
     [Key]

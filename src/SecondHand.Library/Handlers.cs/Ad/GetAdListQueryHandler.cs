@@ -10,5 +10,6 @@ public class GetAdListQueryHandler : IRequestHandler<GetAdListQuery, List<Models
 
     public GetAdListQueryHandler(IAdDataAccess dataAccess) => _dataAccess = dataAccess;
 
-    public Task<List<Models.Advertisement.Ad>> Handle(GetAdListQuery request, CancellationToken cancellationToken) => Task.FromResult(_dataAccess.GetAd());
+    public Task<List<Models.Advertisement.Ad>> Handle(GetAdListQuery request, CancellationToken cancellationToken)
+        => Task.FromResult(_dataAccess.GetAd());
 }

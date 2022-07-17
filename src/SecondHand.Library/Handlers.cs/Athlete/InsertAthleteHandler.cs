@@ -10,5 +10,6 @@ public class InsertAthleteHandler : IRequestHandler<InsertAthleteCommand, Models
 
     public InsertAthleteHandler(IAthleteDataAccess dataAccess) => _dataAccess = dataAccess;
 
-    public Task<Models.Strava.Athlete> Handle(InsertAthleteCommand request, CancellationToken cancellationToken) => Task.FromResult(_dataAccess.InsertAthlete(request.athlete));
+    public Task<Models.Strava.Athlete> Handle(InsertAthleteCommand request, CancellationToken cancellationToken)
+        => Task.FromResult(_dataAccess.InsertAthlete(request.Athlete));
 }

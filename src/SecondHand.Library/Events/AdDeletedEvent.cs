@@ -6,7 +6,7 @@ namespace SecondHand.Library.Events
     {
         public AdDeletedEvent(long id)
         {
-            Id = id ;
+            Id = id;
         }
 
         public long Id { get; set; }

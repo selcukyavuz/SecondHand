@@ -10,5 +10,6 @@ public class UpdateAthleteHandler : IRequestHandler<UpdateAthleteCommand, Models
 
     public UpdateAthleteHandler(IAthleteDataAccess dataAccess) => _dataAccess = dataAccess;
 
-    public Task<Models.Strava.Athlete> Handle(UpdateAthleteCommand request, CancellationToken cancellationToken) => Task.FromResult(_dataAccess.UpdateAthlete(request.athlete));
+    public Task<Models.Strava.Athlete> Handle(UpdateAthleteCommand request, CancellationToken cancellationToken)
+        => Task.FromResult(_dataAccess.UpdateAthlete(request.Athlete));
 }
