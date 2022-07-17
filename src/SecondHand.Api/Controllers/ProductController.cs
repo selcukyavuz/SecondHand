@@ -6,11 +6,11 @@ using SecondHand.DataAccess.SqlServer.Api;
 
 [ApiController]
 [Route("api/[controller]")]
-public class ProductController : ControllerBase
+public class ProductController : BaseController
 {
     private readonly IProductDataAccess _categoryDataAccess;
 
-    public ProductController(IProductDataAccess categoryDataAccess)
+    public ProductController(IProductDataAccess categoryDataAccess,IConfiguration configuration) : base(configuration)
     {
         _categoryDataAccess = categoryDataAccess;
     }

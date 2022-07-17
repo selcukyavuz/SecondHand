@@ -10,17 +10,12 @@ using SecondHand.Library.Events;
 
 [ApiController]
 [Route("api/[controller]")]
-public class TokenExchangeController : ControllerBase
+public class TokenExchangeController : BaseController
 {
     private readonly IMediator _mediator;
-    private readonly IConfiguration _configuration;
-
-    public TokenExchangeController(
-        IMediator mediator,
-        IConfiguration configuration)
+    public TokenExchangeController(IMediator mediator,IConfiguration configuration) : base(configuration)
     {
         _mediator = mediator;
-        _configuration = configuration;
     }
 
     [HttpGet()]
@@ -34,10 +29,7 @@ public class TokenExchangeController : ControllerBase
     {
         TokenExchange TokenExchange = await _mediator.Send(new InsertTokenExchangeCommand(value!));
 
-        using (var bus = RabbitHutch.CreateBus(
-            Environment.GetEnvironmentVariable("RABBITCONNECTION")
-            ??
-            _configuration.GetSection("RabbitSettings").GetSection("Connection").Value))
+        using (var bus = RabbitHutch.CreateBus(ConnectionString))
         {
             bus.PubSub.Publish(new TokenExchangeCreatedEvent(Guid.NewGuid(), value));
         }

@@ -10,17 +10,12 @@ namespace SecondHand.Api.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-public class AthleteController : ControllerBase
+public class AthleteController : BaseController
 {
     private readonly IMediator _mediator;
-    private readonly IConfiguration _configuration;
-
-    public AthleteController(
-        IMediator mediator,
-        IConfiguration configuration)
+    public AthleteController(IMediator mediator, IConfiguration configuration) : base(configuration)
     {
         _mediator = mediator;
-        _configuration = configuration;
     }
 
     [HttpGet()]
@@ -34,10 +29,7 @@ public class AthleteController : ControllerBase
     {
         Athlete athlete = await _mediator.Send(new InsertAthleteCommand(value));
 
-        using (var bus = RabbitHutch.CreateBus(
-            Environment.GetEnvironmentVariable("RABBITCONNECTION")
-            ??
-            _configuration.GetSection("RabbitSettings").GetSection("Connection").Value))
+        using (var bus = RabbitHutch.CreateBus(ConnectionString))
         {
             bus.PubSub.Publish(new AthleteCreatedEvent(value.Id, value));
         }
@@ -50,10 +42,7 @@ public class AthleteController : ControllerBase
     {
         Athlete athlete = await _mediator.Send(new UpdateAthleteCommand(value));
 
-        using (var bus = RabbitHutch.CreateBus(
-            Environment.GetEnvironmentVariable("RABBITCONNECTION")
-            ??
-            _configuration.GetSection("RabbitSettings").GetSection("Connection").Value))
+        using (var bus = RabbitHutch.CreateBus(ConnectionString))
         {
             bus.PubSub.Publish(new AthleteUpdatedEvent(value.Id, value));
         }
@@ -66,9 +55,7 @@ public class AthleteController : ControllerBase
     {
         bool result = await _mediator.Send(new DeleteAthleteCommand(id));
 
-        using (var bus = RabbitHutch.CreateBus(Environment.GetEnvironmentVariable("RABBITCONNECTION")
-        ??
-        _configuration.GetSection("RabbitSettings").GetSection("Connection").Value))
+        using (var bus = RabbitHutch.CreateBus(ConnectionString))
         {
             bus.PubSub.Publish(new AthleteDeletedEvent(id));
         }

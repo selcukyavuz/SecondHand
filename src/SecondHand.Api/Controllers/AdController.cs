@@ -10,16 +10,13 @@ using SecondHand.Models.Advertisement;
 
 [ApiController]
 [Route("api/[controller]")]
-public class AdController : ControllerBase
+public class AdController : BaseController
 {
     private readonly IMediator _mediator;
-    private readonly IConfiguration _configuration;
-    public AdController(
-        IMediator mediator,
-        IConfiguration configuration)
+    public AdController(IMediator mediator,IConfiguration configuration)
+        : base(configuration)
     {
         _mediator = mediator;
-        _configuration = configuration;
     }
 
     [HttpGet()]
@@ -33,10 +30,7 @@ public class AdController : ControllerBase
     {
         Ad Ad = await _mediator.Send(new InsertAdCommand(value));
 
-        using (var bus = RabbitHutch.CreateBus(
-            Environment.GetEnvironmentVariable("RABBITCONNECTION")
-            ??
-            _configuration.GetSection("RabbitSettings").GetSection("Connection").Value))
+        using (var bus = RabbitHutch.CreateBus(ConnectionString))
         {
             bus.PubSub.Publish(new AdCreatedEvent(value.Id, value));
         }
@@ -49,10 +43,7 @@ public class AdController : ControllerBase
     {
         Ad Ad = await _mediator.Send(new UpdateAdCommand(value));
 
-        using (var bus = RabbitHutch.CreateBus(
-            Environment.GetEnvironmentVariable("RABBITCONNECTION")
-            ??
-            _configuration.GetSection("RabbitSettings").GetSection("Connection").Value))
+        using (var bus = RabbitHutch.CreateBus(ConnectionString))
         {
             bus.PubSub.Publish(new AdUpdatedEvent(value.Id, value));
         }
@@ -65,9 +56,7 @@ public class AdController : ControllerBase
     {
         bool result = await _mediator.Send(new DeleteAdCommand(id));
 
-        using (var bus = RabbitHutch.CreateBus(Environment.GetEnvironmentVariable("RABBITCONNECTION")
-        ??
-        _configuration.GetSection("RabbitSettings").GetSection("Connection").Value))
+        using (var bus = RabbitHutch.CreateBus(ConnectionString))
         {
             bus.PubSub.Publish(new AdDeletedEvent(id));
         }
