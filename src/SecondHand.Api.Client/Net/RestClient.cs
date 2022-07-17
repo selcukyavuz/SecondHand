@@ -11,44 +11,22 @@ public static class RestClient
 {
     private static readonly HttpClient HttpClient;
 
-    static RestClient()
+    static RestClient() => HttpClient = new HttpClient(new HttpClientHandler() { AllowAutoRedirect = false })
     {
-        var handler = new HttpClientHandler() { AllowAutoRedirect = false };
-        HttpClient = new HttpClient(handler)
-        {
-            Timeout = TimeSpan.FromSeconds(15)
-        };
-    }
+        Timeout = TimeSpan.FromSeconds(15)
+    };
 
-    public static T Get<T>(string url, Dictionary<string, string> headers)  where T : class
-    {
-       return Exchange<T>(url, HttpMethod.Get, headers,null!);
-    }
+    public static T Get<T>(string url, Dictionary<string, string> headers) where T : class => Exchange<T>(url, HttpMethod.Get, headers, null!);
 
-    public static T Post<T>(string url, Dictionary<string, string> headers,object request)  where T : class
-    {
-       return Exchange<T>(url, HttpMethod.Post, headers,request);
-    }
+    public static T Post<T>(string url, Dictionary<string, string> headers, object request) where T : class => Exchange<T>(url, HttpMethod.Post, headers, request);
 
-    public static T Post<T>(string url, Dictionary<string, string> headers)  where T : class
-    {
-        return Exchange<T>(url, HttpMethod.Post, headers, null!);
-    }
+    public static T Post<T>(string url, Dictionary<string, string> headers) where T : class => Exchange<T>(url, HttpMethod.Post, headers, null!);
 
-    public static T Put<T>(string url, Dictionary<string, string> headers,object request)  where T : class
-    {
-       return Exchange<T>(url, HttpMethod.Put, headers,request);
-    }
+    public static T Put<T>(string url, Dictionary<string, string> headers, object request) where T : class => Exchange<T>(url, HttpMethod.Put, headers, request);
 
-    public static void Delete<T>(string url, Dictionary<string, string> headers)  where T : class
-    {
-       Exchange<T>(url, HttpMethod.Delete, headers,null!);
-    }
+    public static void Delete<T>(string url, Dictionary<string, string> headers) where T : class => Exchange<T>(url, HttpMethod.Delete, headers, null!);
 
-    public static T Exchange<T>(
-        string url,
-        HttpMethod httpMethod,Dictionary<string,string>  headers,
-        object request)  where T : class
+    public static T Exchange<T>(string url, HttpMethod httpMethod, Dictionary<string, string> headers, object request)  where T : class
     {
         try
         {
@@ -58,11 +36,13 @@ public static class RestClient
                 RequestUri = new Uri(url),
                 Content = PrepareContent(request)
             };
+
             foreach (var header in headers)
             {
                 requestMessage.Headers.Add(header.Key, header.Value);
             }
-            var httpResponseMessage = HttpClient.SendAsync(requestMessage).Result;
+
+            using var httpResponseMessage = HttpClient.SendAsync(requestMessage).Result;
             return HandleResponse<T>(httpResponseMessage);
         }
         catch(SecondHandWebException)
@@ -77,16 +57,16 @@ public static class RestClient
 
     private static T HandleResponse<T>(HttpResponseMessage httpResponseMessage) where T : class
     {
-        var apiResponse = JsonSerializer.Deserialize<T>(
+        if (JsonSerializer.Deserialize<T>(
             httpResponseMessage.Content.ReadAsStringAsync().Result,
-            SecondHand.Api.Client.Common.JsonSerializerSettings.Settings);
-
-        if(apiResponse == null)
+            Common.JsonSerializerSettings.Settings) == null)
         {
             return default!;
         }
 
-        return apiResponse!;
+        return JsonSerializer.Deserialize<T>(
+            httpResponseMessage.Content.ReadAsStringAsync().Result,
+            Common.JsonSerializerSettings.Settings)!;
     }
 
     public static StringContent PrepareContent(object request)
