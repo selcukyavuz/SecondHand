@@ -10,5 +10,5 @@ public class TokenExchangeAdapter : BaseAdapter
     {
     }
     public TokenExchange Create(TokenExchange TokenExchange)
-        => RestClient.Post<TokenExchange>(RequestOptions.BaseUrl + "/TokenExchange", CreateHeaders(RequestOptions)!, TokenExchange);
+        => RestClient.Post<TokenExchange>($"{RequestOptions.BaseUrl}/TokenExchange", CreateHeaders(RequestOptions)!, TokenExchange);
 }

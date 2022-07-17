@@ -12,13 +12,11 @@ public class AdAdapter : BaseAdapter
 
     public Ad Get(int id)
     {
-        string path = "/Ad?id=" + id;
-        return RestClient.Get<Ad>(RequestOptions.BaseUrl + path, CreateHeaders(RequestOptions)!);
+        return RestClient.Get<Ad>($"{RequestOptions.BaseUrl}/Ad?id=" + id, CreateHeaders(RequestOptions)!);
     }
 
     public Ad Create(Ad Ad)
     {
-        const string path = "/Ad";
-        return RestClient.Post<Ad>(RequestOptions.BaseUrl + path, CreateHeaders(RequestOptions)!, Ad);
+        return RestClient.Post<Ad>($"{RequestOptions.BaseUrl}/Ad", CreateHeaders(RequestOptions)!, Ad);
     }
 }

@@ -10,15 +10,7 @@ public class CategoryAdapter : BaseAdapter
     {
     }
 
-    public List<Category> Get()
-    {
-        const string path = "/category";
-        return RestClient.Get<List<Category>>(RequestOptions.BaseUrl + path, CreateHeaders(RequestOptions)!);
-    }
+    public List<Category> Get() =>  RestClient.Get<List<Category>>($"{RequestOptions.BaseUrl}/category", CreateHeaders(RequestOptions)!);
 
-    public Category Get(int id)
-    {
-        string path = "/category/" + id;
-        return RestClient.Get<Category>(RequestOptions.BaseUrl + path, CreateHeaders(RequestOptions)!);
-    }
+    public Category Get(int id) => RestClient.Get<Category>($"{RequestOptions.BaseUrl}/category/{id}", CreateHeaders(RequestOptions)!);
 }

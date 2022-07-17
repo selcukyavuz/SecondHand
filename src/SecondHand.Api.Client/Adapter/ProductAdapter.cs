@@ -10,15 +10,7 @@ public class ProductAdapter : BaseAdapter
     {
     }
 
-    public List<Product> Get()
-    {
-        const string path = "/product";
-        return RestClient.Get<List<Product>>(RequestOptions.BaseUrl + path, CreateHeaders(RequestOptions)!);
-    }
+    public List<Product> Get() => RestClient.Get<List<Product>>($"{RequestOptions.BaseUrl}/product", CreateHeaders(RequestOptions)!);
 
-    public Product Get(int id)
-    {
-        string path = "/product/" + id;
-        return RestClient.Get<Product>(RequestOptions.BaseUrl + path, CreateHeaders(RequestOptions)!);
-    }
+    public Product Get(int id) =>  RestClient.Get<Product>($"{RequestOptions.BaseUrl}/product/{id}", CreateHeaders(RequestOptions)!);
 }

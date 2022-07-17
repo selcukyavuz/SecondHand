@@ -10,15 +10,7 @@ public class AthleteAdapter : BaseAdapter
     {
     }
 
-    public Athlete Get(int id)
-    {
-        var path = "/athlete?id=" + id;
-        return RestClient.Get<Athlete>(RequestOptions.BaseUrl + path, CreateHeaders(RequestOptions)!);
-    }
+    public Athlete Get(int id) => RestClient.Get<Athlete>($"{RequestOptions.BaseUrl}/athlete?id={id}", CreateHeaders(RequestOptions)!);
 
-    public Athlete Create(Athlete athlete)
-    {
-        const string path = "/athlete";
-        return RestClient.Post<Athlete>(RequestOptions.BaseUrl + path, CreateHeaders(RequestOptions)!, athlete);
-    }
+    public Athlete Create(Athlete athlete)=> RestClient.Post<Athlete>($"{RequestOptions.BaseUrl}/athlete", CreateHeaders(RequestOptions)!, athlete);
 }
