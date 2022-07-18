@@ -4,26 +4,29 @@ using Microsoft.Extensions.Options;
 using SecondHand.Api.Models;
 using SecondHand.Models.Advertisement;
 using SecondHand.Library.Events;
+using SecondHand.Models.Settings;
 
 namespace SecondHand.Api.BackgroundServices
 {
     public class AdCreatedEventHandler : BackgroundService
     {
-        private readonly IConfiguration _configuration;
-        private readonly IMongoCollection<Ad> _AdCollection;
+        private readonly IMongoCollection<Ad> _adCollection;
+        private readonly RabbitSettings _rabbitSettings;
 
-        public AdCreatedEventHandler(IConfiguration configuration, IOptions<SecondHandDatabaseSettings> secondHandDatabaseSettings)
+        public AdCreatedEventHandler(
+            IOptions<SecondHandDatabaseSettings> secondHandDatabaseSettings,
+            IOptions<RabbitSettings> rabbitSettings)
         {
-            _configuration = configuration;
             var mongoClient = new MongoClient(secondHandDatabaseSettings.Value.ConnectionString);
             var mongoDatabase = mongoClient.GetDatabase(secondHandDatabaseSettings.Value.DatabaseName);
-            _AdCollection = mongoDatabase.GetCollection<Ad>(secondHandDatabaseSettings.Value.AdCollectionName);
+            _adCollection = mongoDatabase.GetCollection<Ad>(secondHandDatabaseSettings.Value.AdCollectionName);
+            _rabbitSettings = rabbitSettings.Value;
         }
         protected override async Task ExecuteAsync(CancellationToken cancellationToken)
         {
             IBus _bus = RabbitHutch.CreateBus(Environment.GetEnvironmentVariable("RABBITCONNECTION")
             ??
-             _configuration.GetSection("RabbitSettings").GetSection("Connection").Value);
+            _rabbitSettings.Connection);
             _ = _bus.PubSub.Subscribe<AdCreatedEvent>("NewAdEventHandler", ProcessAd, cancellationToken);
 
             while (!cancellationToken.IsCancellationRequested)
@@ -34,9 +37,6 @@ namespace SecondHand.Api.BackgroundServices
             _bus.Dispose();
         }
 
-        private void ProcessAd(AdCreatedEvent AdCreatedEvent)
-        {
-            _AdCollection.InsertOne(AdCreatedEvent.Ad);
-        }
+        private void ProcessAd(AdCreatedEvent AdCreatedEvent) => _adCollection.InsertOne(AdCreatedEvent.Ad);
     }
 }

@@ -1,6 +1,6 @@
 using System.Text.Json;
 using RestSharp;
-using SecondHand.Api.Client.Settings;
+using SecondHand.Models.Settings;
 using SecondHand.Web.Models;
 
 namespace SecondHand.Web;

@@ -1,7 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
-using SecondHand.Api.Client;
-using SecondHand.Api.Client.Settings;
+using SecondHand.Models.Settings;
 using SecondHand.Web.Models;
 
 namespace SecondHand.Web.Controllers;

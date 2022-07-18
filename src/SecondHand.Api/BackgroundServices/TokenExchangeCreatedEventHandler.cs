@@ -4,24 +4,29 @@ using Microsoft.Extensions.Options;
 using SecondHand.Api.Models;
 using SecondHand.Models.Strava;
 using SecondHand.Library.Events;
+using SecondHand.Models.Settings;
 
 namespace SecondHand.Api.BackgroundServices
 {
     public class TokenExchangeCreatedEventHandler : BackgroundService
     {
-        private readonly IConfiguration _configuration;
         private readonly IMongoCollection<TokenExchange> _tokenExchangeCollection;
+        private readonly RabbitSettings _rabbitSettings;
 
-        public TokenExchangeCreatedEventHandler(IConfiguration configuration, IOptions<SecondHandDatabaseSettings> secondHandDatabaseSettings)
+        public TokenExchangeCreatedEventHandler(
+            IOptions<SecondHandDatabaseSettings> secondHandDatabaseSettings,
+            IOptions<RabbitSettings> rabbitSettings)
         {
-            _configuration = configuration;
             var mongoClient = new MongoClient(secondHandDatabaseSettings.Value.ConnectionString);
             var mongoDatabase = mongoClient.GetDatabase(secondHandDatabaseSettings.Value.DatabaseName);
             _tokenExchangeCollection = mongoDatabase.GetCollection<TokenExchange>(secondHandDatabaseSettings.Value.TokenExchangeCollectionName);
+            _rabbitSettings = rabbitSettings.Value;
         }
         protected override async Task ExecuteAsync(CancellationToken cancellationToken)
         {
-            IBus _bus = RabbitHutch.CreateBus(Environment.GetEnvironmentVariable("RABBITCONNECTION") ?? _configuration.GetSection("RabbitSettings").GetSection("Connection").Value);
+            IBus _bus = RabbitHutch.CreateBus(Environment.GetEnvironmentVariable("RABBITCONNECTION")
+            ??
+            _rabbitSettings.Connection);
             _bus.PubSub.Subscribe<TokenExchangeCreatedEvent>("NewTokenExchangeEventHandler", ProcessTokenExchange, cancellationToken);
 
             while (!cancellationToken.IsCancellationRequested)
@@ -33,10 +38,8 @@ namespace SecondHand.Api.BackgroundServices
         }
 
         private void ProcessTokenExchange(TokenExchangeCreatedEvent TokenExchangeCreatedEvent)
-        {
-            _tokenExchangeCollection.InsertOne(
-                TokenExchangeCreatedEvent.TokenExchange
+            => _tokenExchangeCollection.InsertOne(
+                    TokenExchangeCreatedEvent.TokenExchange
                 );
-        }
     }
 }

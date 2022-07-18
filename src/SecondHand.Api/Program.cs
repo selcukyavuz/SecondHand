@@ -3,14 +3,15 @@ using Microsoft.EntityFrameworkCore;
 using SecondHand.Api.BackgroundServices;
 using SecondHand.Api.Models;
 using SecondHand.Library;
+using SecondHand.Models.Settings;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.Configure<SecondHandDatabaseSettings>(builder.Configuration.GetSection("SecondHandDatabase"));
-builder.Services.AddDbContextFactory<SecondHand.DataAccess.SqlServer.SecondHandContext>(
-    options => options.UseSqlServer(builder.Configuration["ConnectionStrings:DefaultConnection"]));
+builder.Services.Configure<RabbitSettings>(builder.Configuration.GetSection(nameof(RabbitSettings)));
+builder.Services.Configure<SecondHandDatabaseSettings>(builder.Configuration.GetSection(nameof(SecondHandDatabaseSettings)));
+builder.Services.AddDbContextFactory<SecondHand.DataAccess.SqlServer.SecondHandContext>(options => options.UseSqlServer(builder.Configuration["ConnectionStrings:DefaultConnection"]));
 builder.Services.AddSingleton<SecondHand.DataAccess.SqlServer.Interface.IAthleteDataAccess, SecondHand.DataAccess.SqlServer.Api.AthleteDataAccess>();
 builder.Services.AddSingleton<SecondHand.DataAccess.MongoDB.Interface.IAthleteDataAccess, SecondHand.DataAccess.MongoDB.Api.AthleteDataAccess>();
 builder.Services.AddSingleton<SecondHand.DataAccess.SqlServer.Interface.ITokenExchangeDataAccess, SecondHand.DataAccess.SqlServer.Api.TokenExchangeDataAccess>();

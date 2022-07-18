@@ -1,5 +1,5 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
-using SecondHand.Api.Client.Settings;
+using SecondHand.Models.Settings;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
@@ -7,7 +7,7 @@ builder.Services.AddHttpContextAccessor();
 
 var ClientId = builder.Configuration.GetValue<string>("Strava:ClientId");
 var ClientSecret = builder.Configuration.GetValue<string>("Strava:ClientSecret");
-builder.Services.Configure<StravaSettings>(builder.Configuration.GetSection(StravaSettings.Key));
+builder.Services.Configure<StravaSettings>(builder.Configuration.GetSection(nameof(StravaSettings)));
 builder.Services.AddAuthentication(options => options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme)
         .AddCookie(options =>
         {
