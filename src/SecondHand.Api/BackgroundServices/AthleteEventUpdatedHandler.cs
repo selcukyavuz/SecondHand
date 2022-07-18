@@ -24,7 +24,7 @@ namespace SecondHand.Api.BackgroundServices
         }
         protected override async Task ExecuteAsync(CancellationToken cancellationToken)
         {
-            IBus _bus = RabbitHutch.CreateBus(Environment.GetEnvironmentVariable("RABBITCONNECTION") ?? _rabbitSettings.Connection);
+            IBus _bus = RabbitHutch.CreateBus(_rabbitSettings.Connection);
             _bus.PubSub.Subscribe<AthleteUpdatedEvent>("UpdateAthleteEventHandler", ProcessAthlete, cancellationToken);
 
             while (!cancellationToken.IsCancellationRequested)

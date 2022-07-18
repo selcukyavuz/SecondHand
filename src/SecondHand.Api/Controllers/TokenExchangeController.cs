@@ -7,15 +7,19 @@ using EasyNetQ;
 using SecondHand.Library.Queries.TokenExchange;
 using SecondHand.Library.Commands.TokenExchange;
 using SecondHand.Library.Events;
+using SecondHand.Models.Settings;
+using Microsoft.Extensions.Options;
 
 [ApiController]
 [Route("api/[controller]")]
-public class TokenExchangeController : BaseController
+public class TokenExchangeController : Controller
 {
     private readonly IMediator _mediator;
-    public TokenExchangeController(IMediator mediator,IConfiguration configuration) : base(configuration)
+    private readonly RabbitSettings _rabbitSettings;
+    public TokenExchangeController(IMediator mediator,IOptions<RabbitSettings> rabbitSettings)
     {
         _mediator = mediator;
+        _rabbitSettings = rabbitSettings.Value;
     }
 
     [HttpGet()]
@@ -29,7 +33,7 @@ public class TokenExchangeController : BaseController
     {
         TokenExchange TokenExchange = await _mediator.Send(new InsertTokenExchangeCommand(value!));
 
-        RabbitHutch.CreateBus(ConnectionString).PubSub.Publish(new TokenExchangeCreatedEvent(Guid.NewGuid(), value));
+        RabbitHutch.CreateBus(_rabbitSettings.Connection).PubSub.Publish(new TokenExchangeCreatedEvent(Guid.NewGuid(), value));
 
         return TokenExchange;
     }
@@ -38,8 +42,5 @@ public class TokenExchangeController : BaseController
     public async Task<TokenExchange> Put([FromBody] TokenExchange value) => await _mediator.Send(new UpdateTokenExchangeCommand(value));
 
     [HttpDelete("{id}")]
-    public async Task<bool> Delete(long? id)
-    {
-        return await _mediator.Send(new DeleteTokenExchangeCommand(id));
-    }
+    public async Task<bool> Delete(long? id) => await _mediator.Send(new DeleteTokenExchangeCommand(id));
 }

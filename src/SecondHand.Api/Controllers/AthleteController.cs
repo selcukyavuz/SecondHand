@@ -1,3 +1,5 @@
+namespace SecondHand.Api.Controllers;
+
 using Microsoft.AspNetCore.Mvc;
 using SecondHand.Models.Strava;
 using MediatR;
@@ -5,17 +7,19 @@ using EasyNetQ;
 using SecondHand.Library.Queries.Athlete;
 using SecondHand.Library.Commands.Athlete;
 using SecondHand.Library.Events;
-
-namespace SecondHand.Api.Controllers;
+using Microsoft.Extensions.Options;
+using SecondHand.Models.Settings;
 
 [ApiController]
 [Route("api/[controller]")]
-public class AthleteController : BaseController
+public class AthleteController : Controller
 {
     private readonly IMediator _mediator;
-    public AthleteController(IMediator mediator, IConfiguration configuration) : base(configuration)
+    private readonly RabbitSettings _rabbitSettings;
+    public AthleteController(IMediator mediator,IOptions<RabbitSettings> rabbitSettings)
     {
         _mediator = mediator;
+        _rabbitSettings = rabbitSettings.Value;
     }
 
     [HttpGet()]
@@ -29,7 +33,7 @@ public class AthleteController : BaseController
     {
         Athlete athlete = await _mediator.Send(new InsertAthleteCommand(value));
 
-        RabbitHutch.CreateBus(ConnectionString).PubSub.Publish(new AthleteCreatedEvent(value.Id, value));
+        RabbitHutch.CreateBus(_rabbitSettings.Connection).PubSub.Publish(new AthleteCreatedEvent(value.Id, value));
 
         return athlete;
     }
@@ -39,7 +43,7 @@ public class AthleteController : BaseController
     {
         Athlete athlete = await _mediator.Send(new UpdateAthleteCommand(value));
 
-        RabbitHutch.CreateBus(ConnectionString).PubSub.Publish(new AthleteUpdatedEvent(value.Id, value));
+        RabbitHutch.CreateBus(_rabbitSettings.Connection).PubSub.Publish(new AthleteUpdatedEvent(value.Id, value));
 
         return athlete;
     }
@@ -49,7 +53,7 @@ public class AthleteController : BaseController
     {
         bool result = await _mediator.Send(new DeleteAthleteCommand(id));
 
-        RabbitHutch.CreateBus(ConnectionString).PubSub.Publish(new AthleteDeletedEvent(id));
+        RabbitHutch.CreateBus(_rabbitSettings.Connection).PubSub.Publish(new AthleteDeletedEvent(id));
 
         return result;
     }

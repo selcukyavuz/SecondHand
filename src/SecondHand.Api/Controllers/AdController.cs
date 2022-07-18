@@ -7,15 +7,19 @@ using SecondHand.Library.Queries.Ad;
 using SecondHand.Library.Commands.Ad;
 using SecondHand.Library.Events;
 using SecondHand.Models.Advertisement;
+using Microsoft.Extensions.Options;
+using SecondHand.Models.Settings;
 
 [ApiController]
 [Route("api/[controller]")]
-public class AdController : BaseController
+public class AdController : Controller
 {
     private readonly IMediator _mediator;
-    public AdController(IMediator mediator,IConfiguration configuration) : base(configuration)
+    private readonly RabbitSettings _rabbitSettings;
+    public AdController(IMediator mediator, IOptions<RabbitSettings> rabbitSettings)
     {
         _mediator = mediator;
+        _rabbitSettings = rabbitSettings.Value;
     }
 
     [HttpGet()]
@@ -29,7 +33,7 @@ public class AdController : BaseController
     {
         Ad Ad = await _mediator.Send(new InsertAdCommand(value));
 
-        RabbitHutch.CreateBus(ConnectionString).PubSub.Publish(new AdCreatedEvent(value.Id, value));
+        RabbitHutch.CreateBus(_rabbitSettings.Connection).PubSub.Publish(new AdCreatedEvent(value.Id, value));
 
         return Ad;
     }
@@ -39,7 +43,7 @@ public class AdController : BaseController
     {
         Ad Ad = await _mediator.Send(new UpdateAdCommand(value));
 
-        RabbitHutch.CreateBus(ConnectionString).PubSub.Publish(new AdUpdatedEvent(value.Id, value));
+        RabbitHutch.CreateBus(_rabbitSettings.Connection).PubSub.Publish(new AdUpdatedEvent(value.Id, value));
 
         return Ad;
     }
@@ -49,7 +53,7 @@ public class AdController : BaseController
     {
         bool result = await _mediator.Send(new DeleteAdCommand(id));
 
-        RabbitHutch.CreateBus(ConnectionString).PubSub.Publish(new AdDeletedEvent(id));
+        RabbitHutch.CreateBus(_rabbitSettings.Connection).PubSub.Publish(new AdDeletedEvent(id));
 
         return result;
     }
