@@ -3,15 +3,15 @@ namespace SecondHand.DataAccess.MongoDB.Api;
 using System.Collections.Generic;
 using global::MongoDB.Driver;
 using SecondHand.Models.Strava;
-using Microsoft.Extensions.Configuration;
 using SecondHand.DataAccess.MongoDB.Interface;
-
+using Microsoft.Extensions.Options;
+using SecondHand.Models.Settings;
 
 public class AthleteDataAccess : DataAccessBase<Athlete>, IAthleteDataAccess
 {
-    private const string _collectionName = "AthleteCollectionName";
+    private const string _collectionName = "Athlete";
 
-    public AthleteDataAccess(IConfiguration configuration) : base(configuration, _collectionName)
+    public AthleteDataAccess(IOptions<SecondHandDatabaseSettings> secondHandDatabaseSettings) : base(secondHandDatabaseSettings, _collectionName)
     {
     }
     public bool DeleteAthlete(int id)

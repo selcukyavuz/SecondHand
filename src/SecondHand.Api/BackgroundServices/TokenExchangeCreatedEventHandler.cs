@@ -1,7 +1,6 @@
 using EasyNetQ;
 using MongoDB.Driver;
 using Microsoft.Extensions.Options;
-using SecondHand.Api.Models;
 using SecondHand.Models.Strava;
 using SecondHand.Library.Events;
 using SecondHand.Models.Settings;
@@ -19,7 +18,7 @@ namespace SecondHand.Api.BackgroundServices
         {
             var mongoClient = new MongoClient(secondHandDatabaseSettings.Value.ConnectionString);
             var mongoDatabase = mongoClient.GetDatabase(secondHandDatabaseSettings.Value.DatabaseName);
-            _tokenExchangeCollection = mongoDatabase.GetCollection<TokenExchange>(secondHandDatabaseSettings.Value.TokenExchangeCollectionName);
+            _tokenExchangeCollection = mongoDatabase.GetCollection<TokenExchange>(nameof(TokenExchange));
             _rabbitSettings = rabbitSettings.Value;
         }
         protected override async Task ExecuteAsync(CancellationToken cancellationToken)

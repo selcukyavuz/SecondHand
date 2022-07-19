@@ -1,7 +1,6 @@
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using SecondHand.Api.BackgroundServices;
-using SecondHand.Api.Models;
 using SecondHand.Library;
 using SecondHand.Models.Settings;
 

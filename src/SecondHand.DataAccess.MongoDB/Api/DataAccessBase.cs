@@ -1,7 +1,8 @@
 namespace SecondHand.DataAccess.MongoDB.Api;
 
 using global::MongoDB.Driver;
-using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Options;
+using SecondHand.Models.Settings;
 
 public class DataAccessBase<T>
 {
@@ -11,10 +12,10 @@ public class DataAccessBase<T>
     protected IMongoDatabase MongoDatabase;
     protected readonly IMongoCollection<T> Collection;
 
-    public DataAccessBase(IConfiguration configuration, string collectionName)
+    public DataAccessBase(IOptions<SecondHandDatabaseSettings> secondHandDatabaseSettings, string collectionName)
     {
-        var mongoClient = new MongoClient(configuration.GetSection(SecondHandDatabase).GetSection(ConnectionString).Value);
-        MongoDatabase = mongoClient.GetDatabase(configuration.GetSection(SecondHandDatabase).GetSection(DatabaseName).Value);
-        Collection = MongoDatabase.GetCollection<T>(configuration.GetSection(SecondHandDatabase).GetSection(collectionName).Value);
+        var mongoClient = new MongoClient(secondHandDatabaseSettings.Value.ConnectionString);
+        MongoDatabase = mongoClient.GetDatabase(secondHandDatabaseSettings.Value.DatabaseName);
+        Collection = MongoDatabase.GetCollection<T>(collectionName);
     }
 }

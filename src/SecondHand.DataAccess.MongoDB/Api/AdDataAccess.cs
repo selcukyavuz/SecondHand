@@ -3,14 +3,15 @@ namespace SecondHand.DataAccess.MongoDB.Api;
 using System.Collections.Generic;
 using global::MongoDB.Driver;
 using SecondHand.Models.Advertisement;
-using Microsoft.Extensions.Configuration;
 using SecondHand.DataAccess.MongoDB.Interface;
+using SecondHand.Models.Settings;
+using Microsoft.Extensions.Options;
 
 public class AdDataAccess : DataAccessBase<Ad>, IAdDataAccess
 {
-    private const string _collectionName = "AdCollectionName";
+    private const string _collectionName = "Ad";
 
-    public AdDataAccess(IConfiguration configuration) : base(configuration, _collectionName)
+    public AdDataAccess(IOptions<SecondHandDatabaseSettings> secondHandDatabaseSettings) : base(secondHandDatabaseSettings, _collectionName)
     {
     }
 

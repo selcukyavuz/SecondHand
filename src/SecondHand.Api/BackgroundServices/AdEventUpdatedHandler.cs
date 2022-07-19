@@ -1,7 +1,6 @@
 using EasyNetQ;
 using MongoDB.Driver;
 using Microsoft.Extensions.Options;
-using SecondHand.Api.Models;
 using SecondHand.Models.Advertisement;
 using SecondHand.Library.Events;
 using SecondHand.Models.Settings;
@@ -18,7 +17,7 @@ namespace SecondHand.Api.BackgroundServices
         {
             var mongoClient = new MongoClient(secondHandDatabaseSettings.Value.ConnectionString);
             var mongoDatabase = mongoClient.GetDatabase(secondHandDatabaseSettings.Value.DatabaseName);
-            _AdCollection = mongoDatabase.GetCollection<Ad>(secondHandDatabaseSettings.Value.AdCollectionName);
+            _AdCollection = mongoDatabase.GetCollection<Ad>(nameof(Ad));
             _rabbitSettings = rabbitSettings.Value;
         }
         protected override async Task ExecuteAsync(CancellationToken cancellationToken)
