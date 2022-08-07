@@ -1,4 +1,3 @@
-using System.Data;
 namespace SecondHand.Tests.Library.Handlers.Ad;
 
 using FluentAssertions;
@@ -14,7 +13,7 @@ public class InsertAdHandlerTest
 
     private InsertAdHandler? _insertAdHandler;
 
-    private Models.Advertisement.Ad _ad = new();
+    private readonly Models.Advertisement.Ad _ad = new();
 
     private readonly InsertAdCommand _insertAdCommand = new(new Models.Advertisement.Ad());
     private readonly CancellationToken _cancellationToken = new();

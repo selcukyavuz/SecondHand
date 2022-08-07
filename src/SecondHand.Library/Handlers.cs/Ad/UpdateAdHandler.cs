@@ -1,5 +1,5 @@
 using MediatR;
-using SecondHand.DataAccess.MongoDB.Interface;
+using SecondHand.DataAccess.SqlServer.Interface;
 using SecondHand.Library.Commands.Ad;
 
 namespace SecondHand.Library.Handlers.Ad;

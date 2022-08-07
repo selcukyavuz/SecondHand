@@ -1,10 +1,9 @@
-using System.Data;
 namespace SecondHand.Tests.Library.Handlers.Ad;
 
 using FluentAssertions;
 using Moq;
 
-using SecondHand.DataAccess.MongoDB.Interface;
+using SecondHand.DataAccess.SqlServer.Interface;
 using SecondHand.Library.Commands.Ad;
 using SecondHand.Library.Handlers.Ad;
 
@@ -14,7 +13,7 @@ public class UpdateAdHandlerTest
 
     private UpdateAdHandler? _updateAdHandler;
 
-    private Models.Advertisement.Ad _ad = new();
+    private readonly Models.Advertisement.Ad _ad = new();
 
     private readonly UpdateAdCommand _updateAdCommand = new(new Models.Advertisement.Ad());
     private readonly CancellationToken _cancellationToken = new();
