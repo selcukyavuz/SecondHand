@@ -9,6 +9,7 @@ using SecondHand.Library.Handlers.Ad;
 public class DeleteAdHandlerTest
 {
     private Mock<IAdDataAccess>? _mockAdDataAccess;
+
     private DeleteAdHandler? _deleteAdHandler;
 
     private readonly DeleteAdCommand _deleteCommand = new(It.IsAny<int>());
@@ -25,35 +26,27 @@ public class DeleteAdHandlerTest
     public void Get_Success()
     {
         // Arrange
-
-        _mockAdDataAccess?
-            .Setup(x=>x.DeleteAd(It.IsAny<int>()))
-            .Returns(true);
+        _mockAdDataAccess?.Setup(x=>x.DeleteAd(It.IsAny<int>())).Returns(true);
         // Act
         var result = _deleteAdHandler?.Handle(_deleteCommand,_cancellationToken).Result;
 
         // Assert
         result.Should().Be(true);
 
-        _mockAdDataAccess?
-            .Verify(x=>x.DeleteAd(It.IsAny<int>()),Times.Once);
+        _mockAdDataAccess?.Verify(x=>x.DeleteAd(It.IsAny<int>()),Times.Once);
     }
 
     [Test]
     public void Get_Failed()
     {
         // Arrange
-
-        _mockAdDataAccess?
-            .Setup(x=>x.DeleteAd(It.IsAny<int>()))
-            .Returns(false);
+        _mockAdDataAccess?.Setup(x=>x.DeleteAd(It.IsAny<int>())).Returns(false);
         // Act
         var result = _deleteAdHandler?.Handle(_deleteCommand,_cancellationToken).Result;
 
         // Assert
         result.Should().Be(false);
 
-        _mockAdDataAccess?
-            .Verify(x=>x.DeleteAd(It.IsAny<int>()),Times.Once);
+        _mockAdDataAccess?.Verify(x=>x.DeleteAd(It.IsAny<int>()),Times.Once);
     }
 }
