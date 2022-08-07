@@ -8,5 +8,4 @@ public class SecondHandDatabaseSettings
     public string AthleteCollectionName { get; set; } = string.Empty;
     public string TokenExchangeCollectionName { get; set; } = string.Empty;
     public string AdCollectionName { get; set; } = string.Empty;
-
 }
