@@ -27,35 +27,27 @@ public class GetAdByIdHandlerTest
     public void Get_Success()
     {
         // Arrange
-        _mockAdDataAccess?
-            .Setup(x=>x.GetAd(It.IsAny<int>()))
-            .Returns(_ad);
+        _mockAdDataAccess?.Setup(x=>x.GetAd(It.IsAny<int>())).Returns(_ad);
 
         // Act
         var result = _getAdByIdHandler?.Handle(_getAdByIdQuery,_cancellationToken).Result;
 
         // Assert
-        result.Should().BeEquivalentTo(_ad);
-
-        _mockAdDataAccess?
-            .Verify(x=>x.GetAd(It.IsAny<int>()),Times.Once);
+        result.Should().BeOfType<Models.Advertisement.Ad>();
+        _mockAdDataAccess?.Verify(x=>x.GetAd(It.IsAny<int>()),Times.Once);
     }
 
     [Test]
     public void Get_Failed()
     {
         // Arrange
-        _mockAdDataAccess?
-            .Setup(x=>x.GetAd(It.IsAny<int>()))
-            .Returns((Models.Advertisement.Ad)null!);
+        _mockAdDataAccess?.Setup(x=>x.GetAd(It.IsAny<int>())).Returns((Models.Advertisement.Ad)null!);
 
         // Act
         var result = _getAdByIdHandler?.Handle(_getAdByIdQuery,_cancellationToken).Result;
 
         // Assert
-        result.Should().NotBeEquivalentTo(_ad);
-
-        _mockAdDataAccess?
-            .Verify(x=>x.GetAd(It.IsAny<int>()),Times.Once);
+        result.Should().BeNull();
+        _mockAdDataAccess?.Verify(x=>x.GetAd(It.IsAny<int>()),Times.Once);
     }
 }

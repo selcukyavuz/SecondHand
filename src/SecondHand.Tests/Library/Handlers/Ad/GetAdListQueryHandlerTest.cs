@@ -34,7 +34,7 @@ public class GetAdListQueryHandlerTest
         var result = _getAdListQueryHandler?.Handle(_getAdListQuery,_cancellationToken).Result;
 
         // Assert
-        result.Should().BeEquivalentTo(_ads);
+        result.Should().BeOfType<List<Models.Advertisement.Ad>>();
         _mockAdDataAccess?.Verify(x=>x.GetAd(),Times.Once);
     }
 
@@ -42,9 +42,7 @@ public class GetAdListQueryHandlerTest
     public void Get_Failed()
     {
         // Arrange
-        _mockAdDataAccess?
-            .Setup(x=>x.GetAd())
-            .Returns((List<Models.Advertisement.Ad>)null!);
+        _mockAdDataAccess?.Setup(x=>x.GetAd()).Returns((List<Models.Advertisement.Ad>)null!);
 
         // Act
         var result = _getAdListQueryHandler?.Handle(_getAdListQuery,_cancellationToken).Result;

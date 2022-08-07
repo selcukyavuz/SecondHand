@@ -2,6 +2,7 @@ namespace SecondHand.Tests.Library.Handlers.Ad;
 
 using FluentAssertions;
 using Moq;
+
 using SecondHand.DataAccess.SqlServer.Interface;
 using SecondHand.Library.Commands.Ad;
 using SecondHand.Library.Handlers.Ad;
@@ -23,21 +24,21 @@ public class DeleteAdHandlerTest
     }
 
     [Test]
-    public void Get_Success()
+    public void Delete_Success()
     {
         // Arrange
         _mockAdDataAccess?.Setup(x=>x.DeleteAd(It.IsAny<int>())).Returns(true);
+        
         // Act
         var result = _deleteAdHandler?.Handle(_deleteCommand,_cancellationToken).Result;
 
         // Assert
         result.Should().Be(true);
-
         _mockAdDataAccess?.Verify(x=>x.DeleteAd(It.IsAny<int>()),Times.Once);
     }
 
     [Test]
-    public void Get_Failed()
+    public void Delete_Failed()
     {
         // Arrange
         _mockAdDataAccess?.Setup(x=>x.DeleteAd(It.IsAny<int>())).Returns(false);
@@ -46,7 +47,6 @@ public class DeleteAdHandlerTest
 
         // Assert
         result.Should().Be(false);
-
         _mockAdDataAccess?.Verify(x=>x.DeleteAd(It.IsAny<int>()),Times.Once);
     }
 }
