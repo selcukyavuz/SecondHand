@@ -1,11 +1,10 @@
-namespace SecondHand.Tests.Library.Handler.Ad;
+namespace SecondHand.Tests.Library.Handlers.Ad;
 
 using FluentAssertions;
 using Moq;
 using SecondHand.DataAccess.SqlServer.Interface;
 using SecondHand.Library.Commands.Ad;
 using SecondHand.Library.Handlers.Ad;
-
 
 public class DeleteAdHandlerTest
 {
@@ -19,7 +18,6 @@ public class DeleteAdHandlerTest
     public void Setup()
     {
         _mockAdDataAccess = new Mock<IAdDataAccess>();
-
         _deleteAdHandler = new DeleteAdHandler(_mockAdDataAccess.Object);
     }
 
