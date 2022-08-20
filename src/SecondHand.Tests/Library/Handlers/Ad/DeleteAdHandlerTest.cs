@@ -28,7 +28,7 @@ public class DeleteAdHandlerTest
     {
         // Arrange
         _mockAdDataAccess?.Setup(x=>x.DeleteAd(It.IsAny<int>())).Returns(true);
-        
+
         // Act
         var result = _deleteAdHandler?.Handle(_deleteCommand,_cancellationToken).Result;
 

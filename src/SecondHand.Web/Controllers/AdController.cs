@@ -1,9 +1,9 @@
+namespace SecondHand.Web.Controllers;
+
 using Microsoft.AspNetCore.Mvc;
 using SecondHand.Api.Client;
 using SecondHand.Models.Advertisement;
 using SecondHand.Web.ViewModel;
-
-namespace SecondHand.Web.Controllers;
 
 public class AdController : BaseController
 {
