@@ -6,6 +6,8 @@
 # .NET Core build folders
 bin/
 obj/
+.sonarqube
+.DS_Store
 # docker-compose.yml
 # appsettings.Development.json
 .DS_Store
