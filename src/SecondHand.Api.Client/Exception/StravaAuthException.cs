@@ -1,8 +1,10 @@
 namespace SecondHand.Api.Client.Exception;
 
 using System;
+using System.Runtime.Serialization;
 
-public class SecondHandWebException : Exception
+[Serializable]
+public class SecondHandWebException : Exception, ISerializable
 {
     private const string GeneralErrorCode = "0";
     private const string GeneralErrorDescription = "An error occurred.";
