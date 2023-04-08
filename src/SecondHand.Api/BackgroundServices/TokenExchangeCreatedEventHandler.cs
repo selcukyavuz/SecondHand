@@ -21,14 +21,14 @@ namespace SecondHand.Api.BackgroundServices
             _tokenExchangeCollection = mongoDatabase.GetCollection<TokenExchange>(nameof(TokenExchange));
             _rabbitSettings = rabbitSettings.Value;
         }
-        protected override async Task ExecuteAsync(CancellationToken cancellationToken)
+        protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
             IBus _bus = RabbitHutch.CreateBus(_rabbitSettings.Connection);
-            _bus.PubSub.Subscribe<TokenExchangeCreatedEvent>("NewTokenExchangeEventHandler", ProcessTokenExchange, cancellationToken);
+            _bus.PubSub.Subscribe<TokenExchangeCreatedEvent>("NewTokenExchangeEventHandler", ProcessTokenExchange, stoppingToken);
 
-            while (!cancellationToken.IsCancellationRequested)
+            while (!stoppingToken.IsCancellationRequested)
             {
-                await Task.Delay(TimeSpan.FromSeconds(5), cancellationToken);
+                await Task.Delay(TimeSpan.FromSeconds(5), stoppingToken);
             }
 
             _bus.Dispose();

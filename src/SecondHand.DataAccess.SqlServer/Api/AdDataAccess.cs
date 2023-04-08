@@ -57,7 +57,7 @@ public class AdDataAccess : IAdDataAccess
         }
         else
         {
-            throw new Exception("Ad not found");
+            throw new ArgumentException("Ad not found");
         }
         return model!;
     }
@@ -75,7 +75,7 @@ public class AdDataAccess : IAdDataAccess
         }
         else
         {
-            throw new Exception("Ad not found");
+            throw new ArgumentException("Ad not found");
         }
     }
 }

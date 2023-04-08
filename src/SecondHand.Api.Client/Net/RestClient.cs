@@ -9,9 +9,9 @@ using System.Text.Json;
 
 public static class RestClient
 {
-    private static readonly HttpClient HttpClient;
+    private static readonly HttpClient HttpClient = GetHttpClient();
 
-    static RestClient() => HttpClient = new HttpClient(new HttpClientHandler() { AllowAutoRedirect = false })
+    private static HttpClient GetHttpClient() => new HttpClient(new HttpClientHandler() { AllowAutoRedirect = false })
     {
         Timeout = TimeSpan.FromSeconds(15)
     };

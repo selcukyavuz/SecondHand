@@ -12,6 +12,11 @@ public class SecondHandWebException : Exception
     public string? ErrorCode { get;}
     public string? ErrorDescription { get;}
     public string? ErrorGroup { get;}
+
+    protected SecondHandWebException(SerializationInfo info, StreamingContext context) : base(info, context)
+    {
+    }
+
     public SecondHandWebException(string errorCode, string errorDescription, string errorGroup) : base(errorDescription)
     {
         ErrorCode = errorCode;

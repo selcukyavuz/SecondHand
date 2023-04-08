@@ -47,7 +47,7 @@ public class ProductDataAccess : IProductDataAccess
         }
         else
         {
-            throw new Exception("Product not found");
+            throw new ArgumentException("Product not found");
         }
         return model!;
     }
@@ -66,7 +66,7 @@ public class ProductDataAccess : IProductDataAccess
         }
         else
         {
-            throw new Exception("Product not found");
+            throw new ArgumentException("Product not found");
         }
     }
 }

@@ -28,12 +28,12 @@ public class TokenExchangeDataAccess : ITokenExchangeDataAccess
         return _context?.TokenExchange?.Where(x => x.Id == id).FirstOrDefault()!;
     }
 
-    public TokenExchange InsertTokenExchange(TokenExchange TokenExchange)
+    public TokenExchange InsertTokenExchange(TokenExchange tokenExchange)
     {
         using var _context = _contextFactory.CreateDbContext();
-        _context?.TokenExchange?.Add(TokenExchange);
+        _context?.TokenExchange?.Add(tokenExchange);
         _context?.SaveChanges();
-        return TokenExchange;
+        return tokenExchange;
     }
 
     public TokenExchange UpdateTokenExchange(TokenExchange tokenExchange)
@@ -50,7 +50,7 @@ public class TokenExchangeDataAccess : ITokenExchangeDataAccess
         }
         else
         {
-            throw new Exception("TokenExchange not found");
+            throw new ArgumentException("TokenExchange not found");
         }
         return model!;
     }
@@ -67,7 +67,7 @@ public class TokenExchangeDataAccess : ITokenExchangeDataAccess
         }
         else
         {
-            throw new Exception("TokenExchange not found");
+            throw new ArgumentException("TokenExchange not found");
         }
     }
 }

@@ -46,7 +46,7 @@ public class CategoryDataAccess : ICategoryDataAccess
         }
         else
         {
-            throw new Exception("Category not found");
+            throw new ArgumentException("Category not found");
         }
         return model!;
     }
@@ -65,7 +65,7 @@ public class CategoryDataAccess : ICategoryDataAccess
         }
         else
         {
-            throw new Exception("Category not found");
+            throw new ArgumentException("Category not found");
         }
     }
 }

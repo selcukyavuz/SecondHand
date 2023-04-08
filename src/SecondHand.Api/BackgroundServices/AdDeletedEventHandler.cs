@@ -22,14 +22,14 @@ namespace SecondHand.Api.BackgroundServices
             _rabbitSettings = rabbitSettings.Value;
         }
 
-        protected override async Task ExecuteAsync(CancellationToken cancellationToken)
+        protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
             IBus _bus = RabbitHutch.CreateBus(_rabbitSettings.Connection);
-            _ = _bus.PubSub.Subscribe<AdDeletedEvent>("DeleteAdEventHandler", ProcessAd, cancellationToken);
+            _ = _bus.PubSub.Subscribe<AdDeletedEvent>("DeleteAdEventHandler", ProcessAd, stoppingToken);
 
-            while (!cancellationToken.IsCancellationRequested)
+            while (!stoppingToken.IsCancellationRequested)
             {
-                await Task.Delay(TimeSpan.FromSeconds(5), cancellationToken);
+                await Task.Delay(TimeSpan.FromSeconds(5), stoppingToken);
             }
 
             _bus.Dispose();

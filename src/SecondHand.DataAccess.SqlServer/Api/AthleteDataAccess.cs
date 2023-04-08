@@ -48,7 +48,7 @@ public class AthleteDataAccess : IAthleteDataAccess
         }
         else
         {
-            throw new Exception("Athlete not found");
+            throw new ArgumentException("Athlete not found");
         }
         return model!;
     }
@@ -65,35 +65,29 @@ public class AthleteDataAccess : IAthleteDataAccess
         if (model != null)
         {
             _context?.Remove(model);
+
             if (model.Bikes != null)
             {
-                foreach (var bike in model.Bikes)
-                {
-                    _context?.Remove(bike);
-                }
+                _context?.RemoveRange(model.Bikes);
             }
 
             if (model.Clubs != null)
             {
-                foreach (var club in model.Clubs)
-                {
-                    _context?.Remove(club);
-                }
+                _context?.RemoveRange(model.Clubs);
             }
 
             if (model.Shoes != null)
             {
-                foreach (var shoe in model.Shoes)
-                {
-                    _context?.Remove(shoe);
-                }
+                _context?.RemoveRange(model.Shoes);
             }
+
             _context?.SaveChanges();
+
             return true;
         }
         else
         {
-            throw new Exception("Athlete not found");
+            throw new ArgumentException("Athlete not found");
         }
     }
 }

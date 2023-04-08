@@ -47,7 +47,7 @@ public class MarkDataAccess : IMarkDataAccess
         }
         else
         {
-            throw new Exception("Mark not found");
+            throw new ArgumentException("Mark not found");
         }
         return model!;
     }
@@ -66,7 +66,7 @@ public class MarkDataAccess : IMarkDataAccess
         }
         else
         {
-            throw new Exception("Mark not found");
+            throw new ArgumentException("Mark not found");
         }
     }
 }

@@ -21,14 +21,14 @@ namespace SecondHand.Api.BackgroundServices
             _athleteCollection = mongoDatabase.GetCollection<Athlete>(nameof(Athlete));
             _rabbitSettings = rabbitSettings.Value;
         }
-        protected override async Task ExecuteAsync(CancellationToken cancellationToken)
+        protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
             IBus _bus = RabbitHutch.CreateBus(_rabbitSettings.Connection);
-            _ = _bus.PubSub.Subscribe<AthleteDeletedEvent>("DeleteAthleteEventHandler", ProcessAthlete, cancellationToken);
+            _ = _bus.PubSub.Subscribe<AthleteDeletedEvent>("DeleteAthleteEventHandler", ProcessAthlete, stoppingToken);
 
-            while (!cancellationToken.IsCancellationRequested)
+            while (!stoppingToken.IsCancellationRequested)
             {
-                await Task.Delay(TimeSpan.FromSeconds(5), cancellationToken);
+                await Task.Delay(TimeSpan.FromSeconds(5), stoppingToken);
             }
 
             _bus.Dispose();

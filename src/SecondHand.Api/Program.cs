@@ -10,7 +10,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.Configure<RabbitSettings>(builder.Configuration.GetSection(nameof(RabbitSettings)));
 builder.Services.Configure<SecondHandDatabaseSettings>(builder.Configuration.GetSection(nameof(SecondHandDatabaseSettings)));
-builder.Services.AddDbContextFactory<SecondHand.DataAccess.SqlServer.SecondHandContext>(options => options.UseSqlServer(builder.Configuration["ConnectionStrings:DefaultConnection"]));
+builder.Services.AddDbContextFactory<SecondHand.DataAccess.SqlServer.SecondHandContext>(options => options.UseSqlServer(builder.Configuration["ConnectionStrings:DefaultConnection"]!));
 builder.Services.AddSingleton<SecondHand.DataAccess.SqlServer.Interface.IAthleteDataAccess, SecondHand.DataAccess.SqlServer.Api.AthleteDataAccess>();
 builder.Services.AddSingleton<SecondHand.DataAccess.MongoDB.Interface.IAthleteDataAccess, SecondHand.DataAccess.MongoDB.Api.AthleteDataAccess>();
 builder.Services.AddSingleton<SecondHand.DataAccess.SqlServer.Interface.ITokenExchangeDataAccess, SecondHand.DataAccess.SqlServer.Api.TokenExchangeDataAccess>();
@@ -20,7 +20,7 @@ builder.Services.AddSingleton<SecondHand.DataAccess.MongoDB.Interface.IAdDataAcc
 builder.Services.AddSingleton<SecondHand.DataAccess.SqlServer.Interface.ICategoryDataAccess, SecondHand.DataAccess.SqlServer.Api.CategoryDataAccess>();
 builder.Services.AddSingleton<SecondHand.DataAccess.SqlServer.Interface.IProductDataAccess, SecondHand.DataAccess.SqlServer.Api.ProductDataAccess>();
 builder.Services.AddSingleton<SecondHand.DataAccess.SqlServer.Interface.IMarkDataAccess, SecondHand.DataAccess.SqlServer.Api.MarkDataAccess>();
-builder.Services.AddMediatR(typeof(SecondHandLibraryEntryPoint).Assembly);
+builder.Services.AddMediatR(typeof(ISecondHandLibraryEntryPoint).Assembly);
 builder.Services.AddHostedService<AthleteCreatedEventHandler>();
 builder.Services.AddHostedService<AthleteEventUpdatedHandler>();
 builder.Services.AddHostedService<AthleteDeletedEventHandler>();

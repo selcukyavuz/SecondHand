@@ -20,14 +20,14 @@ namespace SecondHand.Api.BackgroundServices
             _AdCollection = mongoDatabase.GetCollection<Ad>(nameof(Ad));
             _rabbitSettings = rabbitSettings.Value;
         }
-        protected override async Task ExecuteAsync(CancellationToken cancellationToken)
+        protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
             IBus _bus = RabbitHutch.CreateBus(_rabbitSettings.Connection);
-            _bus.PubSub.Subscribe<AdUpdatedEvent>("UpdateAdEventHandler", ProcessAd, cancellationToken);
+            _bus.PubSub.Subscribe<AdUpdatedEvent>("UpdateAdEventHandler", ProcessAd, stoppingToken);
 
-            while (!cancellationToken.IsCancellationRequested)
+            while (!stoppingToken.IsCancellationRequested)
             {
-                await Task.Delay(TimeSpan.FromSeconds(5), cancellationToken);
+                await Task.Delay(TimeSpan.FromSeconds(5), stoppingToken);
             }
 
             _bus.Dispose();

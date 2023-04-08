@@ -16,8 +16,8 @@ builder.Services.AddAuthentication(options => options.DefaultScheme = CookieAuth
         })
         .AddStrava(options =>
         {
-            options.ClientId = ClientId;
-            options.ClientSecret = ClientSecret;
+            options.ClientId = ClientId!;
+            options.ClientSecret = ClientSecret!;
         });
 
 builder.Services.AddDistributedMemoryCache();

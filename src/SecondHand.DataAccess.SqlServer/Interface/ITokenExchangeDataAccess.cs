@@ -6,7 +6,7 @@ public interface ITokenExchangeDataAccess
 {
     public List<TokenExchange> GetTokenExchange();
     public TokenExchange GetTokenExchange(long? id);
-    public TokenExchange InsertTokenExchange(TokenExchange TokenExchange);
-    public TokenExchange UpdateTokenExchange(TokenExchange TokenExchange);
+    public TokenExchange InsertTokenExchange(TokenExchange tokenExchange);
+    public TokenExchange UpdateTokenExchange(TokenExchange tokenExchange);
     public bool DeleteTokenExchange(long? id);
 }
