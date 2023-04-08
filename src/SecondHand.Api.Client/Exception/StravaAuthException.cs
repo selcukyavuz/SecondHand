@@ -4,7 +4,7 @@ using System;
 using System.Runtime.Serialization;
 
 [Serializable]
-public class SecondHandWebException : Exception, ISerializable
+public class SecondHandWebException : Exception
 {
     private const string GeneralErrorCode = "0";
     private const string GeneralErrorDescription = "An error occurred.";
